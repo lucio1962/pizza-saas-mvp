@@ -1,419 +1,50 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PizzaSaaS - Crea il Tuo Sito Ordini Online</title>
-    <style>
-        :root {
-            --primary: #e74c3c;
-            --secondary: #f39c12;
-            --dark: #2c3e50;
-            --light: #ecf0f1;
-            --success: #27ae60;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        .hero {
-            background: white;
-            border-radius: 15px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-        
-        .hero h1 {
-            font-size: 2.8rem;
-            color: var(--dark);
-            margin-bottom: 1rem;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 2rem;
-        }
-        
-        .btn {
-            background: var(--primary);
-            color: white;
-            padding: 14px 35px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .btn:hover {
-            background: #c0392b;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
-        }
-        
-        .btn-success {
-            background: var(--success);
-        }
-        
-        .btn-success:hover {
-            background: #219a52;
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin: 2.5rem 0;
-        }
-        
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .feature-card h3 {
-            color: var(--dark);
-            margin-bottom: 0.8rem;
-            font-size: 1.3em;
-        }
-        
-        .feature-card p {
-            color: #666;
-            font-size: 0.95em;
-        }
-        
-        .demo-pizzerias {
-            background: white;
-            border-radius: 15px;
-            padding: 2.5rem;
-            margin-top: 2rem;
-        }
-        
-        .demo-pizzerias h2 {
-            text-align: center;
-            margin-bottom: 1rem;
-            color: var(--dark);
-            font-size: 2em;
-        }
-        
-        .demo-pizzerias > p {
-            text-align: center;
-            color: #666;
-            margin-bottom: 2rem;
-            font-size: 1.1em;
-        }
-        
-        .pizzerias-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        
-        .pizzeria-card {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 12px;
-            text-align: center;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: 3px solid transparent;
-        }
-        
-        .pizzeria-card:hover {
-            border-color: var(--primary);
-            transform: scale(1.03);
-        }
-        
-        .pizzeria-color {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin: 0 auto 1rem;
-            border: 3px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .pizzeria-card h4 {
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-        
-        .pizzeria-card p {
-            color: #666;
-            font-size: 0.9em;
-        }
-        
-        .cta-section {
-            background: white;
-            border-radius: 15px;
-            padding: 3rem 2rem;
-            margin-top: 2rem;
-            text-align: center;
-        }
-        
-        .cta-section h2 {
-            color: var(--dark);
-            margin-bottom: 1rem;
-            font-size: 2.2em;
-        }
-        
-        .cta-section p {
-            color: #666;
-            margin-bottom: 2rem;
-            font-size: 1.1em;
-        }
-        
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .stat-item {
-            text-align: center;
-        }
-        
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: bold;
-            color: var(--primary);
-            display: block;
-        }
-        
-        .stat-label {
-            color: #666;
-            font-size: 0.9em;
-        }
-        
-        .testimonial {
-            background: var(--light);
-            padding: 2rem;
-            border-radius: 12px;
-            margin: 2rem auto;
-            max-width: 600px;
-            text-align: center;
-            border-left: 4px solid var(--primary);
-        }
-        
-        .testimonial p {
-            font-style: italic;
-            margin-bottom: 1rem;
-            color: #555;
-        }
-        
-        .testimonial-author {
-            font-weight: bold;
-            color: var(--dark);
-        }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.2rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .pizzerias-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .stats {
-                gap: 2rem;
-            }
-            
-            .stat-number {
-                font-size: 2em;
-            }
-            
-            .container {
-                padding: 15px;
-            }
-            
-            .hero, .demo-pizzerias, .cta-section {
-                padding: 2rem 1.5rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .btn {
-                padding: 12px 25px;
-                font-size: 1rem;
-            }
-            
-            .stats {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="hero">
-            <h1>🍕 PizzaSaaS</h1>
-            <p>Il sistema di ordinazione online che porta la tua pizzeria sul web in 5 minuti</p>
-            <a href="registrazione.html" class="btn">Crea il Tuo Sito Gratis</a>
-            
-            <div class="stats">
-                <div class="stat-item">
-                    <span class="stat-number">100+</span>
-                    <span class="stat-label">Pizzerie Attive</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">2min</span>
-                    <span class="stat-label">Setup</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">0€</span>
-                    <span class="stat-label">Start Gratuito</span>
-                </div>
-            </div>
-        </div>
+# 🍕 PizzaSaaS - Sistema Ordini Online per Pizzerie
 
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🚀</div>
-                <h3>Setup Immediato</h3>
-                <p>Nessuna installazione, il tuo sito è online in 2 minuti. Inserisci i dati e parti subito.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3>Mobile First</h3>
-                <p>Perfetto su smartphone, tablet e computer. I tuoi clienti ordinano da qualsiasi dispositivo.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3>Personalizzabile</h3>
-                <p>Colori, menu, prezzi tutto modificabile. Adatta il sito al tuo brand.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">💸</div>
-                <h3>Costo Zero</h3>
-                <p>Start completamente gratuito. Paga solo quando il tuo business cresce.</p>
-            </div>
-        </div>
+Sistema multi-tenant per creare siti di ordinazione online per pizzerie in pochi minuti.
 
-        <div class="testimonial">
-            <p>"Con PizzaSaaS ho finalmente un sito professionale senza dover pagare uno sviluppatore. I miei clienti adorano ordinare online!"</p>
-            <div class="testimonial-author">- Mario Rossi, Mario's Pizza</div>
-        </div>
+## 🌐 File del Sistema
 
-        <div class="demo-pizzerias">
-            <h2>Guarda le Pizzerie Demo</h2>
-            <p>Clicca su una pizzeria per provare il sistema di ordinazione</p>
-            
-            <div class="pizzerias-grid">
-                <div class="pizzeria-card" onclick="openPizzeria('demo')">
-                    <div class="pizzeria-color" style="background: #e74c3c;"></div>
-                    <h4>Pizzeria Demo</h4>
-                    <p>Via Roma 123, Milano</p>
-                    <small>Prova il sistema completo</small>
-                </div>
-                <div class="pizzeria-card" onclick="openPizzeria('marios-pizza')">
-                    <div class="pizzeria-color" style="background: #27ae60;"></div>
-                    <h4>Mario's Pizza</h4>
-                    <p>Piazza Duomo 1, Milano</p>
-                    <small>Design verde professionale</small>
-                </div>
-                <div class="pizzeria-card" onclick="openPizzeria('la-napoletana')">
-                    <div class="pizzeria-color" style="background: #f39c12;"></div>
-                    <h4>La Napoletana</h4>
-                    <p>Via Napoli 45, Roma</p>
-                    <small>Stile napoletano autentico</small>
-                </div>
-                <div class="pizzeria-card" onclick="openPizzeria('pizza-express')">
-                    <div class="pizzeria-color" style="background: #9b59b6;"></div>
-                    <h4>Pizza Express</h4>
-                    <p>Corso Italia 78, Torino</p>
-                    <small>Moderno e veloce</small>
-                </div>
-            </div>
-        </div>
+### **1. index.html** - Sito principale
+- Pizzeria demo funzionante
+- Sistema di ordinazione completo
+- Invito alla registrazione
+- Carrello compatto e responsive
 
-        <div class="cta-section">
-            <h2>Pronto a Iniziare?</h2>
-            <p>Unisciti a oltre 100 pizzerie che già utilizzano PizzaSaaS per gestire gli ordini online</p>
-            <a href="registrazione.html" class="btn btn-success">Inizia la Registrazione Gratuita</a>
-            
-            <div style="margin-top: 2rem; font-size: 0.9em; color: #666;">
-                <p>✅ Nessuna carta di credito richiesta</p>
-                <p>✅ Setup guidato in 2 minuti</p>
-                <p>✅ Supporto tecnico incluso</p>
-            </div>
-        </div>
-    </div>
+### **2. registrazione.html** - Pagina registrazione
+- Form a 3 step guidati
+- Inserimento menu pizze personalizzato
+- Selezione colori tema
+- Anteprima in tempo reale
 
-    <script>
-        function openPizzeria(slug) {
-            window.open(`index.html?slug=${slug}`, '_blank');
-        }
-        
-        // Animazione per i numeri delle statistiche
-        document.addEventListener('DOMContentLoaded', function() {
-            const statNumbers = document.querySelectorAll('.stat-number');
-            statNumbers.forEach(stat => {
-                const target = parseInt(stat.textContent);
-                let current = 0;
-                const increment = target / 50;
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    stat.textContent = Math.round(current) + (stat.textContent.includes('+') ? '+' : '');
-                }, 40);
-            });
-        });
-    </script>
-</body>
-</html>
+### **3. landing.html** - Sito vetrina
+- Presentazione del servizio
+- Features e benefici
+- Demo pizzerie
+- Call-to-action per registrazione
+
+## 🚀 Come Usare
+
+1. **Cliente visita** `landing.html` o `index.html`
+2. **Clicca "Registrati"** per creare il suo sito
+3. **Compila il form** in 3 step:
+   - Step 1: Informazioni pizzeria
+   - Step 2: Menu pizze
+   - Step 3: Personalizzazione colori
+4. **Sito creato automaticamente** con reindirizzamento
+
+## 🎯 Funzionalità
+
+### Per il Cliente Finale:
+- ✅ Sistema ordinazione completo
+- ✅ Carrello persistente
+- ✅ Menu personalizzato
+- ✅ Design responsive
+- ✅ Multi-tenant (ogni pizzeria ha il suo sito)
+
+### Per il Pizzaiolo:
+- ✅ Setup in 2 minuti
+- ✅ Personalizzazione completa
+- ✅ Nessuna competenza tecnica richiesta
+- ✅ Gestione menu intuitiva
+
+## 📱 URL del Sistema
