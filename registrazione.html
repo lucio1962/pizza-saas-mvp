@@ -229,12 +229,32 @@
             margin: 0.5rem 0;
             border-radius: 5px;
         }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #27ae60;
+            color: white;
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 1000;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 style="text-align: center; margin-bottom: 0.5rem; color: var(--dark);">🍕 Registra la Tua Pizzeria</h1>
-        <p style="text-align: center; color: #666; margin-bottom: 2rem;">Crea il tuo sito di ordinazione online in 3 semplici passaggi</p>
+        <h1 style="text-align: center; margin-bottom: 0.5rem; color: var(--dark);">🍕 Crea il Tuo Sito Pizzeria</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 2rem;">Completa i 3 semplici passaggi per avere il tuo sito</p>
         
         <div class="progress-bar">
             <div class="progress-step active" data-step="1">
@@ -381,6 +401,8 @@
         </div>
     </div>
 
+    <div id="notification" class="notification"></div>
+
     <script>
         let currentStep = 1;
         let selectedColor = '#e74c3c';
@@ -389,14 +411,12 @@
             { name: 'Marinara', price: 5.50, description: 'Pomodoro, aglio, origano' }
         ];
 
-        // Inizializza il form
         document.addEventListener('DOMContentLoaded', function() {
             updatePreview();
             setupColorSelector();
         });
 
         function nextStep(step) {
-            // Validazione prima di procedere
             if (step === 2) {
                 const name = document.getElementById('pizzeria-name').value;
                 const slug = document.getElementById('pizzeria-slug').value;
@@ -410,7 +430,6 @@
             }
             
             if (step === 3) {
-                // Verifica che ci sia almeno una pizza valida
                 const validPizzas = pizzas.filter(pizza => pizza.name && pizza.price > 0);
                 if (validPizzas.length === 0) {
                     alert('Aggiungi almeno una pizza al tuo menu!');
@@ -500,7 +519,6 @@
             document.getElementById('preview-name').textContent = name;
             document.getElementById('preview-address').textContent = address;
             
-            // Aggiorna menu anteprima
             const previewMenu = document.getElementById('preview-menu');
             const validPizzas = pizzas.filter(pizza => pizza.name && pizza.price > 0);
             
@@ -510,7 +528,6 @@
                 </div>
             `).join('');
             
-            // Aggiorna colore nell'anteprima
             const previewButton = document.querySelector('.menu-preview button');
             if (previewButton) previewButton.style.backgroundColor = selectedColor;
         }
@@ -526,7 +543,6 @@
                 menu: pizzas.filter(pizza => pizza.name && pizza.price > 0)
             };
 
-            // Validazione finale
             if (!pizzeriaData.name || !pizzeriaData.slug || !pizzeriaData.phone || !pizzeriaData.address) {
                 alert('Per favore completa tutti i campi obbligatori');
                 return;
@@ -537,15 +553,25 @@
                 return;
             }
 
-            // 🎯 SALVA NEL LOCALSTORAGE (simula database)
             localStorage.setItem('pizzeria_' + pizzeriaData.slug, JSON.stringify(pizzeriaData));
             
-            // 🎯 REINDIRIZZA AL NUOVO SITO PERSONALIZZATO
-            const successUrl = `index.html?slug=${pizzeriaData.slug}&new=true`;
-            window.location.href = successUrl;
+            showNotification('🎉 Il tuo sito è stato creato!');
+            
+            setTimeout(() => {
+                window.location.href = `index.html?slug=${pizzeriaData.slug}&new=true`;
+            }, 1500);
         }
 
-        // Aggiorna l'anteprima quando cambiano i campi
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
         document.getElementById('pizzeria-name').addEventListener('input', updatePreview);
         document.getElementById('pizzeria-address').addEventListener('input', updatePreview);
     </script>
