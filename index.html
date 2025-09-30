@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PizzaSaaS - Sistema Ordini Online per Pizzerie</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #e74c3c;
@@ -11,6 +12,7 @@
             --dark: #2c3e50;
             --light: #ecf0f1;
             --success: #27ae60;
+            --gradient: linear-gradient(135deg, #e74c3c, #f39c12);
         }
         
         * {
@@ -21,10 +23,11 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--light);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #333;
             line-height: 1.6;
             padding-bottom: 120px;
+            min-height: 100vh;
         }
         
         .container {
@@ -33,52 +36,121 @@
             padding: 20px;
         }
         
-        .registration-banner {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            margin-bottom: 2rem;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        /* HEADER MODERNO */
+        .main-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
         }
         
-        .registration-banner h2 {
-            margin-bottom: 0.5rem;
-            font-size: 1.3em;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
-        .registration-banner p {
-            margin-bottom: 1rem;
-            opacity: 0.9;
-            font-size: 0.9em;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--dark);
         }
         
-        .btn-register {
-            background: white;
+        .logo i {
             color: var(--primary);
-            padding: 8px 20px;
+        }
+        
+        .cta-button {
+            background: var(--gradient);
+            color: white;
+            padding: 10px 25px;
             border: none;
-            border-radius: 20px;
-            font-size: 0.9em;
+            border-radius: 25px;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
-        .btn-register:hover {
-            background: var(--dark);
-            color: white;
+        .cta-button:hover {
             transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.3);
         }
         
-        .header {
+        /* HERO BANNER */
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(236, 240, 241, 0.9));
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .hero-banner h1 {
+            font-size: 3em;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-banner p {
+            font-size: 1.3em;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* PIZZERIA HEADER */
+        .pizzeria-header {
             background: var(--primary);
             color: white;
-            padding: 1.5rem;
-            border-radius: 10px;
+            padding: 2rem;
+            border-radius: 15px;
             margin-bottom: 2rem;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pizzeria-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1574071318508-1cdbab80d002?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+            opacity: 0.1;
         }
         
         .pizzeria-selector {
@@ -88,98 +160,199 @@
             gap: 1rem;
             margin-bottom: 1rem;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
         }
         
-        select {
-            padding: 8px 15px;
+        .pizzeria-select {
+            background: rgba(255,255,255,0.9);
+            padding: 10px 20px;
             border: none;
-            border-radius: 6px;
+            border-radius: 25px;
             font-size: 14px;
-            background: white;
             color: var(--dark);
             cursor: pointer;
+            backdrop-filter: blur(10px);
         }
         
-        .header h1 {
-            font-size: 2em;
+        .pizzeria-header h1 {
+            font-size: 2.5em;
             margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 2;
         }
         
         .pizzeria-info {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 2rem;
             flex-wrap: wrap;
-            margin-top: 0.5rem;
-            font-size: 0.9em;
+            margin-top: 1rem;
+            position: relative;
+            z-index: 2;
         }
         
+        /* PIZZA GRID MODERNA */
         .category {
-            background: var(--dark);
+            background: var(--gradient);
             color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin: 25px 0 15px 0;
-            font-size: 1.1em;
+            padding: 15px 25px;
+            border-radius: 50px;
+            margin: 40px 0 25px 0;
+            font-size: 1.3em;
             font-weight: bold;
             text-align: center;
+            display: inline-block;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
         }
         
         .pizza-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 2rem;
         }
         
-        .pizza-item {
+        .pizza-card {
             background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .pizza-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .pizza-image {
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b6b, #ffa726);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pizza-image::before {
+            content: '🍕';
+            font-size: 4em;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+        }
+        
+        .pizza-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--success);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .pizza-content {
             padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s;
         }
         
-        .pizza-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-        }
-        
-        .pizza-item h3 {
-            color: var(--dark);
+        .pizza-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 0.5rem;
-            font-size: 1.2em;
+        }
+        
+        .pizza-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: var(--dark);
+        }
+        
+        .pizza-price {
+            font-size: 1.6em;
+            font-weight: bold;
+            color: var(--success);
         }
         
         .pizza-description {
             color: #666;
-            margin-bottom: 0.8rem;
-            font-size: 0.9em;
-            line-height: 1.4;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
         }
         
-        .pizza-price {
-            font-size: 1.4em;
-            font-weight: bold;
-            color: var(--success);
-            margin: 0.8rem 0;
+        .pizza-ingredients {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
         }
         
-        .btn {
-            background: var(--primary);
+        .ingredient-tag {
+            background: var(--light);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            color: #666;
+        }
+        
+        .add-to-cart-btn {
+            background: var(--gradient);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.9em;
+            padding: 12px 25px;
+            border-radius: 25px;
             font-weight: bold;
+            cursor: pointer;
             transition: all 0.3s;
             width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
-        .btn:hover {
-            background: #c0392b;
+        .add-to-cart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.3);
+        }
+        
+        /* CART MODERNO */
+        .cart-toggle {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1001;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+        
+        .cart-toggle:hover {
+            transform: scale(1.05);
+        }
+        
+        .cart-badge {
+            background: white;
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 50%;
+            font-size: 0.8em;
+            min-width: 20px;
+            text-align: center;
         }
         
         #cart {
@@ -187,17 +360,15 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: var(--dark);
-            color: white;
-            padding: 1rem;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            background: white;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.1);
             z-index: 1000;
             max-height: 80vh;
             overflow-y: auto;
             transform: translateY(100%);
             transition: transform 0.3s;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
         }
         
         #cart.open {
@@ -205,42 +376,28 @@
         }
         
         .cart-header {
+            background: var(--gradient);
+            color: white;
+            padding: 1.5rem;
+            border-top-left-radius: 25px;
+            border-top-right-radius: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
-        }
-        
-        .cart-toggle {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1001;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
         
         .cart-items {
-            max-height: 200px;
+            padding: 1.5rem;
+            max-height: 300px;
             overflow-y: auto;
-            margin-bottom: 1rem;
         }
         
         .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid #34495e;
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
         }
         
         .cart-item:last-child {
@@ -250,128 +407,143 @@
         .item-controls {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         
         .quantity-btn {
-            background: #34495e;
-            color: white;
+            background: var(--light);
+            color: var(--dark);
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: bold;
-            font-size: 0.8em;
+            transition: all 0.3s;
         }
         
         .quantity-btn:hover {
             background: var(--primary);
+            color: white;
         }
         
         .remove-btn {
             background: #e74c3c;
-            margin-left: 10px;
+            color: white;
+            margin-left: 15px;
         }
         
         .cart-totals {
-            background: rgba(255,255,255,0.1);
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
+            background: var(--light);
+            padding: 1.5rem;
+            margin: 1rem;
+            border-radius: 15px;
         }
         
         .total-line {
             display: flex;
             justify-content: space-between;
-            margin: 0.5rem 0;
-            font-size: 0.9em;
+            margin: 0.8rem 0;
+            font-size: 1.1em;
         }
         
         .grand-total {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--primary);
+            border-top: 2px solid #ddd;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .checkout-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 15px;
             font-size: 1.1em;
             font-weight: bold;
-            color: var(--secondary);
-            border-top: 1px solid #34495e;
-            padding-top: 0.5rem;
-            margin-top: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: calc(100% - 3rem);
+            margin: 0 1.5rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         
-        .cart-empty {
-            text-align: center;
-            color: #bdc3c7;
-            font-style: italic;
-            padding: 1rem;
-        }
-        
-        .btn-checkout {
-            background: var(--success);
-            width: 100%;
-            padding: 12px;
-            font-size: 1em;
-            border-radius: 6px;
-        }
-        
-        .btn-checkout:hover {
+        .checkout-btn:hover:not(:disabled) {
             background: #219a52;
+            transform: translateY(-2px);
         }
         
-        .btn-checkout:disabled {
-            background: #95a5a6;
+        .checkout-btn:disabled {
+            background: #bdc3c7;
             cursor: not-allowed;
         }
         
-        .registration-footer {
-            background: linear-gradient(135deg, var(--dark), #34495e);
-            color: white;
-            padding: 2rem;
-            border-radius: 10px;
-            margin-top: 2rem;
-            text-align: center;
-        }
-        
-        .registration-footer h2 {
-            margin-bottom: 0.5rem;
-            font-size: 1.5em;
-        }
-        
-        .registration-footer p {
-            margin-bottom: 1rem;
-            font-size: 0.9em;
-            opacity: 0.9;
-        }
-        
+        /* NOTIFICATION */
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
             background: var(--success);
             color: white;
-            padding: 0.8rem 1.2rem;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transform: translateX(400px);
             transition: transform 0.3s;
-            z-index: 1000;
+            z-index: 2000;
             font-weight: bold;
-            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .notification.show {
             transform: translateX(0);
         }
         
-        .new-badge {
-            background: var(--secondary);
+        /* FOOTER */
+        .registration-footer {
+            background: linear-gradient(135deg, var(--dark), #34495e);
             color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.7em;
-            font-weight: bold;
-            margin-left: 10px;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            margin-top: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .registration-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+            opacity: 0.1;
+        }
+        
+        .registration-footer h2 {
+            margin-bottom: 1rem;
+            font-size: 2em;
+            position: relative;
+        }
+        
+        .registration-footer p {
+            margin-bottom: 2rem;
+            font-size: 1.1em;
+            opacity: 0.9;
+            position: relative;
         }
         
         @media (max-width: 768px) {
@@ -383,80 +555,104 @@
                 grid-template-columns: 1fr;
             }
             
-            .pizzeria-info {
+            .hero-banner h1 {
+                font-size: 2.2em;
+            }
+            
+            .pizzeria-header h1 {
+                font-size: 2em;
+            }
+            
+            .nav-container {
                 flex-direction: column;
-                gap: 0.3rem;
-            }
-            
-            .header h1 {
-                font-size: 1.5em;
-            }
-            
-            .registration-banner {
-                padding: 0.8rem 1rem;
-            }
-            
-            .registration-banner h2 {
-                font-size: 1.1em;
+                gap: 1rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-pizza-slice"></i>
+                PizzaSaaS
+            </div>
+            <a href="registrazione.html" class="cta-button">
+                <i class="fas fa-rocket"></i>
+                Crea il Tuo Sito
+            </a>
+        </div>
+    </header>
+
     <div class="container">
-        <div class="registration-banner">
-            <h2>🚀 Vuoi il tuo sito come questo?</h2>
-            <p>Registra la tua pizzeria e ottieni il tuo sito d'ordinazione online in 2 minuti!</p>
-            <button class="btn-register" onclick="redirectToRegistration()">REGISTRA LA TUA PIZZERIA</button>
+        <!-- HERO BANNER -->
+        <div class="hero-banner">
+            <h1>Ordina Pizza Online</h1>
+            <p>Il sistema di ordinazione più moderno per le pizzerie italiane</p>
+            <a href="registrazione.html" class="cta-button" style="font-size: 1.1em;">
+                <i class="fas fa-store"></i>
+                Apri la Tua Pizzeria Online
+            </a>
         </div>
         
-        <div class="header" id="pizzeria-header">
+        <!-- PIZZERIA DEMO -->
+        <div class="pizzeria-header" id="pizzeria-header">
             <div class="pizzeria-selector">
-                <select id="pizzeria-select" onchange="changePizzeria(this.value)">
+                <select class="pizzeria-select" id="pizzeria-select" onchange="changePizzeria(this.value)">
                     <option value="demo">Pizzeria Demo</option>
                     <option value="marios-pizza">Mario's Pizza</option>
                     <option value="la-napoletana">La Napoletana</option>
                     <option value="pizza-express">Pizza Express</option>
                 </select>
-                <button class="btn-register" onclick="redirectToRegistration()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid white;">
-                    Registrati
-                </button>
+                <a href="registrazione.html" class="cta-button" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px);">
+                    <i class="fas fa-plus"></i>
+                    Crea il Tuo
+                </a>
             </div>
             <h1 id="pizzeria-name">🍕 Caricamento...</h1>
             <div class="pizzeria-info">
-                <span id="pizzeria-phone">📞 Caricamento...</span>
-                <span id="pizzeria-address">📍 Caricamento...</span>
+                <span id="pizzeria-phone"><i class="fas fa-phone"></i> Caricamento...</span>
+                <span id="pizzeria-address"><i class="fas fa-map-marker-alt"></i> Caricamento...</span>
             </div>
         </div>
         
+        <!-- MENU PIZZE -->
         <div id="menu-container">
             <!-- Contenuto caricato via JavaScript -->
         </div>
 
+        <!-- FOOTER REGISTRAZIONE -->
         <div class="registration-footer">
-            <h2>💫 Ti è piaciuto questo sistema?</h2>
-            <p>Ottieni il tuo sito d'ordinazione online professionale in pochi click</p>
-            <button class="btn-register" onclick="redirectToRegistration()" style="background: var(--secondary); color: white;">
-                🚀 REGISTRATI GRATIS
-            </button>
-            <p style="margin-top: 1rem; font-size: 0.8em; opacity: 0.7;">Nessuna carta di credito • Setup in 2 minuti</p>
+            <h2>Pronto per il Tuo Successo?</h2>
+            <p>Unisciti a centinaia di pizzerie che già utilizzano PizzaSaaS</p>
+            <a href="registrazione.html" class="cta-button" style="background: var(--secondary); position: relative;">
+                <i class="fas fa-star"></i>
+                Inizia Gratis Oggi
+            </a>
         </div>
     </div>
 
+    <!-- CART -->
     <button class="cart-toggle" id="cart-toggle">
-        🛒 <span id="cart-count">0</span>
+        <i class="fas fa-shopping-cart"></i>
+        Carrello
+        <span class="cart-badge" id="cart-count">0</span>
     </button>
 
     <div id="cart">
         <div class="cart-header">
-            <h3>Il Tuo Ordine - <span id="current-pizzeria">Demo</span></h3>
-            <button class="btn-register" onclick="toggleCart()" style="background: transparent; color: white; border: 1px solid white; padding: 5px 10px;">
-                Chiudi
+            <h3><i class="fas fa-receipt"></i> Il Tuo Ordine</h3>
+            <button class="quantity-btn" onclick="toggleCart()" style="background: rgba(255,255,255,0.2); color: white;">
+                <i class="fas fa-times"></i>
             </button>
         </div>
         
         <div class="cart-items" id="cart-items">
-            <div class="cart-empty">Il carrello è vuoto</div>
+            <div style="text-align: center; padding: 3rem; color: #666;">
+                <i class="fas fa-shopping-cart" style="font-size: 3em; margin-bottom: 1rem; opacity: 0.3;"></i>
+                <p>Il carrello è vuoto</p>
+            </div>
         </div>
         
         <div class="cart-totals">
@@ -474,15 +670,22 @@
             </div>
         </div>
         
-        <button class="btn-checkout" id="checkout-btn" onclick="checkout()" disabled>CONFERMA ORDINE</button>
+        <button class="checkout-btn" id="checkout-btn" onclick="checkout()" disabled>
+            <i class="fas fa-credit-card"></i>
+            CONFERMA ORDINE
+        </button>
     </div>
 
-    <div id="notification" class="notification"></div>
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text"></span>
+    </div>
 
     <script>
+        // Configurazioni pizzerie con immagini
         const pizzerias = {
             'demo': {
-                name: "🍕 Pizzeria Demo",
+                name: "🍕 Pizzeria Gusto Italiano",
                 phone: "📞 0123 456789",
                 address: "📍 Via Roma 123, Milano",
                 color: "#e74c3c",
@@ -490,16 +693,41 @@
                     {
                         category: "Pizze Classiche",
                         items: [
-                            { name: "Margherita", description: "Pomodoro San Marzano, mozzarella di bufala, basilico fresco", price: 6.50 },
-                            { name: "Marinara", description: "Pomodoro, aglio, origano, olio EVO", price: 5.50 },
-                            { name: "Diavola", description: "Pomodoro, mozzarella, salame piccante, peperoncino", price: 8.00 }
+                            { 
+                                name: "Margherita", 
+                                description: "La classica pizza italiana con pomodoro San Marzano DOP, mozzarella di bufala campana e basilico fresco", 
+                                price: 8.50,
+                                ingredients: ["Pomodoro DOP", "Mozzarella di Bufala", "Basilico Fresco", "Olio EVO"]
+                            },
+                            { 
+                                name: "Marinara", 
+                                description: "Pizza semplice e genuina con pomodoro pelato, aglio, origano e olio extravergine d'oliva", 
+                                price: 6.50,
+                                ingredients: ["Pomodoro", "Aglio", "Origano", "Olio EVO"]
+                            },
+                            { 
+                                name: "Diavola", 
+                                description: "Per i palati più coraggiosi, con salame piccante, peperoncino e olive nere", 
+                                price: 10.50,
+                                ingredients: ["Pomodoro", "Mozzarella", "Salame Piccante", "Peperoncino", "Olive Nere"]
+                            }
                         ]
                     },
                     {
                         category: "Pizze Speciali", 
                         items: [
-                            { name: "Quattro Stagioni", description: "Pomodoro, mozzarella, prosciutto, funghi, carciofi, olive", price: 10.50 },
-                            { name: "Capricciosa", description: "Pomodoro, mozzarella, prosciutto, funghi, carciofi, olive, uovo", price: 11.00 }
+                            { 
+                                name: "Quattro Stagioni", 
+                                description: "Un viaggio attraverso i sapori delle quattro stagioni con prosciutto, funghi, carciofi e olive", 
+                                price: 12.50,
+                                ingredients: ["Pomodoro", "Mozzarella", "Prosciutto Cotto", "Funghi", "Carciofi", "Olive"]
+                            },
+                            { 
+                                name: "Capricciosa", 
+                                description: "La pizza dei capricci con un mix ricco di ingredienti freschi e saporiti", 
+                                price: 13.00,
+                                ingredients: ["Pomodoro", "Mozzarella", "Prosciutto", "Funghi", "Carciofi", "Olive", "Uovo"]
+                            }
                         ]
                     }
                 ]
@@ -513,38 +741,18 @@
                     {
                         category: "Le Nostre Specialità",
                         items: [
-                            { name: "Mario Special", description: "Mozzarella di bufala, prosciutto crudo, rucola, scaglie di parmigiano", price: 12.00 },
-                            { name: "Pizza del Chef", description: "Pomodoro, mozzarella, salsiccia, friarielli, pecorino", price: 13.50 }
-                        ]
-                    }
-                ]
-            },
-            'la-napoletana': {
-                name: "🍕 La Napoletana",
-                phone: "📞 0456 789123",
-                address: "📍 Via Napoli 45, Roma", 
-                color: "#f39c12",
-                menu: [
-                    {
-                        category: "Pizze Napoletane DOC",
-                        items: [
-                            { name: "Napoli", description: "Pomodoro, mozzarella di bufala, alici, origano", price: 9.00 },
-                            { name: "Margherita DOP", description: "Pomodoro San Marzano DOP, mozzarella di bufala DOP, basilico", price: 8.50 }
-                        ]
-                    }
-                ]
-            },
-            'pizza-express': {
-                name: "🍕 Pizza Express",
-                phone: "📞 0321 654987",
-                address: "📍 Corso Italia 78, Torino",
-                color: "#9b59b6",
-                menu: [
-                    {
-                        category: "Pizze Veloci",
-                        items: [
-                            { name: "Express Margherita", description: "Pomodoro, mozzarella, servizio rapido", price: 7.00 },
-                            { name: "Express Diavola", description: "Pomodoro, mozzarella, salame piccante, consegna veloce", price: 8.50 }
+                            { 
+                                name: "Mario Special", 
+                                description: "La creazione dello chef con mozzarella di bufala, prosciutto crudo di Parma, rucola e scaglie di parmigiano", 
+                                price: 15.00,
+                                ingredients: ["Mozzarella di Bufala", "Prosciutto Crudo", "Rucola", "Parmigiano", "Olio EVO"]
+                            },
+                            { 
+                                name: "Pizza del Chef", 
+                                description: "Una combinazione unica di salsiccia, friarielli e pecorino romano", 
+                                price: 14.50,
+                                ingredients: ["Pomodoro", "Mozzarella", "Salsiccia", "Friarielli", "Pecorino"]
+                            }
                         ]
                     }
                 ]
@@ -554,6 +762,7 @@
         let cart = [];
         let currentPizzeria = 'demo';
 
+        // Funzioni principali
         function loadPizzeriaConfig(slug = null) {
             if (!slug) {
                 const urlParams = new URLSearchParams(window.location.search);
@@ -588,25 +797,39 @@
             
             const categoryDiv = document.createElement('div');
             categoryDiv.className = 'category';
-            categoryDiv.innerHTML = '🍕 Il Nostro Menu <span class="new-badge">NUOVO</span>';
+            categoryDiv.innerHTML = '🍕 Il Nostro Menu';
             container.appendChild(categoryDiv);
             
             const gridDiv = document.createElement('div');
             gridDiv.className = 'pizza-grid';
             
-            menuItems.forEach(pizza => {
-                const pizzaDiv = document.createElement('div');
-                pizzaDiv.className = 'pizza-item';
+            menuItems.forEach((pizza, index) => {
+                const pizzaCard = document.createElement('div');
+                pizzaCard.className = 'pizza-card';
                 
-                pizzaDiv.innerHTML = `
-                    <h3>${pizza.name}</h3>
-                    <p class="pizza-description">${pizza.description || 'Deliziosa pizza preparata con ingredienti freschi'}</p>
-                    <div class="pizza-price">€${pizza.price.toFixed(2)}</div>
-                    <button class="btn" onclick="addToCart('${pizza.name.replace(/'/g, "\\'")}', ${pizza.price})">
-                        🛒 Aggiungi al carrello
-                    </button>
+                pizzaCard.innerHTML = `
+                    <div class="pizza-image">
+                        ${index === 0 ? '<div class="pizza-badge">PIÙ ORDINATA</div>' : ''}
+                    </div>
+                    <div class="pizza-content">
+                        <div class="pizza-title">
+                            <div class="pizza-name">${pizza.name}</div>
+                            <div class="pizza-price">€${pizza.price.toFixed(2)}</div>
+                        </div>
+                        <p class="pizza-description">${pizza.description || 'Deliziosa pizza preparata con ingredienti freschi e di qualità'}</p>
+                        ${pizza.ingredients ? `
+                            <div class="pizza-ingredients">
+                                ${pizza.ingredients.map(ing => `<span class="ingredient-tag">${ing}</span>`).join('')}
+                            </div>
+                        ` : ''}
+                        <button class="add-to-cart-btn" onclick="addToCart('${pizza.name.replace(/'/g, "\\'")}', ${pizza.price})">
+                            <i class="fas fa-plus"></i>
+                            Aggiungi al Carrello
+                        </button>
+                    </div>
                 `;
-                gridDiv.appendChild(pizzaDiv);
+                
+                gridDiv.appendChild(pizzaCard);
             });
             
             container.appendChild(gridDiv);
@@ -616,7 +839,7 @@
             const container = document.getElementById('menu-container');
             container.innerHTML = '';
             
-            menuData.forEach(category => {
+            menuData.forEach((category, catIndex) => {
                 const categoryDiv = document.createElement('div');
                 categoryDiv.className = 'category';
                 categoryDiv.textContent = category.category;
@@ -625,18 +848,33 @@
                 const gridDiv = document.createElement('div');
                 gridDiv.className = 'pizza-grid';
                 
-                category.items.forEach(pizza => {
-                    const pizzaDiv = document.createElement('div');
-                    pizzaDiv.className = 'pizza-item';
-                    pizzaDiv.innerHTML = `
-                        <h3>${pizza.name}</h3>
-                        <p class="pizza-description">${pizza.description}</p>
-                        <div class="pizza-price">€${pizza.price.toFixed(2)}</div>
-                        <button class="btn" onclick="addToCart('${pizza.name.replace(/'/g, "\\'")}', ${pizza.price})">
-                            🛒 Aggiungi al carrello
-                        </button>
+                category.items.forEach((pizza, pizzaIndex) => {
+                    const pizzaCard = document.createElement('div');
+                    pizzaCard.className = 'pizza-card';
+                    
+                    pizzaCard.innerHTML = `
+                        <div class="pizza-image">
+                            ${pizzaIndex === 0 ? '<div class="pizza-badge">POPOLARE</div>' : ''}
+                        </div>
+                        <div class="pizza-content">
+                            <div class="pizza-title">
+                                <div class="pizza-name">${pizza.name}</div>
+                                <div class="pizza-price">€${pizza.price.toFixed(2)}</div>
+                            </div>
+                            <p class="pizza-description">${pizza.description}</p>
+                            ${pizza.ingredients ? `
+                                <div class="pizza-ingredients">
+                                    ${pizza.ingredients.map(ing => `<span class="ingredient-tag">${ing}</span>`).join('')}
+                                </div>
+                            ` : ''}
+                            <button class="add-to-cart-btn" onclick="addToCart('${pizza.name.replace(/'/g, "\\'")}', ${pizza.price})">
+                                <i class="fas fa-plus"></i>
+                                Aggiungi al Carrello
+                            </button>
+                        </div>
                     `;
-                    gridDiv.appendChild(pizzaDiv);
+                    
+                    gridDiv.appendChild(pizzaCard);
                 });
                 
                 container.appendChild(gridDiv);
@@ -647,18 +885,16 @@
             document.getElementById('pizzeria-name').textContent = pizzeria.name;
             document.getElementById('pizzeria-address').textContent = pizzeria.address;
             document.getElementById('pizzeria-phone').textContent = pizzeria.phone;
-            document.getElementById('current-pizzeria').textContent = pizzeria.name.replace('🍕 ', '');
             
             const color = isCustom ? (pizzeria.color || '#e74c3c') : pizzeria.color;
             
-            document.getElementById('pizzeria-header').style.backgroundColor = color;
-            document.querySelectorAll('.btn:not(.btn-checkout)').forEach(btn => {
-                btn.style.backgroundColor = color;
-            });
+            document.getElementById('pizzeria-header').style.background = `linear-gradient(135deg, ${color}, ${pizzeria.color || '#f39c12'})`;
+            document.documentElement.style.setProperty('--primary', color);
             
             document.title = pizzeria.name + " - Ordina Online";
         }
 
+        // Funzioni carrello
         function toggleCart() {
             document.getElementById('cart').classList.toggle('open');
         }
@@ -679,7 +915,7 @@
             }
             
             updateCart();
-            showNotification(`✅ ${name} aggiunta!`);
+            showNotification(`"${name}" aggiunta al carrello!`);
             
             if (!document.getElementById('cart').classList.contains('open')) {
                 toggleCart();
@@ -697,23 +933,34 @@
             cartCount.textContent = totalItems;
             
             if (cart.length === 0) {
-                cartItems.innerHTML = '<div class="cart-empty">Il carrello è vuoto</div>';
+                cartItems.innerHTML = `
+                    <div style="text-align: center; padding: 3rem; color: #666;">
+                        <i class="fas fa-shopping-cart" style="font-size: 3em; margin-bottom: 1rem; opacity: 0.3;"></i>
+                        <p>Il carrello è vuoto</p>
+                    </div>
+                `;
                 checkoutBtn.disabled = true;
             } else {
                 cartItems.innerHTML = cart.map((item, index) => `
                     <div class="cart-item">
                         <div>
-                            <strong style="font-size: 0.9em;">${item.name}</strong>
-                            <div style="font-size: 0.8em; color: #bdc3c7; margin-top: 2px;">
+                            <strong>${item.name}</strong>
+                            <div style="font-size: 0.9em; color: #666; margin-top: 5px;">
                                 €${item.price.toFixed(2)} × ${item.quantity}
                             </div>
                         </div>
                         <div class="item-controls">
-                            <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
-                            <span style="min-width: 25px; text-align: center; font-size: 0.9em;">${item.quantity}</span>
-                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
-                            <span style="margin: 0 10px; font-weight: bold; font-size: 0.9em;">€${item.total.toFixed(2)}</span>
-                            <button class="quantity-btn remove-btn" onclick="removeFromCart(${index})">×</button>
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <span style="min-width: 30px; text-align: center; font-weight: bold;">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <span style="margin: 0 15px; font-weight: bold; color: var(--primary);">€${item.total.toFixed(2)}</span>
+                            <button class="quantity-btn remove-btn" onclick="removeFromCart(${index})">
+                                <i class="fas fa-trash"></i>
+                            </button>
                         </div>
                     </div>
                 `).join('');
@@ -742,12 +989,12 @@
             const pizzaName = cart[index].name;
             cart.splice(index, 1);
             updateCart();
-            showNotification(`🗑️ ${pizzaName} rimossa`);
+            showNotification(`"${pizzaName}" rimossa dal carrello`);
         }
 
         function checkout() {
             if (cart.length === 0) {
-                showNotification('❌ Il carrello è vuoto!');
+                showNotification('Il carrello è vuoto!');
                 return;
             }
             
@@ -761,14 +1008,14 @@
                 `${item.quantity}x ${item.name} - €${item.total.toFixed(2)}`
             ).join('\n');
             
-            const message = `🎉 ORDINE CONFERMATO!\n\n${pizzeriaName}\n${pizzeriaPhone}\n\nIL TUO ORDINE:\n${orderDetails}\n\nSubtotale: €${subtotal.toFixed(2)}\nConsegna: €2.50\nTOTALE: €${total.toFixed(2)}\n\nGrazie! 🍕`;
+            const message = `🎉 ORDINE CONFERMATO!\n\n${pizzeriaName}\n${pizzeriaPhone}\n\nIL TUO ORDINE:\n${orderDetails}\n\nSubtotale: €${subtotal.toFixed(2)}\nConsegna: €2.50\nTOTALE: €${total.toFixed(2)}\n\nGrazie per il tuo ordine! 🍕`;
             
             alert(message);
             
             cart = [];
             updateCart();
             toggleCart();
-            showNotification('🎊 Ordine inviato!');
+            showNotification('Ordine inviato con successo!');
         }
 
         function changePizzeria(slug) {
@@ -778,13 +1025,11 @@
             loadPizzeriaConfig(slug);
         }
 
-        function redirectToRegistration() {
-            window.location.href = 'registrazione.html';
-        }
-
         function showNotification(message) {
             const notification = document.getElementById('notification');
-            notification.textContent = message;
+            const notificationText = document.getElementById('notification-text');
+            
+            notificationText.textContent = message;
             notification.classList.add('show');
             
             setTimeout(() => {
@@ -792,14 +1037,16 @@
             }, 3000);
         }
 
+        // Inizializzazione
         document.addEventListener('DOMContentLoaded', function() {
             loadPizzeriaConfig();
             updateCart();
+            
             document.getElementById('cart-toggle').addEventListener('click', toggleCart);
             
             setTimeout(() => {
                 const pizzeriaName = document.getElementById('pizzeria-name').textContent;
-                showNotification(`🍕 Benvenuto in ${pizzeriaName}!`);
+                showNotification(`Benvenuto in ${pizzeriaName}! 🍕`);
             }, 1000);
         });
     </script>
