@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizzeria - Ordina Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background: #f8f9fa;
+        }
+        .header {
+            background: #e74c3c;
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        .menu-item {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🍕 PIZZERIA DEMO</h1>
+        <p>Ordina la tua pizza online!</p>
+    </div>
+    
+    <div class="menu-item">
+        <h3>Margherita</h3>
+        <p>Pomodoro, mozzarella, basilico fresco</p>
+        <p><strong>€6,50</strong></p>
+        <button class="btn">Aggiungi al carrello</button>
+    </div>
+    
+    <div class="menu-item">
+        <h3>Diavola</h3>
+        <p>Pomodoro, mozzarella, salame piccante</p>
+        <p><strong>€8,00</strong></p>
+        <button class="btn">Aggiungi al carrello</button>
+    </div>
 
+    <div style="margin-top: 2rem; padding: 1rem; background: #2c3e50; color: white; border-radius: 5px;">
+        <h3>🛒 Carrello</h3>
+        <p>Il tuo carrello è vuoto</p>
+        <button class="btn" style="background: #e74c3c;">Vai al Checkout</button>
+    </div>
+
+    <script>
+        console.log('Pizza SaaS MVP - Funziona!');
+        alert('Benvenuto nella Pizzeria Demo! 🍕');
+    </script>
+</body>
+</html>
