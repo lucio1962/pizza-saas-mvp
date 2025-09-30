@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crea la Tua Pizzeria Online - PizzaSaaS</title>
+    <title>Crea la Tua Pizzeria - PizzaSaaS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -30,19 +30,19 @@
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
             background: white;
-            border-radius: 25px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
         
         /* HEADER */
         .registration-header {
             background: var(--gradient);
             color: white;
-            padding: 2.5rem;
+            padding: 2rem;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -56,17 +56,17 @@
             right: 0;
             bottom: 0;
             background: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
-            opacity: 0.1;
+            opacity: 0.08;
         }
         
         .back-button {
             position: absolute;
-            top: 20px;
-            left: 20px;
+            top: 15px;
+            left: 15px;
             background: rgba(255,255,255,0.2);
             color: white;
             border: none;
-            padding: 10px 15px;
+            padding: 8px 12px;
             border-radius: 50%;
             cursor: pointer;
             backdrop-filter: blur(10px);
@@ -79,21 +79,21 @@
         }
         
         .registration-header h1 {
-            font-size: 2.5em;
+            font-size: 2em;
             margin-bottom: 0.5rem;
             position: relative;
         }
         
         .registration-header p {
-            font-size: 1.2em;
+            font-size: 1.1em;
             opacity: 0.9;
             position: relative;
         }
         
-        /* PROGRESS BAR MODERNA */
+        /* PROGRESS BAR */
         .progress-container {
             background: white;
-            padding: 2rem;
+            padding: 1.5rem;
             border-bottom: 1px solid #eee;
         }
         
@@ -101,17 +101,17 @@
             display: flex;
             justify-content: space-between;
             position: relative;
-            max-width: 600px;
+            max-width: 500px;
             margin: 0 auto;
         }
         
         .progress-bar::before {
             content: '';
             position: absolute;
-            top: 15px;
+            top: 12px;
             left: 0;
             right: 0;
-            height: 4px;
+            height: 3px;
             background: var(--light);
             z-index: 1;
         }
@@ -124,18 +124,19 @@
         }
         
         .step-number {
-            width: 35px;
-            height: 35px;
+            width: 30px;
+            height: 30px;
             background: var(--light);
             color: #666;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 8px;
+            margin: 0 auto 6px;
             font-weight: bold;
             transition: all 0.3s;
-            border: 3px solid white;
+            border: 2px solid white;
+            font-size: 0.9em;
         }
         
         .progress-step.active .step-number {
@@ -150,7 +151,7 @@
         }
         
         .step-label {
-            font-size: 0.9em;
+            font-size: 0.8em;
             font-weight: 600;
             color: #666;
         }
@@ -162,7 +163,7 @@
         /* STEP CONTENT */
         .step-content {
             display: none;
-            padding: 3rem;
+            padding: 2rem;
             animation: fadeIn 0.5s;
         }
         
@@ -171,12 +172,12 @@
         }
         
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
         .step-title {
-            font-size: 2em;
+            font-size: 1.6em;
             margin-bottom: 0.5rem;
             color: var(--dark);
             text-align: center;
@@ -185,20 +186,20 @@
         .step-subtitle {
             text-align: center;
             color: #666;
-            margin-bottom: 3rem;
-            font-size: 1.1em;
+            margin-bottom: 2rem;
+            font-size: 1em;
         }
         
-        /* FORM MODERNO */
+        /* FORM */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
         }
         
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.25rem;
         }
         
         .form-group.full-width {
@@ -207,12 +208,13 @@
         
         .form-label {
             display: block;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
             font-weight: 600;
             color: var(--dark);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            font-size: 0.9em;
         }
         
         .form-label i {
@@ -221,10 +223,10 @@
         
         .form-input {
             width: 100%;
-            padding: 15px 20px;
+            padding: 12px 16px;
             border: 2px solid var(--light);
-            border-radius: 15px;
-            font-size: 1rem;
+            border-radius: 12px;
+            font-size: 0.9em;
             transition: all 0.3s;
             background: #f8f9fa;
         }
@@ -233,91 +235,92 @@
             outline: none;
             border-color: var(--primary);
             background: white;
-            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.1);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.1);
         }
         
         .form-textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 80px;
         }
         
-        /* PIZZA GRID MODERNA */
+        /* PIZZA GRID */
         .pizza-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin: 1.5rem 0;
         }
         
         .pizza-card {
             background: white;
             border: 2px dashed #ddd;
-            padding: 2rem;
-            border-radius: 20px;
+            padding: 1.5rem;
+            border-radius: 15px;
             transition: all 0.3s;
             position: relative;
         }
         
         .pizza-card:hover {
             border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
         }
         
         .pizza-card-header {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin-bottom: 1.5rem;
+            gap: 12px;
+            margin-bottom: 1.25rem;
         }
         
         .pizza-icon {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             background: var(--gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.2em;
+            font-size: 1em;
         }
         
         .remove-pizza {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 12px;
+            right: 12px;
             background: #e74c3c;
             color: white;
             border: none;
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s;
+            font-size: 0.8em;
         }
         
         .remove-pizza:hover {
             transform: scale(1.1);
         }
         
-        /* COLOR SELECTOR MODERNO */
+        /* COLOR SELECTOR */
         .color-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.8rem;
         }
         
         .color-option {
-            width: 60px;
-            height: 60px;
-            border-radius: 15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
             cursor: pointer;
-            border: 4px solid transparent;
+            border: 3px solid transparent;
             transition: all 0.3s;
             position: relative;
         }
@@ -335,41 +338,41 @@
             transform: translate(-50%, -50%);
             color: white;
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1em;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
-        /* PREVIEW MODERNO */
+        /* PREVIEW */
         .preview-section {
             background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            padding: 2.5rem;
-            border-radius: 20px;
-            margin-top: 2rem;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 1.5rem;
             text-align: center;
         }
         
         .preview-title {
-            font-size: 1.5em;
-            margin-bottom: 1.5rem;
+            font-size: 1.3em;
+            margin-bottom: 1.25rem;
             color: var(--dark);
         }
         
         .preview-card {
             background: white;
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 400px;
+            border-radius: 15px;
+            padding: 1.5rem;
+            max-width: 350px;
             margin: 0 auto;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             text-align: left;
         }
         
         .preview-header {
             background: var(--primary);
             color: white;
-            padding: 1.5rem;
-            border-radius: 15px;
-            margin-bottom: 1.5rem;
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1.25rem;
             text-align: center;
         }
         
@@ -381,56 +384,57 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem;
+            padding: 0.8rem;
             background: #f8f9fa;
-            border-radius: 10px;
-            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            margin-bottom: 0.4rem;
+            font-size: 0.9em;
         }
 
         /* SUCCESS SECTION */
         .success-section {
             text-align: center;
-            padding: 3rem 2rem;
+            padding: 2.5rem 1.5rem;
         }
 
         .success-icon {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             background: var(--success);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 2rem;
+            margin: 0 auto 1.5rem;
             color: white;
-            font-size: 3em;
+            font-size: 2.5em;
             animation: bounce 1s;
         }
 
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-30px);}
-            60% {transform: translateY(-15px);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
         }
 
         .url-display {
             background: #f8f9fa;
             border: 2px dashed var(--success);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 2rem 0;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
             position: relative;
         }
 
         .url-text {
             font-family: 'Courier New', monospace;
-            font-size: 1.1em;
+            font-size: 1em;
             color: var(--dark);
             word-break: break-all;
             margin-bottom: 1rem;
             background: white;
-            padding: 1rem;
-            border-radius: 10px;
+            padding: 0.8rem;
+            border-radius: 8px;
             border: 1px solid #ddd;
         }
 
@@ -438,15 +442,16 @@
             background: var(--success);
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 10px;
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             margin: 0 auto;
             transition: all 0.3s;
+            font-size: 0.9em;
         }
 
         .copy-btn:hover {
@@ -460,24 +465,25 @@
 
         .share-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
             justify-content: center;
             flex-wrap: wrap;
-            margin: 1.5rem 0;
+            margin: 1.25rem 0;
         }
 
         .share-btn {
             background: var(--light);
             color: var(--dark);
             border: none;
-            padding: 10px 20px;
-            border-radius: 10px;
+            padding: 8px 16px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             transition: all 0.3s;
+            font-size: 0.85em;
         }
 
         .share-btn:hover {
@@ -486,18 +492,18 @@
             transform: translateY(-2px);
         }
         
-        /* BUTTONS MODERNI */
+        /* BUTTONS */
         .btn {
-            padding: 15px 30px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 15px;
-            font-size: 1rem;
+            border-radius: 12px;
+            font-size: 0.9em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             text-decoration: none;
         }
         
@@ -508,7 +514,7 @@
         
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
         }
         
         .btn-secondary {
@@ -529,7 +535,7 @@
         .btn-success:hover {
             background: #219a52;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.3);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
         }
         
         .btn-outline {
@@ -546,33 +552,34 @@
         .navigation {
             display: flex;
             justify-content: space-between;
-            margin-top: 3rem;
-            padding-top: 2rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
             border-top: 1px solid #eee;
         }
         
         .action-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
         }
         
         /* NOTIFICATION */
         .notification {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             background: var(--success);
             color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transform: translateX(400px);
+            padding: 0.8rem 1.25rem;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            transform: translateX(300px);
             transition: transform 0.3s;
             z-index: 1000;
             font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            font-size: 0.85em;
         }
         
         .notification.show {
@@ -590,12 +597,12 @@
             }
             
             .step-content {
-                padding: 2rem 1.5rem;
+                padding: 1.5rem;
             }
             
             .navigation {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 0.8rem;
             }
             
             .action-buttons {
@@ -610,6 +617,14 @@
             .share-buttons {
                 flex-direction: column;
             }
+
+            .registration-header {
+                padding: 1.5rem;
+            }
+
+            .registration-header h1 {
+                font-size: 1.6em;
+            }
         }
     </style>
 </head>
@@ -621,7 +636,7 @@
                 <i class="fas fa-arrow-left"></i>
             </button>
             <h1><i class="fas fa-pizza-slice"></i> Crea la Tua Pizzeria</h1>
-            <p>Trasforma la tua passione in un business online in pochi minuti</p>
+            <p>Configura il tuo sito in pochi minuti - Completamente gratuito</p>
         </div>
         
         <!-- PROGRESS BAR -->
@@ -666,7 +681,7 @@
                         URL Personalizzato *
                     </label>
                     <input type="text" class="form-input" id="pizzeria-slug" placeholder="Es: marios-pizza" required>
-                    <small style="color: #666; display: block; margin-top: 5px;">Il tuo sito sarà: tuosito.it/marios-pizza</small>
+                    <small style="color: #666; display: block; margin-top: 4px; font-size: 0.8em;">Il tuo sito sarà: tuosito.it/marios-pizza</small>
                 </div>
                 
                 <div class="form-group">
@@ -718,7 +733,7 @@
                         <div class="pizza-icon">
                             <i class="fas fa-pizza-slice"></i>
                         </div>
-                        <h3 style="color: var(--dark);">Pizza #1</h3>
+                        <h3 style="color: var(--dark); font-size: 1.1em;">Pizza #1</h3>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Nome Pizza</label>
@@ -739,7 +754,7 @@
                         <div class="pizza-icon">
                             <i class="fas fa-pizza-slice"></i>
                         </div>
-                        <h3 style="color: var(--dark);">Pizza #2</h3>
+                        <h3 style="color: var(--dark); font-size: 1.1em;">Pizza #2</h3>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Nome Pizza</label>
@@ -756,7 +771,7 @@
                 </div>
             </div>
             
-            <div style="text-align: center; margin: 2rem 0;">
+            <div style="text-align: center; margin: 1.5rem 0;">
                 <button class="btn btn-outline" onclick="addPizza()">
                     <i class="fas fa-plus"></i>
                     Aggiungi Altra Pizza
@@ -806,8 +821,8 @@
                 
                 <div class="preview-card">
                     <div class="preview-header" id="preview-header">
-                        <h4 id="preview-name" style="margin: 0; font-size: 1.2em;">Nome Pizzeria</h4>
-                        <p id="preview-address" style="margin: 5px 0 0 0; opacity: 0.9; font-size: 0.9em;">Indirizzo</p>
+                        <h4 id="preview-name" style="margin: 0; font-size: 1.1em;">Nome Pizzeria</h4>
+                        <p id="preview-address" style="margin: 4px 0 0 0; opacity: 0.9; font-size: 0.85em;">Indirizzo</p>
                     </div>
                     
                     <div class="preview-menu" id="preview-menu">
@@ -821,7 +836,7 @@
                         </div>
                     </div>
                     
-                    <button style="background: #e74c3c; color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; margin-top: 1rem; font-weight: bold;">
+                    <button style="background: #e74c3c; color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; margin-top: 1rem; font-weight: bold; font-size: 0.9em;">
                         <i class="fas fa-shopping-cart"></i>
                         Ordina Ora
                     </button>
@@ -841,7 +856,7 @@
                 </div>
                 <button class="btn btn-success" onclick="createPizzeriaSite()">
                     <i class="fas fa-rocket"></i>
-                    Crea il Mio Sito!
+                    Crea il Sito
                 </button>
             </div>
         </div>
@@ -857,7 +872,7 @@
                 <p class="step-subtitle">La tua pizzeria online è stata creata con successo</p>
 
                 <div class="url-display">
-                    <h3 style="color: var(--success); margin-bottom: 1rem;">
+                    <h3 style="color: var(--success); margin-bottom: 1rem; font-size: 1.1em;">
                         <i class="fas fa-link"></i> Il tuo sito è pronto:
                     </h3>
                     <div class="url-text" id="pizzeria-url">
@@ -884,26 +899,26 @@
                     </button>
                 </div>
 
-                <div class="navigation" style="justify-content: center; gap: 1rem;">
+                <div class="navigation" style="justify-content: center; gap: 0.8rem;">
                     <a href="#" class="btn btn-primary" id="visit-site-btn">
                         <i class="fas fa-external-link-alt"></i>
-                        Visita il Tuo Sito
+                        Visita il Sito
                     </a>
-                    <a href="registrazione.html" class="btn btn-outline">
-                        <i class="fas fa-plus"></i>
-                        Crea un Altro Sito
+                    <a href="index.html" class="btn btn-outline">
+                        <i class="fas fa-home"></i>
+                        Torna alla Home
                     </a>
                 </div>
 
-                <div style="margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 15px;">
-                    <h4 style="color: var(--dark); margin-bottom: 1rem;">
+                <div style="margin-top: 1.5rem; padding: 1.25rem; background: #f8f9fa; border-radius: 12px;">
+                    <h4 style="color: var(--dark); margin-bottom: 0.8rem; font-size: 1em;">
                         <i class="fas fa-lightbulb"></i> Prossimi Passi
                     </h4>
-                    <ul style="text-align: left; color: #666; line-height: 1.6;">
+                    <ul style="text-align: left; color: #666; line-height: 1.5; font-size: 0.85em; padding-left: 1rem;">
                         <li><strong>Condividi il link</strong> con i tuoi clienti</li>
                         <li><strong>Prova ad ordinare</strong> per testare il sistema</li>
-                        <li><strong>Il carrello si salva automaticamente</strong> - i clienti non perdono mai gli ordini</li>
-                        <li><strong>Personalizza il menu</strong> quando vuoi tornando alla registrazione</li>
+                        <li><strong>Il carrello si salva automaticamente</strong></li>
+                        <li><strong>Puoi ordinare via WhatsApp</strong> con un click</li>
                     </ul>
                 </div>
             </div>
@@ -942,7 +957,7 @@
 
         // Funzione per tornare indietro
         function goBack() {
-            if (confirm('Sei sicuro di voler annullare la registrazione? I dati inseriti andranno persi.')) {
+            if (confirm('Sei sicuro di voler annullare? I dati inseriti andranno persi.')) {
                 window.location.href = 'index.html';
             }
         }
@@ -969,7 +984,7 @@
                 const address = document.getElementById('pizzeria-address').value;
                 
                 if (!name || !slug || !phone || !address) {
-                    showNotification('Per favore completa tutti i campi obbligatori');
+                    showNotification('Completa tutti i campi obbligatori');
                     return;
                 }
             }
@@ -977,7 +992,7 @@
             if (step === 3) {
                 const validPizzas = pizzas.filter(pizza => pizza.name && pizza.price > 0);
                 if (validPizzas.length === 0) {
-                    showNotification('Aggiungi almeno una pizza al tuo menu!');
+                    showNotification('Aggiungi almeno una pizza al menu');
                     return;
                 }
             }
@@ -1018,7 +1033,7 @@
                         <div class="pizza-icon">
                             <i class="fas fa-pizza-slice"></i>
                         </div>
-                        <h3 style="color: var(--dark);">Pizza #${index + 1}</h3>
+                        <h3 style="color: var(--dark); font-size: 1.1em;">Pizza #${index + 1}</h3>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Nome Pizza</label>
@@ -1101,12 +1116,12 @@
             };
 
             if (!pizzeriaData.name || !pizzeriaData.slug || !pizzeriaData.phone || !pizzeriaData.address) {
-                showNotification('Per favore completa tutti i campi obbligatori');
+                showNotification('Completa tutti i campi obbligatori');
                 return;
             }
 
             if (pizzeriaData.menu.length === 0) {
-                showNotification('Aggiungi almeno una pizza al menu!');
+                showNotification('Aggiungi almeno una pizza al menu');
                 return;
             }
 
@@ -1119,23 +1134,18 @@
         }
 
         function showSuccessStep(slug) {
-            // Vai allo step 4
             document.getElementById(`step-${currentStep}`).classList.remove('active');
             currentStep = 4;
             document.getElementById(`step-${currentStep}`).classList.add('active');
             updateProgressBar();
 
-            // Genera l'URL completo
             const baseUrl = window.location.origin + window.location.pathname.replace('registrazione.html', '');
             const pizzeriaUrl = `${baseUrl}index.html?slug=${slug}`;
             
-            // Aggiorna l'URL visualizzato
             document.getElementById('pizzeria-url').textContent = pizzeriaUrl;
-            
-            // Aggiorna il link per visitare il sito
             document.getElementById('visit-site-btn').href = pizzeriaUrl;
             
-            showNotification('🎉 Il tuo sito è stato creato!');
+            showNotification('Sito creato con successo! 🎉');
         }
 
         function copyUrl() {
@@ -1151,10 +1161,10 @@
                     copyBtn.classList.remove('copied');
                 }, 2000);
                 
-                showNotification('URL copiato negli appunti! 📋');
+                showNotification('URL copiato! 📋');
             }).catch(err => {
                 console.error('Errore nella copia: ', err);
-                showNotification('Errore nella copia. Prova a selezionare manualmente.');
+                showNotification('Seleziona e copia manualmente');
             });
         }
 
