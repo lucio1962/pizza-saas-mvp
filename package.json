@@ -1,18 +1,23 @@
 {
-  "name": "pizza-saas-mvp",
+  "name": "pizzasaas",
   "version": "1.0.0",
-  "description": "SaaS multi-tenant per pizzerie - MVP",
-  "main": "server/index.js",
+  "description": "Sistema multi-tenant per siti ordini pizze online",
+  "main": "index.html",
   "scripts": {
-    "dev:client": "cd client && python -m http.server 3000",
-    "dev:server": "cd server && node index.js",
-    "start": "cd server && node index.js",
-    "build": "echo 'No build step needed for MVP'"
+    "dev": "serve .",
+    "build": "echo 'No build process needed for static site'",
+    "deploy": "echo 'Add your deployment script here'"
   },
-  "keywords": ["pizza", "saas", "ordering", "multi-tenant"],
-  "author": "Il Tuo Nome",
+  "keywords": [
+    "pizza",
+    "saas",
+    "ordering-system",
+    "restaurant",
+    "multi-tenant"
+  ],
+  "author": "PizzaSaaS Team",
   "license": "MIT",
-  "engines": {
-    "node": ">=14.0.0"
+  "devDependencies": {
+    "serve": "^14.0.0"
   }
 }
