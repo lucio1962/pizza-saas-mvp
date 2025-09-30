@@ -762,11 +762,39 @@
         let cart = [];
         let currentPizzeria = 'demo';
 
+        // FUNZIONI CARRELLO PERSISTENTE
+        function saveCartToStorage() {
+            localStorage.setItem('cart_' + currentPizzeria, JSON.stringify(cart));
+        }
+
+        function loadCartFromStorage() {
+            const savedCart = localStorage.getItem('cart_' + currentPizzeria);
+            if (savedCart) {
+                try {
+                    cart = JSON.parse(savedCart);
+                    updateCart();
+                    console.log('Carrello caricato:', cart);
+                } catch (e) {
+                    console.error('Errore nel caricamento del carrello:', e);
+                    cart = [];
+                }
+            }
+        }
+
+        function clearCartForPizzeria(pizzeriaSlug) {
+            localStorage.removeItem('cart_' + pizzeriaSlug);
+        }
+
         // Funzioni principali
         function loadPizzeriaConfig(slug = null) {
             if (!slug) {
                 const urlParams = new URLSearchParams(window.location.search);
                 slug = urlParams.get('slug') || 'demo';
+            }
+            
+            // Se cambia pizzeria, pulisci il carrello della precedente
+            if (slug !== currentPizzeria) {
+                clearCartForPizzeria(currentPizzeria);
             }
             
             currentPizzeria = slug;
@@ -789,6 +817,9 @@
             }
             
             document.getElementById('pizzeria-select').value = slug;
+            
+            // Carica il carrello per questa pizzeria
+            loadCartFromStorage();
         }
 
         function loadCustomMenu(menuItems) {
@@ -915,6 +946,7 @@
             }
             
             updateCart();
+            saveCartToStorage();
             showNotification(`"${name}" aggiunta al carrello!`);
             
             if (!document.getElementById('cart').classList.contains('open')) {
@@ -982,6 +1014,7 @@
             } else {
                 cart[index].total = cart[index].quantity * cart[index].price;
                 updateCart();
+                saveCartToStorage();
             }
         }
 
@@ -989,6 +1022,7 @@
             const pizzaName = cart[index].name;
             cart.splice(index, 1);
             updateCart();
+            saveCartToStorage();
             showNotification(`"${pizzaName}" rimossa dal carrello`);
         }
 
@@ -1014,11 +1048,15 @@
             
             cart = [];
             updateCart();
+            saveCartToStorage();
             toggleCart();
             showNotification('Ordine inviato con successo!');
         }
 
         function changePizzeria(slug) {
+            // Salva il carrello corrente prima di cambiare
+            saveCartToStorage();
+            
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?slug=' + slug;
             window.history.pushState({ path: newUrl }, '', newUrl);
             
@@ -1048,6 +1086,11 @@
                 const pizzeriaName = document.getElementById('pizzeria-name').textContent;
                 showNotification(`Benvenuto in ${pizzeriaName}! 🍕`);
             }, 1000);
+        });
+
+        // Salva il carrello quando la pagina viene chiusa
+        window.addEventListener('beforeunload', function() {
+            saveCartToStorage();
         });
     </script>
 </body>
