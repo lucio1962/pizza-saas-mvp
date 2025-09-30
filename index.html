@@ -24,7 +24,7 @@
             background: var(--light);
             color: #333;
             line-height: 1.6;
-            padding-bottom: 120px; /* Spazio per carrello fisso */
+            padding-bottom: 120px;
         }
         
         .container {
@@ -33,7 +33,6 @@
             padding: 20px;
         }
         
-        /* BANNER REGISTRAZIONE */
         .registration-banner {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -73,7 +72,6 @@
             transform: translateY(-2px);
         }
         
-        /* HEADER PIZZERIA */
         .header {
             background: var(--primary);
             color: white;
@@ -116,7 +114,6 @@
             font-size: 0.9em;
         }
         
-        /* CATEGORIE E GRIGLIA PIZZE */
         .category {
             background: var(--dark);
             color: white;
@@ -185,7 +182,6 @@
             background: #c0392b;
         }
         
-        /* CARRRELLO COMPATTO FISSO IN BASSO */
         #cart {
             position: fixed;
             bottom: 0;
@@ -328,7 +324,6 @@
             cursor: not-allowed;
         }
         
-        /* FOOTER REGISTRAZIONE */
         .registration-footer {
             background: linear-gradient(135deg, var(--dark), #34495e);
             color: white;
@@ -349,7 +344,6 @@
             opacity: 0.9;
         }
         
-        /* NOTIFICHE */
         .notification {
             position: fixed;
             top: 20px;
@@ -410,14 +404,12 @@
 </head>
 <body>
     <div class="container">
-        <!-- BANNER REGISTRAZIONE IN ALTO -->
         <div class="registration-banner">
             <h2>🚀 Vuoi il tuo sito come questo?</h2>
             <p>Registra la tua pizzeria e ottieni il tuo sito d'ordinazione online in 2 minuti!</p>
-            <button class="btn-register" onclick="showRegistration()">CREA IL TUO SITO GRATIS</button>
+            <button class="btn-register" onclick="redirectToRegistration()">REGISTRA LA TUA PIZZERIA</button>
         </div>
         
-        <!-- PIZZERIA DEMO -->
         <div class="header" id="pizzeria-header">
             <div class="pizzeria-selector">
                 <select id="pizzeria-select" onchange="changePizzeria(this.value)">
@@ -426,8 +418,8 @@
                     <option value="la-napoletana">La Napoletana</option>
                     <option value="pizza-express">Pizza Express</option>
                 </select>
-                <button class="btn-register" onclick="showRegistration()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid white;">
-                    Crea il Tuo Sito
+                <button class="btn-register" onclick="redirectToRegistration()" style="background: rgba(255,255,255,0.2); color: white; border: 1px solid white;">
+                    Registrati
                 </button>
             </div>
             <h1 id="pizzeria-name">🍕 Caricamento...</h1>
@@ -437,28 +429,24 @@
             </div>
         </div>
         
-        <!-- MENU PIZZE (caricato dinamicamente) -->
         <div id="menu-container">
             <!-- Contenuto caricato via JavaScript -->
         </div>
 
-        <!-- FOOTER REGISTRAZIONE -->
         <div class="registration-footer">
             <h2>💫 Ti è piaciuto questo sistema?</h2>
             <p>Ottieni il tuo sito d'ordinazione online professionale in pochi click</p>
-            <button class="btn-register" onclick="showRegistration()" style="background: var(--secondary); color: white;">
-                🚀 INIZIA GRATIS ORA
+            <button class="btn-register" onclick="redirectToRegistration()" style="background: var(--secondary); color: white;">
+                🚀 REGISTRATI GRATIS
             </button>
             <p style="margin-top: 1rem; font-size: 0.8em; opacity: 0.7;">Nessuna carta di credito • Setup in 2 minuti</p>
         </div>
     </div>
 
-    <!-- PULSANTE CARRRELLO FISSO -->
     <button class="cart-toggle" id="cart-toggle">
         🛒 <span id="cart-count">0</span>
     </button>
 
-    <!-- CARRRELLO A SCOMPARSA -->
     <div id="cart">
         <div class="cart-header">
             <h3>Il Tuo Ordine - <span id="current-pizzeria">Demo</span></h3>
@@ -489,38 +477,9 @@
         <button class="btn-checkout" id="checkout-btn" onclick="checkout()" disabled>CONFERMA ORDINE</button>
     </div>
 
-    <!-- MODALE REGISTRAZIONE -->
-    <div id="registration-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; align-items: center; justify-content: center;">
-        <div style="background: white; padding: 2rem; border-radius: 10px; max-width: 400px; width: 90%;">
-            <h2 style="margin-bottom: 1rem; color: var(--dark);">Crea il Tuo Sito</h2>
-            <p style="margin-bottom: 1.5rem; color: #666;">Inserisci i dati della tua pizzeria per iniziare</p>
-            
-            <div style="margin-bottom: 1rem;">
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Nome Pizzeria *</label>
-                <input type="text" id="reg-name" placeholder="Es: Mario's Pizza" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
-            </div>
-            
-            <div style="margin-bottom: 1rem;">
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Telefono *</label>
-                <input type="tel" id="reg-phone" placeholder="Es: 0123 456789" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px;">
-            </div>
-            
-            <div style="margin-bottom: 1.5rem;">
-                <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Indirizzo *</label>
-                <textarea id="reg-address" placeholder="Indirizzo completo" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px; height: 60px;"></textarea>
-            </div>
-            
-            <div style="display: flex; gap: 0.5rem;">
-                <button onclick="hideRegistration()" style="flex: 1; padding: 10px; border: 1px solid #ddd; background: white; border-radius: 5px; cursor: pointer;">Annulla</button>
-                <button onclick="redirectToRegistration()" style="flex: 2; padding: 10px; background: var(--success); color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">CONTINUA REGISTRAZIONE</button>
-            </div>
-        </div>
-    </div>
-
     <div id="notification" class="notification"></div>
 
     <script>
-        // Configurazioni per pizzerie predefinite
         const pizzerias = {
             'demo': {
                 name: "🍕 Pizzeria Demo",
@@ -595,7 +554,6 @@
         let cart = [];
         let currentPizzeria = 'demo';
 
-        // 🎯 FUNZIONE AGGIORNATA PER CARICARE PIZZERIE PERSONALIZZATE
         function loadPizzeriaConfig(slug = null) {
             if (!slug) {
                 const urlParams = new URLSearchParams(window.location.search);
@@ -604,43 +562,35 @@
             
             currentPizzeria = slug;
             
-            // PRIMA controlla se esiste una pizzeria PERSONALIZZATA nel localStorage
             const customPizzeria = localStorage.getItem('pizzeria_' + slug);
             
             if (customPizzeria) {
-                // 🎯 CARICA PIZZERIA PERSONALIZZATA DEL CLIENTE
                 const pizzeria = JSON.parse(customPizzeria);
                 applyPizzeriaConfig(pizzeria, true);
                 loadCustomMenu(pizzeria.menu);
                 
-                // Mostra notifica se è un nuovo sito
                 const isNew = window.location.search.includes('new=true');
                 if (isNew) {
                     showNotification('🎉 Benvenuto nel tuo nuovo sito!');
                 }
             } else {
-                // 🎯 CARICA PIZZERIA PRE-DEFINITA
                 const pizzeria = pizzerias[slug] || pizzerias['demo'];
                 applyPizzeriaConfig(pizzeria, false);
                 loadMenu(pizzeria.menu);
             }
             
-            // Aggiorna il selettore
             document.getElementById('pizzeria-select').value = slug;
         }
 
-        // 🎯 FUNZIONE PER CARICARE MENU PERSONALIZZATO
         function loadCustomMenu(menuItems) {
             const container = document.getElementById('menu-container');
             container.innerHTML = '';
             
-            // Categoria unica per pizzerie custom
             const categoryDiv = document.createElement('div');
             categoryDiv.className = 'category';
             categoryDiv.innerHTML = '🍕 Il Nostro Menu <span class="new-badge">NUOVO</span>';
             container.appendChild(categoryDiv);
             
-            // Griglia pizze
             const gridDiv = document.createElement('div');
             gridDiv.className = 'pizza-grid';
             
@@ -662,19 +612,16 @@
             container.appendChild(gridDiv);
         }
 
-        // 🎯 FUNZIONE PER CARICARE MENU PREDEFINITO
         function loadMenu(menuData) {
             const container = document.getElementById('menu-container');
             container.innerHTML = '';
             
             menuData.forEach(category => {
-                // Aggiungi categoria
                 const categoryDiv = document.createElement('div');
                 categoryDiv.className = 'category';
                 categoryDiv.textContent = category.category;
                 container.appendChild(categoryDiv);
                 
-                // Griglia pizze
                 const gridDiv = document.createElement('div');
                 gridDiv.className = 'pizza-grid';
                 
@@ -696,17 +643,14 @@
             });
         }
 
-        // 🎯 FUNZIONE PER APPLICARE CONFIGURAZIONE
         function applyPizzeriaConfig(pizzeria, isCustom) {
             document.getElementById('pizzeria-name').textContent = pizzeria.name;
             document.getElementById('pizzeria-address').textContent = pizzeria.address;
             document.getElementById('pizzeria-phone').textContent = pizzeria.phone;
             document.getElementById('current-pizzeria').textContent = pizzeria.name.replace('🍕 ', '');
             
-            // Se è una pizzeria custom, usa i suoi colori
             const color = isCustom ? (pizzeria.color || '#e74c3c') : pizzeria.color;
             
-            // Applica colori
             document.getElementById('pizzeria-header').style.backgroundColor = color;
             document.querySelectorAll('.btn:not(.btn-checkout)').forEach(btn => {
                 btn.style.backgroundColor = color;
@@ -715,7 +659,6 @@
             document.title = pizzeria.name + " - Ordina Online";
         }
 
-        // Carrello compatto
         function toggleCart() {
             document.getElementById('cart').classList.toggle('open');
         }
@@ -738,7 +681,6 @@
             updateCart();
             showNotification(`✅ ${name} aggiunta!`);
             
-            // Apri il carrello quando si aggiunge qualcosa
             if (!document.getElementById('cart').classList.contains('open')) {
                 toggleCart();
             }
@@ -829,7 +771,6 @@
             showNotification('🎊 Ordine inviato!');
         }
 
-        // Cambia pizzeria
         function changePizzeria(slug) {
             const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?slug=' + slug;
             window.history.pushState({ path: newUrl }, '', newUrl);
@@ -837,30 +778,7 @@
             loadPizzeriaConfig(slug);
         }
 
-        // Registrazione
-        function showRegistration() {
-            document.getElementById('registration-modal').style.display = 'flex';
-        }
-
-        function hideRegistration() {
-            document.getElementById('registration-modal').style.display = 'none';
-        }
-
         function redirectToRegistration() {
-            const name = document.getElementById('reg-name').value;
-            const phone = document.getElementById('reg-phone').value;
-            const address = document.getElementById('reg-address').value;
-            
-            if (!name || !phone || !address) {
-                alert('Per favore completa tutti i campi obbligatori');
-                return;
-            }
-            
-            // Salva i dati base e reindirizza alla registrazione completa
-            const slug = name.toLowerCase().replace(/[^a-z0-9]/g, '-');
-            const basicData = { name, phone, address, slug };
-            localStorage.setItem('temp_pizzeria_data', JSON.stringify(basicData));
-            
             window.location.href = 'registrazione.html';
         }
 
@@ -874,13 +792,11 @@
             }, 3000);
         }
 
-        // Inizializza
         document.addEventListener('DOMContentLoaded', function() {
             loadPizzeriaConfig();
             updateCart();
             document.getElementById('cart-toggle').addEventListener('click', toggleCart);
             
-            // Benvenuto
             setTimeout(() => {
                 const pizzeriaName = document.getElementById('pizzeria-name').textContent;
                 showNotification(`🍕 Benvenuto in ${pizzeriaName}!`);
