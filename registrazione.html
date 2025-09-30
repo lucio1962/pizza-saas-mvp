@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Crea il tuo sito di ordinazioni online per pizzerie con PizzaSaaS. Configura in pochi minuti, completamente gratuito.">
     <title>Crea la Tua Pizzeria - PizzaSaaS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -74,11 +73,9 @@
             transition: all 0.3s;
         }
         
-        .back-button:hover,
-        .back-button:focus {
+        .back-button:hover {
             background: rgba(255,255,255,0.3);
             transform: scale(1.1);
-            outline: none;
         }
         
         .registration-header h1 {
@@ -306,10 +303,8 @@
             font-size: 0.8em;
         }
         
-        .remove-pizza:hover,
-        .remove-pizza:focus {
+        .remove-pizza:hover {
             transform: scale(1.1);
-            outline: none;
         }
         
         /* COLOR SELECTOR */
@@ -459,11 +454,9 @@
             font-size: 0.9em;
         }
 
-        .copy-btn:hover,
-        .copy-btn:focus {
+        .copy-btn:hover {
             background: #219a52;
             transform: translateY(-2px);
-            outline: none;
         }
 
         .copy-btn.copied {
@@ -493,12 +486,10 @@
             font-size: 0.85em;
         }
 
-        .share-btn:hover,
-        .share-btn:focus {
+        .share-btn:hover {
             background: var(--primary);
             color: white;
             transform: translateY(-2px);
-            outline: none;
         }
         
         /* BUTTONS */
@@ -521,11 +512,9 @@
             color: white;
         }
         
-        .btn-primary:hover,
-        .btn-primary:focus {
+        .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
-            outline: none;
         }
         
         .btn-secondary {
@@ -533,11 +522,9 @@
             color: white;
         }
         
-        .btn-secondary:hover,
-        .btn-secondary:focus {
+        .btn-secondary:hover {
             background: #7f8c8d;
             transform: translateY(-2px);
-            outline: none;
         }
         
         .btn-success {
@@ -545,12 +532,10 @@
             color: white;
         }
         
-        .btn-success:hover,
-        .btn-success:focus {
+        .btn-success:hover {
             background: #219a52;
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
-            outline: none;
         }
         
         .btn-outline {
@@ -559,11 +544,9 @@
             color: #666;
         }
         
-        .btn-outline:hover,
-        .btn-outline:focus {
+        .btn-outline:hover {
             border-color: var(--primary);
             color: var(--primary);
-            outline: none;
         }
         
         .navigation {
@@ -643,42 +626,22 @@
                 font-size: 1.6em;
             }
         }
-
-        /* ACCESSIBILITY */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
-        button:focus,
-        a:focus,
-        .color-option:focus {
-            outline: 2px solid var(--secondary);
-            outline-offset: 2px;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- HEADER -->
         <div class="registration-header">
-            <button class="back-button" onclick="goBack()" aria-label="Torna alla pagina precedente">
-                <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            <button class="back-button" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
             </button>
-            <h1><i class="fas fa-pizza-slice" aria-hidden="true"></i> Crea la Tua Pizzeria</h1>
+            <h1><i class="fas fa-pizza-slice"></i> Crea la Tua Pizzeria</h1>
             <p>Configura il tuo sito in pochi minuti - Completamente gratuito</p>
         </div>
         
         <!-- PROGRESS BAR -->
         <div class="progress-container">
-            <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4">
+            <div class="progress-bar">
                 <div class="progress-step active" data-step="1">
                     <div class="step-number">1</div>
                     <div class="step-label">Informazioni</div>
@@ -703,59 +666,57 @@
             <h2 class="step-title">Informazioni Pizzeria</h2>
             <p class="step-subtitle">Inserisci i dati della tua attività</p>
             
-            <form id="pizzeria-form">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="pizzeria-name" class="form-label">
-                            <i class="fas fa-store" aria-hidden="true"></i>
-                            Nome Pizzeria *
-                        </label>
-                        <input type="text" class="form-input" id="pizzeria-name" placeholder="Es: Mario's Pizza" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="pizzeria-slug" class="form-label">
-                            <i class="fas fa-link" aria-hidden="true"></i>
-                            URL Personalizzato *
-                        </label>
-                        <input type="text" class="form-input" id="pizzeria-slug" placeholder="Es: marios-pizza" required>
-                        <small style="color: #666; display: block; margin-top: 4px; font-size: 0.8em;">Il tuo sito sarà: tuosito.it/marios-pizza</small>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="pizzeria-phone" class="form-label">
-                            <i class="fas fa-phone" aria-hidden="true"></i>
-                            Telefono *
-                        </label>
-                        <input type="tel" class="form-input" id="pizzeria-phone" placeholder="Es: 0123 456789" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="pizzeria-email" class="form-label">
-                            <i class="fas fa-envelope" aria-hidden="true"></i>
-                            Email
-                        </label>
-                        <input type="email" class="form-input" id="pizzeria-email" placeholder="tua@email.it">
-                    </div>
-                    
-                    <div class="form-group full-width">
-                        <label for="pizzeria-address" class="form-label">
-                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                            Indirizzo Completo *
-                        </label>
-                        <textarea class="form-input form-textarea" id="pizzeria-address" placeholder="Via, Civico, Città, CAP" required></textarea>
-                    </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-store"></i>
+                        Nome Pizzeria *
+                    </label>
+                    <input type="text" class="form-input" id="pizzeria-name" placeholder="Es: Mario's Pizza" required>
                 </div>
-            </form>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-link"></i>
+                        URL Personalizzato *
+                    </label>
+                    <input type="text" class="form-input" id="pizzeria-slug" placeholder="Es: marios-pizza" required>
+                    <small style="color: #666; display: block; margin-top: 4px; font-size: 0.8em;">Il tuo sito sarà: tuosito.it/marios-pizza</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-phone"></i>
+                        Telefono *
+                    </label>
+                    <input type="tel" class="form-input" id="pizzeria-phone" placeholder="Es: 0123 456789" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </label>
+                    <input type="email" class="form-input" id="pizzeria-email" placeholder="tua@email.it">
+                </div>
+                
+                <div class="form-group full-width">
+                    <label class="form-label">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Indirizzo Completo *
+                    </label>
+                    <textarea class="form-input form-textarea" id="pizzeria-address" placeholder="Via, Civico, Città, CAP" required></textarea>
+                </div>
+            </div>
             
             <div class="navigation">
                 <button class="btn btn-outline" onclick="goBack()">
-                    <i class="fas fa-times" aria-hidden="true"></i>
+                    <i class="fas fa-times"></i>
                     Annulla
                 </button>
                 <button class="btn btn-primary" onclick="nextStep(2)">
                     Continua
-                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
@@ -770,7 +731,7 @@
                 <div class="pizza-card">
                     <div class="pizza-card-header">
                         <div class="pizza-icon">
-                            <i class="fas fa-pizza-slice" aria-hidden="true"></i>
+                            <i class="fas fa-pizza-slice"></i>
                         </div>
                         <h3 style="color: var(--dark); font-size: 1.1em;">Pizza #1</h3>
                     </div>
@@ -791,7 +752,7 @@
                 <div class="pizza-card">
                     <div class="pizza-card-header">
                         <div class="pizza-icon">
-                            <i class="fas fa-pizza-slice" aria-hidden="true"></i>
+                            <i class="fas fa-pizza-slice"></i>
                         </div>
                         <h3 style="color: var(--dark); font-size: 1.1em;">Pizza #2</h3>
                     </div>
@@ -812,7 +773,7 @@
             
             <div style="text-align: center; margin: 1.5rem 0;">
                 <button class="btn btn-outline" onclick="addPizza()">
-                    <i class="fas fa-plus" aria-hidden="true"></i>
+                    <i class="fas fa-plus"></i>
                     Aggiungi Altra Pizza
                 </button>
             </div>
@@ -820,17 +781,17 @@
             <div class="navigation">
                 <div class="action-buttons">
                     <button class="btn btn-outline" onclick="goBack()">
-                        <i class="fas fa-times" aria-hidden="true"></i>
+                        <i class="fas fa-times"></i>
                         Annulla
                     </button>
                     <button class="btn btn-secondary" onclick="prevStep(1)">
-                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        <i class="fas fa-arrow-left"></i>
                         Indietro
                     </button>
                 </div>
                 <button class="btn btn-primary" onclick="nextStep(3)">
                     Continua
-                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    <i class="fas fa-arrow-right"></i>
                 </button>
             </div>
         </div>
@@ -842,16 +803,16 @@
             
             <div class="form-group">
                 <label class="form-label">
-                    <i class="fas fa-palette" aria-hidden="true"></i>
+                    <i class="fas fa-palette"></i>
                     Colore Principale del Tema
                 </label>
                 <div class="color-options">
-                    <div class="color-option selected" style="background: #e74c3c;" data-color="#e74c3c" tabindex="0" role="button" aria-label="Seleziona colore rosso"></div>
-                    <div class="color-option" style="background: #27ae60;" data-color="#27ae60" tabindex="0" role="button" aria-label="Seleziona colore verde"></div>
-                    <div class="color-option" style="background: #f39c12;" data-color="#f39c12" tabindex="0" role="button" aria-label="Seleziona colore arancione"></div>
-                    <div class="color-option" style="background: #9b59b6;" data-color="#9b59b6" tabindex="0" role="button" aria-label="Seleziona colore viola"></div>
-                    <div class="color-option" style="background: #3498db;" data-color="#3498db" tabindex="0" role="button" aria-label="Seleziona colore blu"></div>
-                    <div class="color-option" style="background: #e67e22;" data-color="#e67e22" tabindex="0" role="button" aria-label="Seleziona colore arancione scuro"></div>
+                    <div class="color-option selected" style="background: #e74c3c;" data-color="#e74c3c"></div>
+                    <div class="color-option" style="background: #27ae60;" data-color="#27ae60"></div>
+                    <div class="color-option" style="background: #f39c12;" data-color="#f39c12"></div>
+                    <div class="color-option" style="background: #9b59b6;" data-color="#9b59b6"></div>
+                    <div class="color-option" style="background: #3498db;" data-color="#3498db"></div>
+                    <div class="color-option" style="background: #e67e22;" data-color="#e67e22"></div>
                 </div>
             </div>
             
@@ -876,7 +837,7 @@
                     </div>
                     
                     <button style="background: #e74c3c; color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; margin-top: 1rem; font-weight: bold; font-size: 0.9em;">
-                        <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                        <i class="fas fa-shopping-cart"></i>
                         Ordina Ora
                     </button>
                 </div>
@@ -885,16 +846,16 @@
             <div class="navigation">
                 <div class="action-buttons">
                     <button class="btn btn-outline" onclick="goBack()">
-                        <i class="fas fa-times" aria-hidden="true"></i>
+                        <i class="fas fa-times"></i>
                         Annulla
                     </button>
                     <button class="btn btn-secondary" onclick="prevStep(2)">
-                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        <i class="fas fa-arrow-left"></i>
                         Indietro
                     </button>
                 </div>
                 <button class="btn btn-success" onclick="createPizzeriaSite()">
-                    <i class="fas fa-rocket" aria-hidden="true"></i>
+                    <i class="fas fa-rocket"></i>
                     Crea il Sito
                 </button>
             </div>
@@ -904,7 +865,7 @@
         <div class="step-content" id="step-4">
             <div class="success-section">
                 <div class="success-icon">
-                    <i class="fas fa-check" aria-hidden="true"></i>
+                    <i class="fas fa-check"></i>
                 </div>
                 
                 <h2 class="step-title">Complimenti! 🎉</h2>
@@ -912,46 +873,46 @@
 
                 <div class="url-display">
                     <h3 style="color: var(--success); margin-bottom: 1rem; font-size: 1.1em;">
-                        <i class="fas fa-link" aria-hidden="true"></i> Il tuo sito è pronto:
+                        <i class="fas fa-link"></i> Il tuo sito è pronto:
                     </h3>
                     <div class="url-text" id="pizzeria-url">
                         Caricamento...
                     </div>
                     <button class="copy-btn" onclick="copyUrl()" id="copy-btn">
-                        <i class="fas fa-copy" aria-hidden="true"></i>
+                        <i class="fas fa-copy"></i>
                         Copia URL
                     </button>
                 </div>
 
                 <div class="share-buttons">
                     <button class="share-btn" onclick="shareOnWhatsApp()">
-                        <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                        <i class="fab fa-whatsapp"></i>
                         WhatsApp
                     </button>
                     <button class="share-btn" onclick="shareOnFacebook()">
-                        <i class="fab fa-facebook" aria-hidden="true"></i>
+                        <i class="fab fa-facebook"></i>
                         Facebook
                     </button>
                     <button class="share-btn" onclick="shareOnEmail()">
-                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        <i class="fas fa-envelope"></i>
                         Email
                     </button>
                 </div>
 
                 <div class="navigation" style="justify-content: center; gap: 0.8rem;">
                     <a href="#" class="btn btn-primary" id="visit-site-btn">
-                        <i class="fas fa-external-link-alt" aria-hidden="true"></i>
+                        <i class="fas fa-external-link-alt"></i>
                         Visita il Sito
                     </a>
                     <a href="index.html" class="btn btn-outline">
-                        <i class="fas fa-home" aria-hidden="true"></i>
+                        <i class="fas fa-home"></i>
                         Torna alla Home
                     </a>
                 </div>
 
                 <div style="margin-top: 1.5rem; padding: 1.25rem; background: #f8f9fa; border-radius: 12px;">
                     <h4 style="color: var(--dark); margin-bottom: 0.8rem; font-size: 1em;">
-                        <i class="fas fa-lightbulb" aria-hidden="true"></i> Prossimi Passi
+                        <i class="fas fa-lightbulb"></i> Prossimi Passi
                     </h4>
                     <ul style="text-align: left; color: #666; line-height: 1.5; font-size: 0.85em; padding-left: 1rem;">
                         <li><strong>Condividi il link</strong> con i tuoi clienti</li>
@@ -965,7 +926,7 @@
     </div>
 
     <div id="notification" class="notification">
-        <i class="fas fa-check-circle" aria-hidden="true"></i>
+        <i class="fas fa-check-circle"></i>
         <span id="notification-text"></span>
     </div>
 
@@ -992,15 +953,6 @@
             updatePreview();
             setupColorSelector();
             updateProgressBar();
-            
-            // Aggiungi gestione eventi per tasti di accessibilità
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') {
-                    if (confirm('Sei sicuro di voler annullare? I dati inseriti andranno persi.')) {
-                        window.location.href = 'index.html';
-                    }
-                }
-            });
         });
 
         // Funzione per tornare indietro
@@ -1021,10 +973,6 @@
                     step.classList.add('completed');
                 }
             });
-            
-            // Aggiorna ARIA
-            const progressBar = document.querySelector('.progress-bar');
-            progressBar.setAttribute('aria-valuenow', currentStep);
         }
 
         function nextStep(step) {
@@ -1077,13 +1025,13 @@
             container.innerHTML = pizzas.map((pizza, index) => `
                 <div class="pizza-card">
                     ${pizzas.length > 2 ? `
-                        <button class="remove-pizza" onclick="removePizza(${index})" aria-label="Rimuovi pizza">
-                            <i class="fas fa-times" aria-hidden="true"></i>
+                        <button class="remove-pizza" onclick="removePizza(${index})">
+                            <i class="fas fa-times"></i>
                         </button>
                     ` : ''}
                     <div class="pizza-card-header">
                         <div class="pizza-icon">
-                            <i class="fas fa-pizza-slice" aria-hidden="true"></i>
+                            <i class="fas fa-pizza-slice"></i>
                         </div>
                         <h3 style="color: var(--dark); font-size: 1.1em;">Pizza #${index + 1}</h3>
                     </div>
@@ -1126,23 +1074,12 @@
         function setupColorSelector() {
             document.querySelectorAll('.color-option').forEach(option => {
                 option.addEventListener('click', function() {
-                    selectColor(this);
-                });
-                
-                option.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        selectColor(this);
-                    }
+                    document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedColor = this.dataset.color;
+                    updatePreview();
                 });
             });
-        }
-
-        function selectColor(element) {
-            document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedColor = element.dataset.color;
-            updatePreview();
         }
 
         function updatePreview() {
@@ -1203,7 +1140,7 @@
             updateProgressBar();
 
             const baseUrl = window.location.origin + window.location.pathname.replace('registrazione.html', '');
-            const pizzeriaUrl = `${baseUrl}pizzeria.html?slug=${slug}`;
+            const pizzeriaUrl = `${baseUrl}index.html?slug=${slug}`;
             
             document.getElementById('pizzeria-url').textContent = pizzeriaUrl;
             document.getElementById('visit-site-btn').href = pizzeriaUrl;
@@ -1216,7 +1153,7 @@
             navigator.clipboard.writeText(url).then(() => {
                 const copyBtn = document.getElementById('copy-btn');
                 const originalText = copyBtn.innerHTML;
-                copyBtn.innerHTML = '<i class="fas fa-check" aria-hidden="true"></i> Copiato!';
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiato!';
                 copyBtn.classList.add('copied');
                 
                 setTimeout(() => {
