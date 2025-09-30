@@ -3,448 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizzeria - Ordina Online</title>
+    <title>Pizzeria Demo</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
+            background: #f5f5f5;
         }
-        
-        .header {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
-        }
-        
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 0.5rem;
-        }
-        
-        .menu-item {
+        .pizza-item {
             background: white;
-            border: none;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        
-        .menu-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-        }
-        
-        .menu-item h3 {
-            color: #e74c3c;
-            margin-bottom: 0.5rem;
-            font-size: 1.4em;
-        }
-        
-        .menu-item p {
-            color: #666;
-            margin-bottom: 0.5rem;
-        }
-        
-        .price {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #27ae60;
-            margin: 0.5rem 0;
-        }
-        
-        .btn {
-            background: #27ae60;
+        button {
+            background: #e74c3c;
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            transition: background 0.3s, transform 0.2s;
-            margin: 0.3rem;
+            font-size: 16px;
         }
-        
-        .btn:hover {
-            background: #219a52;
-            transform: scale(1.05);
-        }
-        
-        .btn-checkout {
-            background: #e74c3c;
-            width: 100%;
-            padding: 15px;
-            font-size: 1.1em;
-        }
-        
-        .btn-checkout:hover {
+        button:hover {
             background: #c0392b;
         }
-        
-        .cart {
+        #cart {
             background: #2c3e50;
             color: white;
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin-top: 2rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        
-        .cart h3 {
-            margin-bottom: 1rem;
-            text-align: center;
-            font-size: 1.4em;
-        }
-        
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid #34495e;
-        }
-        
-        .cart-item:last-child {
-            border-bottom: none;
-        }
-        
-        .cart-totals {
-            margin: 1.5rem 0;
-            padding-top: 1rem;
-            border-top: 2px solid #34495e;
-        }
-        
-        .total-line {
-            display: flex;
-            justify-content: space-between;
-            margin: 0.5rem 0;
-        }
-        
-        .grand-total {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #f39c12;
-        }
-        
-        .cart-empty {
-            text-align: center;
-            color: #bdc3c7;
-            font-style: italic;
-        }
-        
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #27ae60;
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transform: translateX(400px);
-            transition: transform 0.3s;
-            z-index: 1000;
-        }
-        
-        .notification.show {
-            transform: translateX(0);
-        }
-        
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .quantity-btn {
-            background: #34495e;
-            color: white;
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-        
-        .remove-btn {
-            background: #e74c3c;
-            margin-left: 1rem;
-        }
-        
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-            
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            .menu-item {
-                padding: 1rem;
-            }
-            
-            .btn {
-                padding: 10px 20px;
-            }
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🍕 PIZZERIA DEMO</h1>
-        <p>Ordina la tua pizza online - Consegna a domicilio</p>
+    <h1>🍕 Pizzeria Demo</h1>
+    
+    <div class="pizza-item">
+        <h3>Margherita - €6,50</h3>
+        <button onclick="addToCart('Margherita', 6.50)">Aggiungi al carrello</button>
     </div>
     
-    <div class="menu-item">
-        <h3>Margherita</h3>
-        <p>Pomodoro San Marzano, mozzarella di bufala, basilico fresco, olio EVO</p>
-        <div class="price">€6,50</div>
-        <button class="btn" data-pizza="Margherita" data-price="6.50">Aggiungi al carrello</button>
+    <div class="pizza-item">
+        <h3>Diavola - €8,00</h3>
+        <button onclick="addToCart('Diavola', 8.00)">Aggiungi al carrello</button>
     </div>
     
-    <div class="menu-item">
-        <h3>Diavola</h3>
-        <p>Pomodoro, mozzarella, salame piccante, peperoncino, olive nere</p>
-        <div class="price">€8,00</div>
-        <button class="btn" data-pizza="Diavola" data-price="8.00">Aggiungi al carrello</button>
-    </div>
-    
-    <div class="menu-item">
-        <h3>Quattro Stagioni</h3>
-        <p>Pomodoro, mozzarella, prosciutto cotto, funghi, carciofi, olive</p>
-        <div class="price">€9,50</div>
-        <button class="btn" data-pizza="Quattro Stagioni" data-price="9.50">Aggiungi al carrello</button>
-    </div>
-    
-    <div class="menu-item">
-        <h3>Capricciosa</h3>
-        <p>Pomodoro, mozzarella, prosciutto cotto, funghi, carciofi, olive, uovo</p>
-        <div class="price">€10,00</div>
-        <button class="btn" data-pizza="Capricciosa" data-price="10.00">Aggiungi al carrello</button>
+    <div class="pizza-item">
+        <h3>Quattro Stagioni - €9,50</h3>
+        <button onclick="addToCart('Quattro Stagioni', 9.50)">Aggiungi al carrello</button>
     </div>
 
-    <div class="cart">
-        <h3>🛒 IL TUO ORDINE</h3>
-        <div id="cart-items" class="cart-empty">Il carrello è vuoto</div>
-        
-        <div class="cart-totals">
-            <div class="total-line">
-                <span>Subtotale:</span>
-                <span id="subtotal">€0,00</span>
-            </div>
-            <div class="total-line">
-                <span>Costo consegna:</span>
-                <span id="delivery">€2,50</span>
-            </div>
-            <div class="total-line grand-total">
-                <span>TOTALE:</span>
-                <span id="total">€2,50</span>
-            </div>
-        </div>
-        
-        <button class="btn btn-checkout" id="checkout-btn">PROCEDI AL CHECKOUT</button>
+    <div id="cart">
+        <h3>🛒 Il Tuo Carrello</h3>
+        <div id="cart-items">Nessun articolo nel carrello</div>
+        <p>Totale: €<span id="total">0.00</span></p>
+        <button onclick="checkout()" style="background: #27ae60;">Checkout</button>
     </div>
-
-    <div id="notification" class="notification"></div>
 
     <script>
-        class PizzaApp {
-            constructor() {
-                this.cart = JSON.parse(localStorage.getItem('pizzaCart')) || [];
-                this.deliveryFee = 2.50;
-                this.init();
-            }
+        let cart = [];
+        let total = 0;
 
-            init() {
-                this.setupEventListeners();
-                this.updateCartDisplay();
-                this.showWelcomeMessage();
-            }
-
-            setupEventListeners() {
-                // Aggiungi al carrello
-                document.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('btn') && 
-                        e.target.textContent.includes('Aggiungi')) {
-                        const pizzaName = e.target.dataset.pizza;
-                        const price = parseFloat(e.target.dataset.price);
-                        this.addToCart(pizzaName, price);
-                    }
-                });
-
-                // Checkout
-                document.getElementById('checkout-btn').addEventListener('click', () => {
-                    this.showCheckout();
-                });
-
-                // Rimuovi dal carrello
-                document.addEventListener('click', (e) => {
-                    if (e.target.classList.contains('remove-btn')) {
-                        const index = parseInt(e.target.dataset.index);
-                        this.removeFromCart(index);
-                    }
-                    
-                    // Modifica quantità
-                    if (e.target.classList.contains('quantity-btn')) {
-                        const index = parseInt(e.target.dataset.index);
-                        const change = e.target.textContent === '+' ? 1 : -1;
-                        this.updateQuantity(index, change);
-                    }
-                });
-            }
-
-            addToCart(pizzaName, price) {
-                // Controlla se la pizza è già nel carrello
-                const existingIndex = this.cart.findIndex(item => item.name === pizzaName);
-                
-                if (existingIndex > -1) {
-                    // Se esiste già, aumenta la quantità
-                    this.cart[existingIndex].quantity += 1;
-                } else {
-                    // Altrimenti aggiungi nuova pizza
-                    this.cart.push({
-                        name: pizzaName,
-                        price: price,
-                        quantity: 1
-                    });
-                }
-                
-                this.saveCart();
-                this.updateCartDisplay();
-                this.showNotification(`✅ ${pizzaName} aggiunta al carrello!`);
-            }
-
-            removeFromCart(index) {
-                this.cart.splice(index, 1);
-                this.saveCart();
-                this.updateCartDisplay();
-                this.showNotification('🗑️ Pizza rimossa dal carrello');
-            }
-
-            updateQuantity(index, change) {
-                this.cart[index].quantity += change;
-                
-                if (this.cart[index].quantity <= 0) {
-                    this.removeFromCart(index);
-                } else {
-                    this.saveCart();
-                    this.updateCartDisplay();
-                }
-            }
-
-            updateCartDisplay() {
-                const cartItems = document.getElementById('cart-items');
-                const subtotalEl = document.getElementById('subtotal');
-                const deliveryEl = document.getElementById('delivery');
-                const totalEl = document.getElementById('total');
-                const checkoutBtn = document.getElementById('checkout-btn');
-
-                if (this.cart.length === 0) {
-                    cartItems.innerHTML = '<div class="cart-empty">Il carrello è vuoto</div>';
-                    cartItems.className = 'cart-empty';
-                    checkoutBtn.disabled = true;
-                    checkoutBtn.style.opacity = '0.6';
-                } else {
-                    cartItems.innerHTML = this.cart.map((item, index) => `
-                        <div class="cart-item">
-                            <div>
-                                <strong>${item.name}</strong>
-                                <div style="font-size: 0.9em; color: #bdc3c7;">
-                                    €${item.price.toFixed(2)} × ${item.quantity}
-                                </div>
-                            </div>
-                            <div class="quantity-controls">
-                                <button class="quantity-btn" data-index="${index}">-</button>
-                                <span>${item.quantity}</span>
-                                <button class="quantity-btn" data-index="${index}">+</button>
-                                <button class="quantity-btn remove-btn" data-index="${index}">×</button>
-                            </div>
-                        </div>
-                    `).join('');
-                    cartItems.className = '';
-                    checkoutBtn.disabled = false;
-                    checkoutBtn.style.opacity = '1';
-                }
-
-                // Calcola totali
-                const subtotal = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-                const total = subtotal + this.deliveryFee;
-
-                subtotalEl.textContent = `€${subtotal.toFixed(2)}`;
-                deliveryEl.textContent = `€${this.deliveryFee.toFixed(2)}`;
-                totalEl.textContent = `€${total.toFixed(2)}`;
-            }
-
-            showCheckout() {
-                if (this.cart.length === 0) {
-                    this.showNotification('❌ Il carrello è vuoto!');
-                    return;
-                }
-
-                const total = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0) + this.deliveryFee;
-                const orderDetails = this.cart.map(item => 
-                    `${item.quantity}x ${item.name} - €${(item.price * item.quantity).toFixed(2)}`
-                ).join('\n');
-
-                const message = `🎉 ORDINE CONFERMATO!\n\nIl tuo ordine:\n${orderDetails}\n\nCosto consegna: €${this.deliveryFee.toFixed(2)}\nTOTALE: €${total.toFixed(2)}\n\nGrazie per il tuo ordine! La pizzeria ti contatterà a breve.`;
-
-                alert(message);
-                
-                // Reset carrello dopo ordine
-                this.cart = [];
-                this.saveCart();
-                this.updateCartDisplay();
-            }
-
-            showNotification(message) {
-                const notification = document.getElementById('notification');
-                notification.textContent = message;
-                notification.classList.add('show');
-                
-                setTimeout(() => {
-                    notification.classList.remove('show');
-                }, 3000);
-            }
-
-            showWelcomeMessage() {
-                setTimeout(() => {
-                    this.showNotification('🍕 Benvenuto nella Pizzeria Demo!');
-                }, 1000);
-            }
-
-            saveCart() {
-                localStorage.setItem('pizzaCart', JSON.stringify(this.cart));
-            }
+        function addToCart(name, price) {
+            cart.push({ name: name, price: price });
+            total += price;
+            updateCart();
+            alert('✅ ' + name + ' aggiunta al carrello!');
         }
 
-        // Inizializza l'app quando la pagina è caricata
-        document.addEventListener('DOMContentLoaded', () => {
-            new PizzaApp();
-        });
+        function updateCart() {
+            const cartItems = document.getElementById('cart-items');
+            const totalElement = document.getElementById('total');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = 'Nessun articolo nel carrello';
+            } else {
+                cartItems.innerHTML = cart.map(item => 
+                    `<div>${item.name} - €${item.price.toFixed(2)}</div>`
+                ).join('');
+            }
+            
+            totalElement.textContent = total.toFixed(2);
+        }
 
-        console.log('Pizza SaaS MVP - Caricato con successo!');
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Il carrello è vuoto!');
+                return;
+            }
+            
+            const orderDetails = cart.map(item => 
+                `${item.name} - €${item.price.toFixed(2)}`
+            ).join('\n');
+            
+            alert('🎉 Ordine Confermato!\n\nIl tuo ordine:\n' + orderDetails + '\n\nTotale: €' + total.toFixed(2) + '\n\nGrazie!');
+            
+            // Reset carrello
+            cart = [];
+            total = 0;
+            updateCart();
+        }
+
+        // Messaggio di benvenuto
+        setTimeout(() => {
+            alert('Benvenuto nella Pizzeria Demo! 🍕');
+        }, 500);
     </script>
 </body>
 </html>
