@@ -386,6 +386,73 @@
             border-radius: 10px;
             margin-bottom: 0.5rem;
         }
+
+        /* SUCCESS SECTION */
+        .success-section {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            color: white;
+            font-size: 3em;
+            animation: bounce 1s;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-30px);}
+            60% {transform: translateY(-15px);}
+        }
+
+        .url-display {
+            background: #f8f9fa;
+            border: 2px dashed var(--success);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .url-text {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            color: var(--dark);
+            word-break: break-all;
+            margin-bottom: 1rem;
+        }
+
+        .copy-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 auto;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #219a52;
+            transform: translateY(-2px);
+        }
+
+        .copy-btn.copied {
+            background: var(--primary);
+        }
         
         /* BUTTONS MODERNI */
         .btn {
@@ -535,6 +602,10 @@
                 <div class="progress-step" data-step="3">
                     <div class="step-number">3</div>
                     <div class="step-label">Anteprima</div>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Completato</div>
                 </div>
             </div>
         </div>
@@ -738,6 +809,62 @@
                 </button>
             </div>
         </div>
+
+        <!-- STEP 4: SUCCESS -->
+        <div class="step-content" id="step-4">
+            <div class="success-section">
+                <div class="success-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                
+                <h2 class="step-title">Complimenti! 🎉</h2>
+                <p class="step-subtitle">La tua pizzeria online è stata creata con successo</p>
+
+                <div class="url-display">
+                    <h3 style="color: var(--success); margin-bottom: 1rem;">
+                        <i class="fas fa-link"></i> Il tuo sito è pronto:
+                    </h3>
+                    <div class="url-text" id="pizzeria-url">
+                        Caricamento...
+                    </div>
+                    <button class="copy-btn" onclick="copyUrl()" id="copy-btn">
+                        <i class="fas fa-copy"></i>
+                        Copia URL
+                    </button>
+                </div>
+
+                <div style="margin: 2rem 0;">
+                    <p style="color: #666; margin-bottom: 1rem;">
+                        <i class="fas fa-share-alt"></i> Condividi il tuo sito:
+                    </p>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <button class="btn btn-outline" onclick="shareOnWhatsApp()">
+                            <i class="fab fa-whatsapp"></i>
+                            WhatsApp
+                        </button>
+                        <button class="btn btn-outline" onclick="shareOnFacebook()">
+                            <i class="fab fa-facebook"></i>
+                            Facebook
+                        </button>
+                        <button class="btn btn-outline" onclick="copyUrl()">
+                            <i class="fas fa-link"></i>
+                            Copia Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="navigation" style="justify-content: center;">
+                    <a href="#" class="btn btn-primary" id="visit-site-btn">
+                        <i class="fas fa-external-link-alt"></i>
+                        Visita il Tuo Sito
+                    </a>
+                    <a href="registrazione.html" class="btn btn-outline">
+                        <i class="fas fa-plus"></i>
+                        Crea un Altro Sito
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="notification" class="notification">
@@ -760,6 +887,8 @@
                 description: 'Pomodoro pelato, aglio, origano, olio extravergine d\'oliva' 
             }
         ];
+
+        let createdPizzeriaSlug = '';
 
         // Inizializzazione
         document.addEventListener('DOMContentLoaded', function() {
@@ -940,12 +1069,59 @@
 
             // Salva nel localStorage
             localStorage.setItem('pizzeria_' + pizzeriaData.slug, JSON.stringify(pizzeriaData));
+            createdPizzeriaSlug = pizzeriaData.slug;
+            
+            // Mostra lo step di successo
+            showSuccessStep(pizzeriaData.slug);
+        }
+
+        function showSuccessStep(slug) {
+            // Vai allo step 4
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep = 4;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgressBar();
+
+            // Genera l'URL completo
+            const baseUrl = window.location.origin + window.location.pathname.replace('registrazione.html', '');
+            const pizzeriaUrl = `${baseUrl}index.html?slug=${slug}`;
+            
+            // Aggiorna l'URL visualizzato
+            document.getElementById('pizzeria-url').textContent = pizzeriaUrl;
+            
+            // Aggiorna il link per visitare il sito
+            document.getElementById('visit-site-btn').href = pizzeriaUrl;
             
             showNotification('🎉 Il tuo sito è stato creato!');
-            
-            setTimeout(() => {
-                window.location.href = `index.html?slug=${pizzeriaData.slug}&new=true`;
-            }, 2000);
+        }
+
+        function copyUrl() {
+            const url = document.getElementById('pizzeria-url').textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                const copyBtn = document.getElementById('copy-btn');
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiato!';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copia URL';
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+                
+                showNotification('URL copiato negli appunti! 📋');
+            });
+        }
+
+        function shareOnWhatsApp() {
+            const url = document.getElementById('pizzeria-url').textContent;
+            const text = `Ordina la tua pizza preferita online! 🍕 ${url}`;
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function shareOnFacebook() {
+            const url = document.getElementById('pizzeria-url').textContent;
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            window.open(facebookUrl, '_blank');
         }
 
         function showNotification(message) {
