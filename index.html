@@ -19,6 +19,21 @@
             border-radius: 10px;
             margin-bottom: 2rem;
             text-align: center;
+            transition: all 0.3s;
+        }
+        .pizzeria-selector {
+            background: rgba(255,255,255,0.2);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        select {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
         }
         .pizza-item {
             background: white;
@@ -26,6 +41,10 @@
             margin: 15px 0;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .pizza-item:hover {
+            transform: translateY(-2px);
         }
         button {
             background: #e74c3c;
@@ -35,6 +54,7 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            transition: background 0.3s;
         }
         button:hover {
             background: #c0392b;
@@ -45,35 +65,150 @@
             padding: 20px;
             border-radius: 10px;
             margin-top: 20px;
+            position: sticky;
+            bottom: 20px;
+        }
+        .category {
+            background: #34495e;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin: 25px 0 15px 0;
+            font-size: 1.2em;
+        }
+        .pizza-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
+    <div class="header" id="pizzeria-header">
+        <div class="pizzeria-selector">
+            <label for="pizzeria-select">Scegli Pizzeria:</label>
+            <select id="pizzeria-select" onchange="changePizzeria(this.value)">
+                <option value="demo">Pizzeria Demo</option>
+                <option value="marios-pizza">Mario's Pizza</option>
+                <option value="la-napoletana">La Napoletana</option>
+                <option value="pizza-express">Pizza Express</option>
+                <option value="pizza-nostra">Pizza Nostra</option>
+                <option value="il-forno">Il Forno Antico</option>
+            </select>
+        </div>
         <h1 id="pizzeria-name">🍕 Caricamento...</h1>
         <p id="pizzeria-address">📍 Indirizzo caricamento...</p>
+        <p id="pizzeria-phone">📞 Telefono caricamento...</p>
     </div>
     
-    <div class="pizza-item">
-        <h3>Margherita - €6,50</h3>
-        <button onclick="addToCart('Margherita', 6.50)">Aggiungi al carrello</button>
-    </div>
-    
-    <div class="pizza-item">
-        <h3>Diavola - €8,00</h3>
-        <button onclick="addToCart('Diavola', 8.00)">Aggiungi al carrello</button>
-    </div>
-    
-    <div class="pizza-item">
-        <h3>Quattro Stagioni - €9,50</h3>
-        <button onclick="addToCart('Quattro Stagioni', 9.50)">Aggiungi al carrello</button>
+    <div class="pizza-grid">
+        <!-- PIZZE CLASSICHE -->
+        <div style="grid-column: 1 / -1;">
+            <div class="category">🍕 Pizze Classiche</div>
+        </div>
+        
+        <div class="pizza-item">
+            <h3>Margherita</h3>
+            <p>Pomodoro, mozzarella, basilico fresco</p>
+            <p><strong>€6,50</strong></p>
+            <button onclick="addToCart('Margherita', 6.50)">Aggiungi al carrello</button>
+        </div>
+        
+        <div class="pizza-item">
+            <h3>Marinara</h3>
+            <p>Pomodoro, aglio, origano, olio EVO</p>
+            <p><strong>€5,50</strong></p>
+            <button onclick="addToCart('Marinara', 5.50)">Aggiungi al carrello</button>
+        </div>
+        
+        <div class="pizza-item">
+            <h3>Diavola</h3>
+            <p>Pomodoro, mozzarella, salame piccante</p>
+            <p><strong>€8,00</strong></p>
+            <button onclick="addToCart('Diavola', 8.00)">Aggiungi al carrello</button>
+        </div>
+
+        <!-- PIZZE SPECIALI -->
+        <div style="grid-column: 1 / -1;">
+            <div class="category">🌟 Pizze Speciali</div>
+        </div>
+
+        <div class="pizza-item">
+            <h3>Quattro Stagioni</h3>
+            <p>Pomodoro, mozzarella, prosciutto, funghi, carciofi, olive</p>
+            <p><strong>€10,50</strong></p>
+            <button onclick="addToCart('Quattro Stagioni', 10.50)">Aggiungi al carrello</button>
+        </div>
+
+        <div class="pizza-item">
+            <h3>Capricciosa</h3>
+            <p>Pomodoro, mozzarella, prosciutto, funghi, carciofi, olive, uovo</p>
+            <p><strong>€11,00</strong></p>
+            <button onclick="addToCart('Capricciosa', 11.00)">Aggiungi al carrello</button>
+        </div>
+
+        <div class="pizza-item">
+            <h3>Quattro Formaggi</h3>
+            <p>Mozzarella, gorgonzola, parmigiano, fontina</p>
+            <p><strong>€9,50</strong></p>
+            <button onclick="addToCart('Quattro Formaggi', 9.50)">Aggiungi al carrello</button>
+        </div>
+
+        <!-- PIZZE GOURMET -->
+        <div style="grid-column: 1 / -1;">
+            <div class="category">👑 Pizze Gourmet</div>
+        </div>
+
+        <div class="pizza-item">
+            <h3>Tartufata</h3>
+            <p>Mozzarella di bufala, funghi porcini, tartufo nero</p>
+            <p><strong>€15,00</strong></p>
+            <button onclick="addToCart('Tartufata', 15.00)">Aggiungi al carrello</button>
+        </div>
+
+        <div class="pizza-item">
+            <h3>Crudo e Rucola</h3>
+            <p>Mozzarella di bufala, prosciutto crudo, rucola, scaglie di parmigiano</p>
+            <p><strong>€13,50</strong></p>
+            <button onclick="addToCart('Crudo e Rucola', 13.50)">Aggiungi al carrello</button>
+        </div>
+
+        <div class="pizza-item">
+            <h3>Frutti di Mare</h3>
+            <p>Pomodoro, cozze, vongole, gamberi, calamari</p>
+            <p><strong>€14,00</strong></p>
+            <button onclick="addToCart('Frutti di Mare', 14.00)">Aggiungi al carrello</button>
+        </div>
+
+        <!-- CALZONI -->
+        <div style="grid-column: 1 / -1;">
+            <div class="category">🥟 Calzoni e Focacce</div>
+        </div>
+
+        <div class="pizza-item">
+            <h3>Calzone Classico</h3>
+            <p>Ripieno di pomodoro, mozzarella, prosciutto</p>
+            <p><strong>€8,50</strong></p>
+            <button onclick="addToCart('Calzone Classico', 8.50)">Aggiungi al carrello</button>
+        </div>
+
+        <div class="pizza-item">
+            <h3>Focaccia Recco</h3>
+            <p>Focaccia ligure con formaggio</p>
+            <p><strong>€7,00</strong></p>
+            <button onclick="addToCart('Focaccia Recco', 7.00)">Aggiungi al carrello</button>
+        </div>
     </div>
 
     <div id="cart">
-        <h3>🛒 Il Tuo Carrello - <span id="current-pizzeria">Demo</span></h3>
+        <h3>🛒 Carrello - <span id="current-pizzeria">Demo</span></h3>
         <div id="cart-items">Nessun articolo nel carrello</div>
-        <p>Totale: €<span id="total">0.00</span></p>
-        <button onclick="checkout()" style="background: #27ae60;">Checkout</button>
+        <div style="margin: 15px 0; padding-top: 15px; border-top: 2px solid #34495e;">
+            <p>Subtotale: €<span id="subtotal">0.00</span></p>
+            <p>Consegna: €<span id="delivery">2.50</span></p>
+            <p style="font-size: 1.2em; font-weight: bold;">TOTALE: €<span id="total">2.50</span></p>
+        </div>
+        <button onclick="checkout()" style="background: #27ae60; width: 100%; padding: 15px; font-size: 1.1em;">CONFERMA ORDINE</button>
     </div>
 
     <script>
@@ -83,106 +218,222 @@
                 name: "🍕 Pizzeria Demo",
                 address: "📍 Via Roma 123, Milano",
                 phone: "📞 0123 456789",
-                color: "#e74c3c"
+                color: "#e74c3c",
+                delivery: 2.50
             },
             'marios-pizza': {
                 name: "🍕 Mario's Pizza",
                 address: "📍 Piazza Duomo 1, Milano", 
                 phone: "📞 0987 654321",
-                color: "#27ae60"
+                color: "#27ae60",
+                delivery: 3.00
             },
             'la-napoletana': {
                 name: "🍕 La Napoletana",
                 address: "📍 Via Napoli 45, Roma",
                 phone: "📞 0456 789123", 
-                color: "#f39c12"
+                color: "#f39c12",
+                delivery: 2.50
             },
             'pizza-express': {
                 name: "🍕 Pizza Express",
                 address: "📍 Corso Italia 78, Torino",
                 phone: "📞 0321 654987",
-                color: "#9b59b6"
+                color: "#9b59b6",
+                delivery: 2.00
+            },
+            'pizza-nostra': {
+                name: "🍕 Pizza Nostra",
+                address: "📍 Via Garibaldi 12, Bologna",
+                phone: "📞 0765 432198",
+                color: "#e67e22",
+                delivery: 2.80
+            },
+            'il-forno': {
+                name: "🍕 Il Forno Antico",
+                address: "📍 Piazza Navona 3, Roma",
+                phone: "📞 0234 567890",
+                color: "#8e44ad",
+                delivery: 3.50
             }
         };
 
         let cart = [];
-        let total = 0;
         let currentPizzeria = 'demo';
+        const deliveryFee = 2.50;
 
-        // Carica la configurazione della pizzeria in base allo slug
-        function loadPizzeriaConfig() {
-            // Prendi lo slug dall'URL (es: ?slug=marios-pizza)
-            const urlParams = new URLSearchParams(window.location.search);
-            const slug = urlParams.get('slug') || 'demo';
+        // Carica la configurazione della pizzeria
+        function loadPizzeriaConfig(slug = null) {
+            if (!slug) {
+                // Prendi lo slug dall'URL
+                const urlParams = new URLSearchParams(window.location.search);
+                slug = urlParams.get('slug') || 'demo';
+            }
             
             currentPizzeria = slug;
             const pizzeria = pizzerias[slug] || pizzerias['demo'];
             
-            // Aggiorna la pagina con i dati della pizzeria
+            // Aggiorna la pagina
             document.getElementById('pizzeria-name').textContent = pizzeria.name;
             document.getElementById('pizzeria-address').textContent = pizzeria.address;
+            document.getElementById('pizzeria-phone').textContent = pizzeria.phone;
             document.getElementById('current-pizzeria').textContent = pizzeria.name.replace('🍕 ', '');
+            document.getElementById('delivery').textContent = pizzeria.delivery.toFixed(2);
+            
+            // Aggiorna il selettore
+            document.getElementById('pizzeria-select').value = slug;
             
             // Cambia colore tema
-            document.querySelector('.header').style.backgroundColor = pizzeria.color;
+            const header = document.getElementById('pizzeria-header');
+            header.style.backgroundColor = pizzeria.color;
+            
             document.querySelectorAll('button').forEach(btn => {
-                if (!btn.style.background || btn.style.background.includes('27ae60')) {
+                if (!btn.style.background || !btn.style.background.includes('27ae60')) {
                     btn.style.backgroundColor = pizzeria.color;
                 }
             });
             
             document.title = pizzeria.name + " - Ordina Online";
+            
+            // Salva nel localStorage
+            localStorage.setItem('lastPizzeria', slug);
+        }
+
+        // Cambia pizzeria dal selettore
+        function changePizzeria(slug) {
+            // Aggiorna URL senza ricaricare la pagina
+            const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?slug=' + slug;
+            window.history.pushState({ path: newUrl }, '', newUrl);
+            
+            loadPizzeriaConfig(slug);
+            showNotification('✅ Cambiato in ' + pizzerias[slug].name);
         }
 
         function addToCart(name, price) {
-            cart.push({ name: name, price: price });
-            total += price;
+            // Controlla se esiste già
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+                existingItem.total = existingItem.quantity * existingItem.price;
+            } else {
+                cart.push({ 
+                    name: name, 
+                    price: price,
+                    quantity: 1,
+                    total: price
+                });
+            }
+            
             updateCart();
-            alert('✅ ' + name + ' aggiunta al carrello!');
+            showNotification('✅ ' + name + ' aggiunta al carrello!');
         }
 
         function updateCart() {
             const cartItems = document.getElementById('cart-items');
+            const subtotalElement = document.getElementById('subtotal');
             const totalElement = document.getElementById('total');
             
             if (cart.length === 0) {
-                cartItems.innerHTML = 'Nessun articolo nel carrello';
+                cartItems.innerHTML = '<div style="text-align: center; color: #bdc3c7; font-style: italic;">Nessun articolo nel carrello</div>';
             } else {
                 cartItems.innerHTML = cart.map(item => 
-                    `<div>${item.name} - €${item.price.toFixed(2)}</div>`
+                    `<div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #34495e;">
+                        <div>
+                            <strong>${item.name}</strong>
+                            <div style="font-size: 0.9em; color: #bdc3c7;">
+                                €${item.price.toFixed(2)} × ${item.quantity}
+                            </div>
+                        </div>
+                        <div>
+                            €${item.total.toFixed(2)}
+                            <button onclick="removeFromCart('${item.name}')" style="background: #e74c3c; margin-left: 10px; padding: 5px 10px; font-size: 0.8em;">×</button>
+                        </div>
+                    </div>`
                 ).join('');
             }
             
+            const subtotal = cart.reduce((sum, item) => sum + item.total, 0);
+            const pizzeria = pizzerias[currentPizzeria] || pizzerias['demo'];
+            const total = subtotal + pizzeria.delivery;
+            
+            subtotalElement.textContent = subtotal.toFixed(2);
             totalElement.textContent = total.toFixed(2);
+        }
+
+        function removeFromCart(pizzaName) {
+            cart = cart.filter(item => item.name !== pizzaName);
+            updateCart();
+            showNotification('🗑️ ' + pizzaName + ' rimossa dal carrello');
         }
 
         function checkout() {
             if (cart.length === 0) {
-                alert('Il carrello è vuoto!');
+                showNotification('❌ Il carrello è vuoto!');
                 return;
             }
             
             const pizzeria = pizzerias[currentPizzeria] || pizzerias['demo'];
+            const subtotal = cart.reduce((sum, item) => sum + item.total, 0);
+            const total = subtotal + pizzeria.delivery;
+            
             const orderDetails = cart.map(item => 
-                `${item.name} - €${item.price.toFixed(2)}`
+                `${item.quantity}x ${item.name} - €${item.total.toFixed(2)}`
             ).join('\n');
             
-            alert('🎉 Ordine Confermato per ' + pizzeria.name + '!\n\nIl tuo ordine:\n' + orderDetails + '\n\nTotale: €' + total.toFixed(2) + '\n\n' + pizzeria.phone);
+            const message = `🎉 ORDINE CONFERMATO!\n\n${pizzeria.name}\n${pizzeria.address}\n${pizzeria.phone}\n\nIL TUO ORDINE:\n${orderDetails}\n\nSubtotale: €${subtotal.toFixed(2)}\nConsegna: €${pizzeria.delivery.toFixed(2)}\nTOTALE: €${total.toFixed(2)}\n\nGrazie! A presto! 🍕`;
+            
+            alert(message);
             
             // Reset carrello
             cart = [];
-            total = 0;
             updateCart();
         }
 
+        function showNotification(message) {
+            // Crea una notifica temporanea
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: #27ae60;
+                color: white;
+                padding: 15px 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 1000;
+                font-weight: bold;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 3000);
+        }
+
         // Inizializza la pagina
-        loadPizzeriaConfig();
-        
-        // Messaggio di benvenuto
-        setTimeout(() => {
-            const pizzeria = pizzerias[currentPizzeria] || pizzerias['demo'];
-            alert('Benvenuto in ' + pizzeria.name + '! 🍕');
-        }, 500);
+        document.addEventListener('DOMContentLoaded', function() {
+            // Carica l'ultima pizzeria usata o dall'URL
+            const lastPizzeria = localStorage.getItem('lastPizzeria');
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlSlug = urlParams.get('slug');
+            
+            loadPizzeriaConfig(urlSlug || lastPizzeria || 'demo');
+            
+            // Carica carrello salvato
+            const savedCart = localStorage.getItem('pizzaCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+            }
+            
+            // Salva carrello quando la pagina si chiude
+            window.addEventListener('beforeunload', function() {
+                localStorage.setItem('pizzaCart', JSON.stringify(cart));
+            });
+        });
     </script>
 </body>
 </html>
