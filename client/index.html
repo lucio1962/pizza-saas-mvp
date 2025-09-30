@@ -4,80 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizzeria - Ordina Online</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .pizzeria-name {
+            color: #e74c3c;
+            font-size: 2.5em;
+        }
+        .menu-item {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <!-- Header -->
-        <header class="header">
-            <div class="container">
-                <h1 id="pizzeria-name">La Tua Pizzeria</h1>
-                <div class="pizzeria-info">
-                    <span id="pizzeria-phone">📞 Caricamento...</span>
-                    <span id="pizzeria-address">📍 Caricamento...</span>
-                </div>
-            </div>
-        </header>
-
-        <!-- Categorie -->
-        <nav class="categories">
-            <div class="container">
-                <div id="categories-list" class="categories-list">
-                    <!-- Dinamico -->
-                </div>
-            </div>
-        </nav>
-
-        <!-- Menu -->
-        <main class="container">
-            <div id="menu-container" class="menu-grid">
-                <!-- Items caricati dinamicamente -->
-            </div>
-        </main>
-
-        <!-- Carrello Fisso -->
-        <div id="cart" class="cart">
-            <div class="cart-header">
-                <h3>🛒 Il Tuo Ordine</h3>
-                <span class="cart-badge" id="cart-count">0</span>
-                <button id="toggle-cart" class="btn-toggle">↓</button>
-            </div>
-            
-            <div class="cart-content">
-                <div id="cart-items" class="cart-items">
-                    <!-- Items del carrello -->
-                </div>
-                
-                <div class="cart-totals">
-                    <div class="total-line">
-                        <span>Subtotale:</span>
-                        <span id="subtotal">€0.00</span>
-                    </div>
-                    <div class="total-line">
-                        <span>Consegna:</span>
-                        <span id="delivery-fee">€2.50</span>
-                    </div>
-                    <div class="total-line grand-total">
-                        <span>TOTALE:</span>
-                        <span id="total">€2.50</span>
-                    </div>
-                </div>
-                
-                <button id="checkout-btn" class="btn-checkout">CHECKOUT</button>
-            </div>
-        </div>
-
-        <!-- Modal Checkout -->
-        <div id="checkout-modal" class="modal">
-            <div class="modal-content">
-                <h2>Completa il tuo ordine</h2>
-                <form id="checkout-form">
-                    <!-- Form sarà popolato via JS -->
-                </form>
-            </div>
-        </div>
+    <h1 class="pizzeria-name">🍕 La Tua Pizzeria</h1>
+    <p>Benvenuto! Sistema di ordinazione online</p>
+    
+    <div class="menu-item">
+        <h3>Margherita</h3>
+        <p>Pomodoro, mozzarella, basilico - €6.50</p>
+        <button>Aggiungi al carrello</button>
     </div>
-
-    <script src="app.js"></script>
+    
+    <div class="menu-item">
+        <h3>Marinara</h3>
+        <p>Pomodoro, aglio, origano - €5.00</p>
+        <button>Aggiungi al carrello</button>
+    </div>
+    
+    <script>
+        console.log('Pizza SaaS MVP - Funziona!');
+    </script>
 </body>
 </html>
