@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registra la Tua Pizzeria - PizzaSaaS</title>
+    <title>Crea la Tua Pizzeria Online - PizzaSaaS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #e74c3c;
             --secondary: #f39c12;
             --dark: #2c3e50;
             --light: #ecf0f1;
+            --success: #27ae60;
+            --gradient: linear-gradient(135deg, #e74c3c, #f39c12);
         }
         
         * {
@@ -30,22 +33,82 @@
             max-width: 1000px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+        }
+        
+        /* HEADER */
+        .registration-header {
+            background: var(--gradient);
+            color: white;
             padding: 2.5rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .registration-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+            opacity: 0.1;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+        
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+        
+        .registration-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .registration-header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        /* PROGRESS BAR MODERNA */
+        .progress-container {
+            background: white;
+            padding: 2rem;
+            border-bottom: 1px solid #eee;
         }
         
         .progress-bar {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 2.5rem;
             position: relative;
+            max-width: 600px;
+            margin: 0 auto;
         }
         
         .progress-bar::before {
             content: '';
             position: absolute;
-            top: 20px;
+            top: 15px;
             left: 0;
             right: 0;
             height: 4px;
@@ -61,8 +124,8 @@
         }
         
         .step-number {
-            width: 40px;
-            height: 40px;
+            width: 35px;
+            height: 35px;
             background: var(--light);
             color: #666;
             border-radius: 50%;
@@ -72,20 +135,39 @@
             margin: 0 auto 8px;
             font-weight: bold;
             transition: all 0.3s;
+            border: 3px solid white;
         }
         
         .progress-step.active .step-number {
             background: var(--primary);
             color: white;
+            transform: scale(1.1);
         }
         
+        .progress-step.completed .step-number {
+            background: var(--success);
+            color: white;
+        }
+        
+        .step-label {
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .progress-step.active .step-label {
+            color: var(--primary);
+        }
+        
+        /* STEP CONTENT */
         .step-content {
             display: none;
+            padding: 3rem;
+            animation: fadeIn 0.5s;
         }
         
         .step-content.active {
             display: block;
-            animation: fadeIn 0.5s;
         }
         
         @keyframes fadeIn {
@@ -93,120 +175,151 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
+        .step-title {
+            font-size: 2em;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            text-align: center;
+        }
+        
+        .step-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 1.1em;
+        }
+        
+        /* FORM MODERNO */
         .form-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.2rem;
-            margin-bottom: 1.5rem;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
         
         .form-group {
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
         }
         
         .form-group.full-width {
             grid-column: 1 / -1;
         }
         
-        label {
+        .form-label {
             display: block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             font-weight: 600;
             color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
         
-        input, select, textarea {
+        .form-label i {
+            color: var(--primary);
+        }
+        
+        .form-input {
             width: 100%;
-            padding: 10px 12px;
+            padding: 15px 20px;
             border: 2px solid var(--light);
-            border-radius: 8px;
+            border-radius: 15px;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
+            background: #f8f9fa;
         }
         
-        input:focus, select:focus, textarea:focus {
+        .form-input:focus {
             outline: none;
             border-color: var(--primary);
+            background: white;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.1);
         }
         
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        /* PIZZA GRID MODERNA */
         .pizza-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.2rem;
-            margin: 1.5rem 0;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
         
         .pizza-card {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 10px;
-            border: 2px dashed #bdc3c7;
+            background: white;
+            border: 2px dashed #ddd;
+            padding: 2rem;
+            border-radius: 20px;
             transition: all 0.3s;
+            position: relative;
         }
         
         .pizza-card:hover {
             border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
         
-        .btn {
-            background: var(--primary);
-            color: white;
-            padding: 10px 25px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-right: 0.8rem;
-        }
-        
-        .btn:hover {
-            background: #c0392b;
-            transform: translateY(-2px);
-        }
-        
-        .btn-secondary {
-            background: #95a5a6;
-        }
-        
-        .btn-success {
-            background: #27ae60;
-        }
-        
-        .btn-success:hover {
-            background: #219a52;
-        }
-        
-        .navigation {
+        .pizza-card-header {
             display: flex;
-            justify-content: space-between;
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 2px solid var(--light);
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 1.5rem;
         }
         
-        .preview-section {
-            background: var(--light);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin-top: 1.5rem;
+        .pizza-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
         }
         
+        .remove-pizza {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        
+        .remove-pizza:hover {
+            transform: scale(1.1);
+        }
+        
+        /* COLOR SELECTOR MODERNO */
         .color-options {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
-            gap: 0.8rem;
+            grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            gap: 1rem;
             margin-top: 1rem;
         }
         
         .color-option {
-            width: 50px;
-            height: 50px;
-            border-radius: 8px;
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
             cursor: pointer;
-            border: 3px solid transparent;
+            border: 4px solid transparent;
             transition: all 0.3s;
+            position: relative;
         }
         
         .color-option.selected {
@@ -214,154 +327,363 @@
             transform: scale(1.1);
         }
         
-        .menu-preview {
-            background: #2c3e50;
+        .color-option.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        /* PREVIEW MODERNO */
+        .preview-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        
+        .preview-title {
+            font-size: 1.5em;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .preview-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 400px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        
+        .preview-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .preview-menu {
+            space-y: 1rem;
+        }
+        
+        .preview-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 1rem;
-            border-radius: 8px;
-            max-width: 300px;
-            margin: 1rem auto;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
         }
         
-        .menu-item-preview {
-            background: #34495e;
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            border-radius: 5px;
+        /* BUTTONS MODERNI */
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
         }
         
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(231, 76, 60, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #219a52;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(39, 174, 96, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #ddd;
+            color: #666;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        /* NOTIFICATION */
         .notification {
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #27ae60;
+            background: var(--success);
             color: white;
-            padding: 0.8rem 1.2rem;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 1rem 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transform: translateX(400px);
             transition: transform 0.3s;
             z-index: 1000;
             font-weight: bold;
-            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .notification.show {
             transform: translateX(0);
         }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pizza-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .step-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .action-buttons {
+                width: 100%;
+            }
+            
+            .btn {
+                flex: 1;
+                justify-content: center;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 style="text-align: center; margin-bottom: 0.5rem; color: var(--dark);">🍕 Crea il Tuo Sito Pizzeria</h1>
-        <p style="text-align: center; color: #666; margin-bottom: 2rem;">Completa i 3 semplici passaggi per avere il tuo sito</p>
+        <!-- HEADER -->
+        <div class="registration-header">
+            <button class="back-button" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1><i class="fas fa-pizza-slice"></i> Crea la Tua Pizzeria</h1>
+            <p>Trasforma la tua passione in un business online in pochi minuti</p>
+        </div>
         
-        <div class="progress-bar">
-            <div class="progress-step active" data-step="1">
-                <div class="step-number">1</div>
-                <div>Informazioni</div>
-            </div>
-            <div class="progress-step" data-step="2">
-                <div class="step-number">2</div>
-                <div>Menu Pizze</div>
-            </div>
-            <div class="progress-step" data-step="3">
-                <div class="step-number">3</div>
-                <div>Conferma</div>
+        <!-- PROGRESS BAR -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Informazioni</div>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Menu</div>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Anteprima</div>
+                </div>
             </div>
         </div>
         
         <!-- STEP 1: INFORMAZIONI -->
         <div class="step-content active" id="step-1">
-            <h2 style="margin-bottom: 1.5rem;">Informazioni della Pizzeria</h2>
+            <h2 class="step-title">Informazioni Pizzeria</h2>
+            <p class="step-subtitle">Inserisci i dati della tua attività</p>
             
             <div class="form-grid">
                 <div class="form-group">
-                    <label for="pizzeria-name">Nome Pizzeria *</label>
-                    <input type="text" id="pizzeria-name" placeholder="Es: Mario's Pizza" required>
+                    <label class="form-label">
+                        <i class="fas fa-store"></i>
+                        Nome Pizzeria *
+                    </label>
+                    <input type="text" class="form-input" id="pizzeria-name" placeholder="Es: Mario's Pizza" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="pizzeria-slug">URL Personalizzato *</label>
-                    <input type="text" id="pizzeria-slug" placeholder="Es: marios-pizza" required>
-                    <small style="color: #666;">Il tuo sito sarà: tuosito.it/marios-pizza</small>
+                    <label class="form-label">
+                        <i class="fas fa-link"></i>
+                        URL Personalizzato *
+                    </label>
+                    <input type="text" class="form-input" id="pizzeria-slug" placeholder="Es: marios-pizza" required>
+                    <small style="color: #666; display: block; margin-top: 5px;">Il tuo sito sarà: tuosito.it/marios-pizza</small>
                 </div>
                 
                 <div class="form-group">
-                    <label for="pizzeria-phone">Telefono *</label>
-                    <input type="tel" id="pizzeria-phone" placeholder="Es: 0123 456789" required>
+                    <label class="form-label">
+                        <i class="fas fa-phone"></i>
+                        Telefono *
+                    </label>
+                    <input type="tel" class="form-input" id="pizzeria-phone" placeholder="Es: 0123 456789" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="pizzeria-email">Email</label>
-                    <input type="email" id="pizzeria-email" placeholder="tua@email.it">
+                    <label class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </label>
+                    <input type="email" class="form-input" id="pizzeria-email" placeholder="tua@email.it">
                 </div>
                 
                 <div class="form-group full-width">
-                    <label for="pizzeria-address">Indirizzo Completo *</label>
-                    <textarea id="pizzeria-address" placeholder="Via, Civico, Città, CAP" rows="2" required></textarea>
+                    <label class="form-label">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Indirizzo Completo *
+                    </label>
+                    <textarea class="form-input form-textarea" id="pizzeria-address" placeholder="Via, Civico, Città, CAP" required></textarea>
                 </div>
             </div>
             
             <div class="navigation">
-                <div></div>
-                <button class="btn" onclick="nextStep(2)">Continua →</button>
+                <button class="btn btn-outline" onclick="goBack()">
+                    <i class="fas fa-times"></i>
+                    Annulla
+                </button>
+                <button class="btn btn-primary" onclick="nextStep(2)">
+                    Continua
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
         </div>
         
         <!-- STEP 2: MENU PIZZE -->
         <div class="step-content" id="step-2">
-            <h2 style="margin-bottom: 1rem;">Crea il Tuo Menu</h2>
-            <p style="color: #666; margin-bottom: 1.5rem;">Aggiungi le tue pizze con prezzi e ingredienti</p>
+            <h2 class="step-title">Crea il Tuo Menu</h2>
+            <p class="step-subtitle">Aggiungi le tue pizze con prezzi e ingredienti</p>
             
             <div class="pizza-grid" id="pizza-container">
-                <!-- Pizze base pre-caricate -->
+                <!-- Pizze pre-caricate -->
                 <div class="pizza-card">
-                    <div class="form-group">
-                        <label>Nome Pizza</label>
-                        <input type="text" value="Margherita" placeholder="Es: Diavola" oninput="updatePizza(0, 'name', this.value)">
+                    <div class="pizza-card-header">
+                        <div class="pizza-icon">
+                            <i class="fas fa-pizza-slice"></i>
+                        </div>
+                        <h3 style="color: var(--dark);">Pizza #1</h3>
                     </div>
                     <div class="form-group">
-                        <label>Prezzo (€)</label>
-                        <input type="number" value="6.50" step="0.50" min="0" oninput="updatePizza(0, 'price', this.value)">
+                        <label class="form-label">Nome Pizza</label>
+                        <input type="text" class="form-input" value="Margherita" placeholder="Es: Diavola" oninput="updatePizza(0, 'name', this.value)">
                     </div>
                     <div class="form-group">
-                        <label>Ingredienti</label>
-                        <textarea placeholder="Descrizione ingredienti" rows="2" oninput="updatePizza(0, 'description', this.value)">Pomodoro, mozzarella, basilico</textarea>
+                        <label class="form-label">Prezzo (€)</label>
+                        <input type="number" class="form-input" value="8.50" step="0.50" min="0" oninput="updatePizza(0, 'price', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ingredienti</label>
+                        <textarea class="form-input form-textarea" placeholder="Descrizione ingredienti" oninput="updatePizza(0, 'description', this.value)">Pomodoro San Marzano DOP, mozzarella di bufala campana, basilico fresco, olio EVO</textarea>
                     </div>
                 </div>
                 
                 <div class="pizza-card">
-                    <div class="form-group">
-                        <label>Nome Pizza</label>
-                        <input type="text" value="Marinara" placeholder="Es: Diavola" oninput="updatePizza(1, 'name', this.value)">
+                    <div class="pizza-card-header">
+                        <div class="pizza-icon">
+                            <i class="fas fa-pizza-slice"></i>
+                        </div>
+                        <h3 style="color: var(--dark);">Pizza #2</h3>
                     </div>
                     <div class="form-group">
-                        <label>Prezzo (€)</label>
-                        <input type="number" value="5.50" step="0.50" min="0" oninput="updatePizza(1, 'price', this.value)">
+                        <label class="form-label">Nome Pizza</label>
+                        <input type="text" class="form-input" value="Marinara" placeholder="Es: Diavola" oninput="updatePizza(1, 'name', this.value)">
                     </div>
                     <div class="form-group">
-                        <label>Ingredienti</label>
-                        <textarea placeholder="Descrizione ingredienti" rows="2" oninput="updatePizza(1, 'description', this.value)">Pomodoro, aglio, origano</textarea>
+                        <label class="form-label">Prezzo (€)</label>
+                        <input type="number" class="form-input" value="6.50" step="0.50" min="0" oninput="updatePizza(1, 'price', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ingredienti</label>
+                        <textarea class="form-input form-textarea" placeholder="Descrizione ingredienti" oninput="updatePizza(1, 'description', this.value)">Pomodoro pelato, aglio, origano, olio extravergine d'oliva</textarea>
                     </div>
                 </div>
             </div>
             
-            <button class="btn" onclick="addPizza()" style="background: #3498db;">+ Aggiungi Altra Pizza</button>
+            <div style="text-align: center; margin: 2rem 0;">
+                <button class="btn btn-outline" onclick="addPizza()">
+                    <i class="fas fa-plus"></i>
+                    Aggiungi Altra Pizza
+                </button>
+            </div>
             
             <div class="navigation">
-                <button class="btn btn-secondary" onclick="prevStep(1)">← Indietro</button>
-                <button class="btn" onclick="nextStep(3)">Continua →</button>
+                <div class="action-buttons">
+                    <button class="btn btn-outline" onclick="goBack()">
+                        <i class="fas fa-times"></i>
+                        Annulla
+                    </button>
+                    <button class="btn btn-secondary" onclick="prevStep(1)">
+                        <i class="fas fa-arrow-left"></i>
+                        Indietro
+                    </button>
+                </div>
+                <button class="btn btn-primary" onclick="nextStep(3)">
+                    Continua
+                    <i class="fas fa-arrow-right"></i>
+                </button>
             </div>
         </div>
         
-        <!-- STEP 3: ANTEPRIMA E CONFERMA -->
+        <!-- STEP 3: ANTEPRIMA -->
         <div class="step-content" id="step-3">
-            <h2 style="margin-bottom: 1rem;">Anteprima e Conferma</h2>
-            <p style="color: #666; margin-bottom: 1.5rem;">Controlla i dati e personalizza il colore del tuo sito</p>
+            <h2 class="step-title">Personalizza e Anteprima</h2>
+            <p class="step-subtitle">Scegli il colore del tema e guarda l'anteprima del tuo sito</p>
             
             <div class="form-group">
-                <label>Colore Principale del Tema</label>
+                <label class="form-label">
+                    <i class="fas fa-palette"></i>
+                    Colore Principale del Tema
+                </label>
                 <div class="color-options">
                     <div class="color-option selected" style="background: #e74c3c;" data-color="#e74c3c"></div>
                     <div class="color-option" style="background: #27ae60;" data-color="#27ae60"></div>
@@ -373,50 +695,101 @@
             </div>
             
             <div class="preview-section">
-                <h3 style="margin-bottom: 1rem;">📱 Anteprima del Tuo Sito</h3>
+                <h3 class="preview-title">📱 Anteprima del Tuo Sito</h3>
                 
-                <div class="menu-preview">
-                    <h4 id="preview-name" style="text-align: center; margin-bottom: 0.5rem;">Nome Pizzeria</h4>
-                    <p id="preview-address" style="text-align: center; font-size: 0.8em; margin-bottom: 1rem;">Indirizzo</p>
+                <div class="preview-card">
+                    <div class="preview-header" id="preview-header">
+                        <h4 id="preview-name" style="margin: 0; font-size: 1.2em;">Nome Pizzeria</h4>
+                        <p id="preview-address" style="margin: 5px 0 0 0; opacity: 0.9; font-size: 0.9em;">Indirizzo</p>
+                    </div>
                     
-                    <div id="preview-menu">
-                        <div class="menu-item-preview">
-                            <strong>Margherita</strong> - €6.50
+                    <div class="preview-menu" id="preview-menu">
+                        <div class="preview-item">
+                            <span>Margherita</span>
+                            <strong>€8.50</strong>
                         </div>
-                        <div class="menu-item-preview">
-                            <strong>Marinara</strong> - €5.50
+                        <div class="preview-item">
+                            <span>Marinara</span>
+                            <strong>€6.50</strong>
                         </div>
                     </div>
                     
-                    <button style="background: #e74c3c; color: white; border: none; padding: 8px; width: 100%; border-radius: 5px; margin-top: 1rem;">
-                        Aggiungi al Carrello
+                    <button style="background: #e74c3c; color: white; border: none; padding: 12px; width: 100%; border-radius: 10px; margin-top: 1rem; font-weight: bold;">
+                        <i class="fas fa-shopping-cart"></i>
+                        Ordina Ora
                     </button>
                 </div>
             </div>
             
             <div class="navigation">
-                <button class="btn btn-secondary" onclick="prevStep(2)">← Modifica Menu</button>
-                <button class="btn btn-success" onclick="createPizzeriaSite()">🎉 Crea il Mio Sito!</button>
+                <div class="action-buttons">
+                    <button class="btn btn-outline" onclick="goBack()">
+                        <i class="fas fa-times"></i>
+                        Annulla
+                    </button>
+                    <button class="btn btn-secondary" onclick="prevStep(2)">
+                        <i class="fas fa-arrow-left"></i>
+                        Indietro
+                    </button>
+                </div>
+                <button class="btn btn-success" onclick="createPizzeriaSite()">
+                    <i class="fas fa-rocket"></i>
+                    Crea il Mio Sito!
+                </button>
             </div>
         </div>
     </div>
 
-    <div id="notification" class="notification"></div>
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text"></span>
+    </div>
 
     <script>
         let currentStep = 1;
         let selectedColor = '#e74c3c';
         let pizzas = [
-            { name: 'Margherita', price: 6.50, description: 'Pomodoro, mozzarella, basilico' },
-            { name: 'Marinara', price: 5.50, description: 'Pomodoro, aglio, origano' }
+            { 
+                name: 'Margherita', 
+                price: 8.50, 
+                description: 'Pomodoro San Marzano DOP, mozzarella di bufala campana, basilico fresco, olio EVO' 
+            },
+            { 
+                name: 'Marinara', 
+                price: 6.50, 
+                description: 'Pomodoro pelato, aglio, origano, olio extravergine d\'oliva' 
+            }
         ];
 
+        // Inizializzazione
         document.addEventListener('DOMContentLoaded', function() {
             updatePreview();
             setupColorSelector();
+            updateProgressBar();
         });
 
+        // Funzione per tornare indietro
+        function goBack() {
+            if (confirm('Sei sicuro di voler annullare la registrazione? I dati inseriti andranno persi.')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function updateProgressBar() {
+            document.querySelectorAll('.progress-step').forEach(step => {
+                const stepNum = parseInt(step.dataset.step);
+                step.classList.remove('active', 'completed');
+                
+                if (stepNum === currentStep) {
+                    step.classList.add('active');
+                } else if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                }
+            });
+        }
+
         function nextStep(step) {
+            // Validazione
             if (step === 2) {
                 const name = document.getElementById('pizzeria-name').value;
                 const slug = document.getElementById('pizzeria-slug').value;
@@ -424,7 +797,7 @@
                 const address = document.getElementById('pizzeria-address').value;
                 
                 if (!name || !slug || !phone || !address) {
-                    alert('Per favore completa tutti i campi obbligatori del primo step');
+                    showNotification('Per favore completa tutti i campi obbligatori');
                     return;
                 }
             }
@@ -432,18 +805,16 @@
             if (step === 3) {
                 const validPizzas = pizzas.filter(pizza => pizza.name && pizza.price > 0);
                 if (validPizzas.length === 0) {
-                    alert('Aggiungi almeno una pizza al tuo menu!');
+                    showNotification('Aggiungi almeno una pizza al tuo menu!');
                     return;
                 }
             }
             
+            // Cambio step
             document.getElementById(`step-${currentStep}`).classList.remove('active');
-            document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
-            
             currentStep = step;
-            
             document.getElementById(`step-${currentStep}`).classList.add('active');
-            document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
+            updateProgressBar();
             
             if (step === 3) {
                 updatePreview();
@@ -451,7 +822,10 @@
         }
 
         function prevStep(step) {
-            nextStep(step);
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep = step;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgressBar();
         }
 
         function addPizza() {
@@ -463,25 +837,32 @@
             const container = document.getElementById('pizza-container');
             container.innerHTML = pizzas.map((pizza, index) => `
                 <div class="pizza-card">
+                    ${pizzas.length > 2 ? `
+                        <button class="remove-pizza" onclick="removePizza(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    ` : ''}
+                    <div class="pizza-card-header">
+                        <div class="pizza-icon">
+                            <i class="fas fa-pizza-slice"></i>
+                        </div>
+                        <h3 style="color: var(--dark);">Pizza #${index + 1}</h3>
+                    </div>
                     <div class="form-group">
-                        <label>Nome Pizza</label>
-                        <input type="text" value="${pizza.name}" placeholder="Es: Diavola" 
+                        <label class="form-label">Nome Pizza</label>
+                        <input type="text" class="form-input" value="${pizza.name}" placeholder="Es: Diavola" 
                                oninput="updatePizza(${index}, 'name', this.value)">
                     </div>
                     <div class="form-group">
-                        <label>Prezzo (€)</label>
-                        <input type="number" value="${pizza.price}" step="0.50" min="0"
+                        <label class="form-label">Prezzo (€)</label>
+                        <input type="number" class="form-input" value="${pizza.price}" step="0.50" min="0"
                                oninput="updatePizza(${index}, 'price', this.value)">
                     </div>
                     <div class="form-group">
-                        <label>Ingredienti</label>
-                        <textarea placeholder="Descrizione ingredienti" rows="2"
+                        <label class="form-label">Ingredienti</label>
+                        <textarea class="form-input form-textarea" placeholder="Descrizione ingredienti"
                                   oninput="updatePizza(${index}, 'description', this.value)">${pizza.description}</textarea>
                     </div>
-                    ${pizzas.length > 2 ? `
-                        <button class="btn" style="background: #e74c3c; padding: 6px 12px; font-size: 0.8em;" 
-                                onclick="removePizza(${index})">Rimuovi</button>
-                    ` : ''}
                 </div>
             `).join('');
         }
@@ -494,10 +875,12 @@
         }
 
         function removePizza(index) {
-            pizzas.splice(index, 1);
-            updatePizzaGrid();
-            if (currentStep === 3) {
-                updatePreview();
+            if (pizzas.length > 2) {
+                pizzas.splice(index, 1);
+                updatePizzaGrid();
+                if (currentStep === 3) {
+                    updatePreview();
+                }
             }
         }
 
@@ -518,17 +901,19 @@
             
             document.getElementById('preview-name').textContent = name;
             document.getElementById('preview-address').textContent = address;
+            document.getElementById('preview-header').style.background = selectedColor;
             
             const previewMenu = document.getElementById('preview-menu');
             const validPizzas = pizzas.filter(pizza => pizza.name && pizza.price > 0);
             
             previewMenu.innerHTML = validPizzas.map(pizza => `
-                <div class="menu-item-preview">
-                    <strong>${pizza.name}</strong> - €${pizza.price.toFixed(2)}
+                <div class="preview-item">
+                    <span>${pizza.name}</span>
+                    <strong>€${pizza.price.toFixed(2)}</strong>
                 </div>
             `).join('');
             
-            const previewButton = document.querySelector('.menu-preview button');
+            const previewButton = document.querySelector('.preview-card button');
             if (previewButton) previewButton.style.backgroundColor = selectedColor;
         }
 
@@ -544,27 +929,30 @@
             };
 
             if (!pizzeriaData.name || !pizzeriaData.slug || !pizzeriaData.phone || !pizzeriaData.address) {
-                alert('Per favore completa tutti i campi obbligatori');
+                showNotification('Per favore completa tutti i campi obbligatori');
                 return;
             }
 
             if (pizzeriaData.menu.length === 0) {
-                alert('Aggiungi almeno una pizza al menu!');
+                showNotification('Aggiungi almeno una pizza al menu!');
                 return;
             }
 
+            // Salva nel localStorage
             localStorage.setItem('pizzeria_' + pizzeriaData.slug, JSON.stringify(pizzeriaData));
             
             showNotification('🎉 Il tuo sito è stato creato!');
             
             setTimeout(() => {
                 window.location.href = `index.html?slug=${pizzeriaData.slug}&new=true`;
-            }, 1500);
+            }, 2000);
         }
 
         function showNotification(message) {
             const notification = document.getElementById('notification');
-            notification.textContent = message;
+            const notificationText = document.getElementById('notification-text');
+            
+            notificationText.textContent = message;
             notification.classList.add('show');
             
             setTimeout(() => {
@@ -572,6 +960,7 @@
             }, 3000);
         }
 
+        // Aggiorna l'anteprima quando cambiano i campi
         document.getElementById('pizzeria-name').addEventListener('input', updatePreview);
         document.getElementById('pizzeria-address').addEventListener('input', updatePreview);
     </script>
