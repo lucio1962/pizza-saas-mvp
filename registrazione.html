@@ -428,13 +428,17 @@
             color: var(--dark);
             word-break: break-all;
             margin-bottom: 1rem;
+            background: white;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid #ddd;
         }
 
         .copy-btn {
             background: var(--success);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
@@ -452,6 +456,34 @@
 
         .copy-btn.copied {
             background: var(--primary);
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+        }
+
+        .share-btn {
+            background: var(--light);
+            color: var(--dark);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .share-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
         }
         
         /* BUTTONS MODERNI */
@@ -573,6 +605,10 @@
             .btn {
                 flex: 1;
                 justify-content: center;
+            }
+
+            .share-buttons {
+                flex-direction: column;
             }
         }
     </style>
@@ -833,27 +869,22 @@
                     </button>
                 </div>
 
-                <div style="margin: 2rem 0;">
-                    <p style="color: #666; margin-bottom: 1rem;">
-                        <i class="fas fa-share-alt"></i> Condividi il tuo sito:
-                    </p>
-                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <button class="btn btn-outline" onclick="shareOnWhatsApp()">
-                            <i class="fab fa-whatsapp"></i>
-                            WhatsApp
-                        </button>
-                        <button class="btn btn-outline" onclick="shareOnFacebook()">
-                            <i class="fab fa-facebook"></i>
-                            Facebook
-                        </button>
-                        <button class="btn btn-outline" onclick="copyUrl()">
-                            <i class="fas fa-link"></i>
-                            Copia Link
-                        </button>
-                    </div>
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="shareOnWhatsApp()">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp
+                    </button>
+                    <button class="share-btn" onclick="shareOnFacebook()">
+                        <i class="fab fa-facebook"></i>
+                        Facebook
+                    </button>
+                    <button class="share-btn" onclick="shareOnEmail()">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </button>
                 </div>
 
-                <div class="navigation" style="justify-content: center;">
+                <div class="navigation" style="justify-content: center; gap: 1rem;">
                     <a href="#" class="btn btn-primary" id="visit-site-btn">
                         <i class="fas fa-external-link-alt"></i>
                         Visita il Tuo Sito
@@ -862,6 +893,18 @@
                         <i class="fas fa-plus"></i>
                         Crea un Altro Sito
                     </a>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 15px;">
+                    <h4 style="color: var(--dark); margin-bottom: 1rem;">
+                        <i class="fas fa-lightbulb"></i> Prossimi Passi
+                    </h4>
+                    <ul style="text-align: left; color: #666; line-height: 1.6;">
+                        <li><strong>Condividi il link</strong> con i tuoi clienti</li>
+                        <li><strong>Prova ad ordinare</strong> per testare il sistema</li>
+                        <li><strong>Il carrello si salva automaticamente</strong> - i clienti non perdono mai gli ordini</li>
+                        <li><strong>Personalizza il menu</strong> quando vuoi tornando alla registrazione</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -1099,21 +1142,26 @@
             const url = document.getElementById('pizzeria-url').textContent;
             navigator.clipboard.writeText(url).then(() => {
                 const copyBtn = document.getElementById('copy-btn');
+                const originalText = copyBtn.innerHTML;
                 copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiato!';
                 copyBtn.classList.add('copied');
                 
                 setTimeout(() => {
-                    copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copia URL';
+                    copyBtn.innerHTML = originalText;
                     copyBtn.classList.remove('copied');
                 }, 2000);
                 
                 showNotification('URL copiato negli appunti! 📋');
+            }).catch(err => {
+                console.error('Errore nella copia: ', err);
+                showNotification('Errore nella copia. Prova a selezionare manualmente.');
             });
         }
 
         function shareOnWhatsApp() {
             const url = document.getElementById('pizzeria-url').textContent;
-            const text = `Ordina la tua pizza preferita online! 🍕 ${url}`;
+            const pizzeriaName = document.getElementById('pizzeria-name').value;
+            const text = `Ordina dalla mia pizzeria ${pizzeriaName}! 🍕 ${url}`;
             const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
             window.open(whatsappUrl, '_blank');
         }
@@ -1122,6 +1170,15 @@
             const url = document.getElementById('pizzeria-url').textContent;
             const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
             window.open(facebookUrl, '_blank');
+        }
+
+        function shareOnEmail() {
+            const url = document.getElementById('pizzeria-url').textContent;
+            const pizzeriaName = document.getElementById('pizzeria-name').value;
+            const subject = `La mia nuova pizzeria online: ${pizzeriaName}`;
+            const body = `Ciao! Ho appena creato il sito della mia pizzeria! 🍕\n\nPuoi ordinare online qui: ${url}\n\nA presto!`;
+            const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoUrl;
         }
 
         function showNotification(message) {
