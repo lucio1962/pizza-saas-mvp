@@ -1,0 +1,28 @@
+# Dipendenze Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# File di ambiente
+.env
+.env.local
+.env.production
+
+# Logs
+logs
+*.log
+
+# File di sistema
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+*.tgz
+*.tar.gz
