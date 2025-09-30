@@ -446,6 +446,104 @@
             border-top: 1px solid #34495e;
             color: #bdc3c7;
         }
+
+        /* NEW FEATURES */
+        .stats-section {
+            background: var(--primary);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .testimonials {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 4em;
+            color: var(--light);
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            line-height: 1;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .author-info h4 {
+            margin: 0;
+            color: var(--dark);
+        }
+
+        .author-info p {
+            margin: 0;
+            color: #666;
+            font-size: 0.9em;
+        }
         
         /* RESPONSIVE */
         @media (max-width: 768px) {
@@ -478,6 +576,10 @@
             
             .pricing-card.featured:hover {
                 transform: translateY(-5px);
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
@@ -524,6 +626,30 @@
         </div>
     </section>
 
+    <!-- STATS SECTION -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">127+</div>
+                    <div class="stat-label">Pizzerie Create</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5.2k+</div>
+                    <div class="stat-label">Ordini Processati</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Clienti Soddisfatti</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2min</div>
+                    <div class="stat-label">Setup Medio</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- FEATURES SECTION -->
     <section class="features" id="features">
         <div class="container">
@@ -542,7 +668,7 @@
                         <i class="fas fa-shopping-cart"></i>
                     </div>
                     <h3>Carrello Intelligente</h3>
-                    <p>Sistema di ordinazione completo con gestione quantità e totale automatico</p>
+                    <p>Sistema di ordinazione completo con gestione quantità e totale automatico. <strong>Carrello persistente</strong> - i clienti non perdono mai gli ordini!</p>
                 </div>
                 
                 <div class="feature-card">
@@ -580,6 +706,53 @@
         </div>
     </section>
 
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">Cosa Dicono i Nostri Clienti</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "In 10 minuti ho creato il sito della mia pizzeria. I miei clienti adorano ordinare online e il carrello persistente è geniale!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MP</div>
+                        <div class="author-info">
+                            <h4>Mario Rossi</h4>
+                            <p>Pizzeria da Mario, Milano</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Finalmente un sistema semplice! Non sono pratico di tecnologia, ma con PizzaSaaS ho risolto tutto in pochi click."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LB</div>
+                        <div class="author-info">
+                            <h4>Luigi Bianchi</h4>
+                            <p>Pizza Express, Roma</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Le ordinazioni sono aumentate del 40% da quando ho il sito. I clienti apprezzano la comodità di ordinare da casa."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">GV</div>
+                        <div class="author-info">
+                            <h4>Giulia Verdi</h4>
+                            <p>La Napoletana, Napoli</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- DEMO SECTION -->
     <section class="demo" id="demo">
         <div class="container">
@@ -587,6 +760,7 @@
                 <div class="demo-text">
                     <h2>Guarda il Tuo Futuro Sito in Azione</h2>
                     <p>Il sistema PizzaSaaS trasforma la tua pizzeria in un business digitale professionale in pochi minuti.</p>
+                    <p><strong>Novità:</strong> Il carrello si salva automaticamente! I tuoi clienti non perderanno mai i loro ordini, anche se chiudono il browser.</p>
                     <p>I tuoi clienti potranno sfogliare il menu, aggiungere prodotti al carrello e ordinare comodamente da casa.</p>
                     <a href="registrazione.html" class="cta-button">
                         <i class="fas fa-magic"></i>
@@ -636,7 +810,7 @@
                     <ul class="feature-list">
                         <li><i class="fas fa-check"></i> Sito web personalizzato</li>
                         <li><i class="fas fa-check"></i> Menu fino a 15 pizze</li>
-                        <li><i class="fas fa-check"></i> Carrello ordini</li>
+                        <li><i class="fas fa-check"></i> Carrello ordini persistente</li>
                         <li><i class="fas fa-check"></i> Design responsive</li>
                         <li><i class="fas fa-times"></i> Supporto prioritario</li>
                     </ul>
@@ -656,7 +830,7 @@
                         <li><i class="fas fa-check"></i> Statistiche ordini</li>
                         <li><i class="fas fa-check"></i> Supporto prioritario</li>
                     </ul>
-                    <a href="registrazione.html" class="cta-button" style="width: 100%; justify-content center; background: white; color: var(--primary);">
+                    <a href="registrazione.html" class="cta-button" style="width: 100%; justify-content: center; background: white; color: var(--primary);">
                         Inizia Gratis
                     </a>
                 </div>
