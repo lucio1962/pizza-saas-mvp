@@ -762,7 +762,7 @@
         const pizzerias = {
             'demo': {
                 name: "🍕 Pizzeria Gusto Italiano",
-                phone: "0123 456789",
+                phone: "3384461593", // IL TUO NUMERO WHATSAPP
                 address: "Via Roma 123, Milano",
                 color: "#e74c3c",
                 menu: [
@@ -810,7 +810,7 @@
             },
             'marios-pizza': {
                 name: "🍕 Mario's Pizza",
-                phone: "0987 654321", 
+                phone: "3384461593", // IL TUO NUMERO WHATSAPP
                 address: "Piazza Duomo 1, Milano",
                 color: "#27ae60",
                 menu: [
@@ -1101,11 +1101,20 @@
             
             const message = `🎉 ORDINE CONFERMATO!\n\n${pizzeriaName}\n${pizzeriaPhone}\n\nIL TUO ORDINE:\n${orderDetails}\n\nSubtotale: €${subtotal.toFixed(2)}\nConsegna: €2.50\nTOTALE: €${total.toFixed(2)}\n\nGrazie per il tuo ordine! 🍕`;
             
-            alert(message);
-            showNotification('Ordine confermato! Grazie! 🎉');
+            // Mostra conferma con opzione di annullare
+            const userConfirmed = confirm(`${message}\n\nClicca OK per confermare l'ordine o Annulla per continuare a ordinare.`);
             
-            // NON svuotiamo il carrello, così l'utente può continuare a ordinare
-            toggleCart();
+            if (userConfirmed) {
+                // Ordine confermato - svuota il carrello
+                cart = [];
+                updateCart();
+                saveCartToStorage();
+                showNotification('Ordine confermato! Grazie! 🎉');
+                toggleCart();
+            } else {
+                // Ordine annullato - mantieni il carrello
+                showNotification('Ordine annullato. Puoi continuare a ordinare!');
+            }
         }
 
         function sendViaWhatsApp() {
@@ -1115,7 +1124,7 @@
             }
             
             const pizzeriaName = document.getElementById('pizzeria-name').textContent;
-            const pizzeriaPhone = document.getElementById('pizzeria-phone').textContent.replace('📞 ', '');
+            const pizzeriaPhone = "3384461593"; // IL TUO NUMERO FISSO
             
             const subtotal = cart.reduce((sum, item) => sum + item.total, 0);
             const total = subtotal + 2.50;
@@ -1124,9 +1133,9 @@
                 `${item.quantity}x ${item.name} - €${item.total.toFixed(2)}`
             ).join('%0A');
             
-            const message = `Ciao! Vorrei ordinare:%0A%0A${orderDetails}%0A%0ASubtotale: €${subtotal.toFixed(2)}%0AConsegna: €2.50%0ATOTALE: €${total.toFixed(2)}%0A%0AGrazie! 🍕`;
+            const message = `Ciao! Vorrei ordinare dalla ${pizzeriaName}:%0A%0A${orderDetails}%0A%0ASubtotale: €${subtotal.toFixed(2)}%0AConsegna: €2.50%0A*TOTALE: €${total.toFixed(2)}*%0A%0AGrazie! 🍕`;
             
-            const whatsappUrl = `https://wa.me/${pizzeriaPhone.replace(/\s/g, '')}?text=${message}`;
+            const whatsappUrl = `https://wa.me/${pizzeriaPhone}?text=${message}`;
             window.open(whatsappUrl, '_blank');
             
             showNotification('Ordine inviato su WhatsApp! 📱');
