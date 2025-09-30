@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PizzaSaaS - Ordini Online per Pizzerie</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6;
+            color: #333;
+        }
+        .hero {
+            background: linear-gradient(135deg, #e74c3c, #f39c12);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            display: inline-block;
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .features {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .feature {
+            text-align: center;
+            padding: 2rem;
+        }
+        .feature h3 {
+            color: #e74c3c;
+            margin: 1rem 0;
+        }
+        .cta {
+            background: #34495e;
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <h1>🍕 PizzaSaaS</h1>
+        <p>Il sistema di ordinazione online per la tua pizzeria</p>
+        <a href="../client/index.html?slug=demo" class="btn">Prova la Demo</a>
+    </section>
+
+    <section class="features">
+        <h2 style="text-align: center; margin-bottom: 1rem;">Perché Sceglierci</h2>
+        <p style="text-align: center; color: #666;">Tutto ciò di cui ha bisogno la tua pizzeria</p>
+        
+        <div class="feature-grid">
+            <div class="feature">
+                <h3>🛒 Ordini Online</h3>
+                <p>Sistema di ordinazione intuitivo con carrello avanzato</p>
+            </div>
+            <div class="feature">
+                <h3>🎨 Personalizzazione</h3>
+                <p>Colori e tema che rispecchiano il tuo brand</p>
+            </div>
+            <div class="feature">
+                <h3>📱 Mobile Friendly</h3>
+                <p>Funziona perfettamente su tutti i dispositivi</p>
+            </div>
+            <div class="feature">
+                <h3>⚡ Setup Immediato</h3>
+                <p>Inizia ad accettare ordini in pochi minuti</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <h2>Pronto a Iniziare?</h2>
+        <p style="margin: 1rem 0;">Prova subito la demo gratuita</p>
+        <a href="../client/index.html?slug=demo" class="btn" style="background: #e74c3c;">Prova Ora Gratis</a>
+    </section>
+</body>
+</html>
