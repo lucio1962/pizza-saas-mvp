@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea con AI - Premium - PizzaSaaS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e74c3c;
+            --secondary: #f39c12;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --success: #27ae60;
+            --premium: #9b59b6;
+            --gradient: linear-gradient(135deg, #e74c3c, #f39c12);
+            --premium-gradient: linear-gradient(135deg, #9b59b6, #e74c3c);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        /* PREMIUM HEADER */
+        .premium-header {
+            background: var(--premium-gradient);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .premium-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+            opacity: 0.08;
+        }
+        
+        .premium-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: bold;
+            backdrop-filter: blur(10px);
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+        
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+        
+        .premium-header h1 {
+            font-size: 2em;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .premium-header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        /* CHAT CONTAINER */
+        .chat-container {
+            padding: 2rem;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .chat-messages {
+            margin-bottom: 2rem;
+        }
+        
+        .message {
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1rem;
+            animation: fadeInUp 0.5s;
+        }
+        
+        .message.ai {
+            align-items: flex-start;
+        }
+        
+        .message.user {
+            align-items: flex-end;
+            flex-direction: row-reverse;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .ai .avatar {
+            background: var(--premium);
+            color: white;
+        }
+        
+        .user .avatar {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .message-content {
+            background: #f8f9fa;
+            padding: 1rem 1.25rem;
+            border-radius: 18px;
+            max-width: 70%;
+            line-height: 1.5;
+        }
+        
+        .ai .message-content {
+            background: #f8f9fa;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .user .message-content {
+            background: var(--premium);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .quick-replies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .quick-reply {
+            background: white;
+            border: 2px solid var(--premium);
+            color: var(--premium);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+        
+        .quick-reply:hover {
+            background: var(--premium);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* INPUT AREA */
+        .input-area {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border: 2px solid #e9ecef;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1em;
+            resize: none;
+            min-height: 50px;
+            max-height: 120px;
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--premium);
+        }
+        
+        .send-button {
+            background: var(--premium);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .send-button:hover {
+            background: #8e44ad;
+            transform: translateY(-2px);
+        }
+        
+        .send-button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* LOADING */
+        .loading-dots {
+            display: inline-flex;
+            gap: 4px;
+        }
+        
+        .loading-dots span {
+            width: 6px;
+            height: 6px;
+            background: #666;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+        
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+        
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* SUCCESS SECTION */
+        .success-section {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            display: none;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2.5em;
+            animation: bounce 1s;
+        }
+
+        .url-display {
+            background: #f8f9fa;
+            border: 2px dashed var(--success);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .url-text {
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            color: var(--dark);
+            word-break: break-all;
+            margin-bottom: 1rem;
+            background: white;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .copy-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 0 auto;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .copy-btn:hover {
+            background: #219a52;
+            transform: translateY(-2px);
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1.25rem 0;
+        }
+
+        .share-btn {
+            background: var(--light);
+            color: var(--dark);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+            font-size: 0.85em;
+        }
+
+        .share-btn:hover {
+            background: var(--premium);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: var(--premium-gradient);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(155, 89, 182, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #ddd;
+            color: #666;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--premium);
+            color: var(--premium);
+        }
+        
+        /* PAYMENT SECTION */
+        .payment-section {
+            padding: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            display: none;
+        }
+        
+        .payment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        
+        .payment-option {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            border: 3px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .payment-option:hover {
+            border-color: var(--premium);
+            transform: translateY(-5px);
+        }
+        
+        .payment-option.selected {
+            border-color: var(--premium);
+            background: #f8f9fa;
+        }
+        
+        .payment-icon {
+            font-size: 2.5em;
+            margin-bottom: 1rem;
+        }
+        
+        .payment-option h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .payment-option p {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .chat-container {
+                padding: 1.5rem;
+            }
+            
+            .message-content {
+                max-width: 85%;
+            }
+            
+            .input-area {
+                flex-direction: column;
+            }
+            
+            .premium-header {
+                padding: 1.5rem;
+            }
+            
+            .premium-header h1 {
+                font-size: 1.6em;
+            }
+            
+            .payment-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- PREMIUM HEADER -->
+        <div class="premium-header">
+            <div class="premium-badge">PREMIUM</div>
+            <button class="back-button" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1><i class="fas fa-robot"></i> Crea con AI</h1>
+            <p>Rispondi a semplici domande - L'AI crea tutto per te!</p>
+        </div>
+        
+        <!-- CHAT CONTAINER -->
+        <div class="chat-container" id="chat-container">
+            <div class="chat-messages" id="chat-messages">
+                <!-- Messaggi verranno aggiunti dinamicamente -->
+            </div>
+            
+            <div class="input-area">
+                <textarea class="chat-input" id="chat-input" placeholder="Scrivi la tua risposta..." rows="1"></textarea>
+                <button class="send-button" id="send-button" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                    Invia
+                </button>
+            </div>
+        </div>
+        
+        <!-- PAYMENT SECTION -->
+        <div class="payment-section" id="payment-section">
+            <h2 style="color: var(--dark); margin-bottom: 1rem;">Completa l'Acquisto</h2>
+            <p style="color: #666; margin-bottom: 2rem;">Sblocca la creazione intelligente con AI</p>
+            
+            <div class="payment-options">
+                <div class="payment-option" onclick="selectPayment('card')">
+                    <div class="payment-icon">💳</div>
+                    <h3>Carta di Credito</h3>
+                    <p>Paga con carta in modo sicuro</p>
+                </div>
+                
+                <div class="payment-option" onclick="selectPayment('paypal')">
+                    <div class="payment-icon">📧</div>
+                    <h3>PayPal</h3>
+                    <p>Pagamento rapido e sicuro</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <button class="btn btn-primary" onclick="processPayment()" id="pay-button" disabled>
+                    <i class="fas fa-lock"></i>
+                    Paga €9.90 e Crea il Sito
+                </button>
+                <p style="margin-top: 1rem; color: #666; font-size: 0.9em;">
+                    ✅ Accesso immediato • ✅ Garanzia soddisfatto o rimborsato
+                </p>
+            </div>
+        </div>
+        
+        <!-- SUCCESS SECTION -->
+        <div class="success-section" id="success-section">
+            <div class="success-icon">
+                <i class="fas fa-check"></i>
+            </div>
+            
+            <h2 style="color: var(--dark); margin-bottom: 0.5rem;">Complimenti! 🎉</h2>
+            <p style="color: #666; margin-bottom: 2rem;">La tua pizzeria premium è stata creata con AI!</p>
+
+            <div class="url-display">
+                <h3 style="color: var(--success); margin-bottom: 1rem; font-size: 1.1em;">
+                    <i class="fas fa-link"></i> Il tuo sito è pronto:
+                </h3>
+                <div class="url-text" id="pizzeria-url">
+                    Caricamento...
+                </div>
+                <button class="copy-btn" onclick="copyUrl()" id="copy-btn">
+                    <i class="fas fa-copy"></i>
+                    Copia URL
+                </button>
+            </div>
+
+            <!-- TEST WHATSAPP ORDER -->
+            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; border-left: 4px solid #25D366;">
+                <h4 style="color: #25D366; margin-bottom: 1rem; font-size: 1.1em;">
+                    <i class="fab fa-whatsapp"></i> Prova Subito gli Ordini WhatsApp
+                </h4>
+                <p style="color: #666; margin-bottom: 1rem; font-size: 0.9em;">
+                    Inserisci il tuo numero WhatsApp per testare come arrivano gli ordini:
+                </p>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <input type="tel" id="test-whatsapp" placeholder="Il tuo numero WhatsApp" style="flex: 1; min-width: 200px; padding: 10px; border: 2px solid #ddd; border-radius: 8px;">
+                    <button onclick="testWhatsAppOrder()" class="btn" style="background: #25D366; color: white;">
+                        <i class="fab fa-whatsapp"></i> Prova Ordine
+                    </button>
+                </div>
+            </div>
+
+            <div class="share-buttons">
+                <button class="share-btn" onclick="shareOnWhatsApp()">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </button>
+                <button class="share-btn" onclick="shareOnFacebook()">
+                    <i class="fab fa-facebook"></i>
+                    Facebook
+                </button>
+                <button class="share-btn" onclick="shareOnEmail()">
+                    <i class="fas fa-envelope"></i>
+                    Email
+                </button>
+            </div>
+
+            <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#" class="btn btn-primary" id="visit-site-btn">
+                    <i class="fas fa-external-link-alt"></i>
+                    Visita il Sito
+                </a>
+                <a href="index.html" class="btn btn-outline">
+                    <i class="fas fa-home"></i>
+                    Torna alla Home
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let conversation = [];
+        let currentQuestion = 0;
+        let pizzeriaData = {};
+        let selectedPayment = null;
+
+        const questions = [
+            {
+                question: "Ciao! Sono il tuo assistente AI per creare la pizzeria. Come si chiama la tua pizzeria?",
+                field: "name",
+                quickReplies: ["Pizza da Mario", "La Mia Pizzeria", "Gusto Italiano"]
+            },
+            {
+                question: "Perfetto {{name}}! In che città si trova la tua pizzeria?",
+                field: "city",
+                quickReplies: ["Milano", "Roma", "Napoli", "Torino", "Firenze"]
+            },
+            {
+                question: "Ottimo {{name}} a {{city}}! Qual è il tuo numero WhatsApp per ricevere gli ordini?",
+                field: "phone",
+                quickReplies: []
+            },
+            {
+                question: "Grazie! Quali sono le tue 3 pizze più famose? (Es: Margherita, Diavola, Quattro Stagioni)",
+                field: "specialties",
+                quickReplies: ["Margherita, Marinara, Diavola", "Quattro Stagioni, Capricciosa, Romana", "Margherita, Diavola, Quattro Formaggi"]
+            },
+            {
+                question: "Ultima domanda! Qual è il tuo colore preferito per il sito?",
+                field: "color",
+                quickReplies: ["🔴 Rosso Classico", "🟢 Verde Fresco", "🟠 Arancione Energico", "🟣 Viola Creativo"]
+            }
+        ];
+
+        // Inizializzazione
+        document.addEventListener('DOMContentLoaded', function() {
+            startConversation();
+            setupChatInput();
+        });
+
+        function startConversation() {
+            addMessage('ai', questions[0].question, questions[0].quickReplies);
+        }
+
+        function addMessage(sender, text, quickReplies = []) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}`;
+            
+            const avatar = sender === 'ai' ? 'AI' : 'TU';
+            const avatarClass = sender === 'ai' ? 'ai' : 'user';
+            
+            messageDiv.innerHTML = `
+                <div class="avatar ${avatarClass}">${avatar}</div>
+                <div class="message-content">
+                    ${text}
+                    ${quickReplies.length > 0 ? `
+                        <div class="quick-replies">
+                            ${quickReplies.map(reply => 
+                                `<div class="quick-reply" onclick="selectQuickReply('${reply.replace(/'/g, "\\'")}')">${reply}</div>`
+                            ).join('')}
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            conversation.push({ sender, text });
+        }
+
+        function addLoadingMessage() {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message ai';
+            messageDiv.innerHTML = `
+                <div class="avatar ai">AI</div>
+                <div class="message-content">
+                    <div class="loading-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            `;
+            
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return messageDiv;
+        }
+
+        function removeLoadingMessage(loadingElement) {
+            loadingElement.remove();
+        }
+
+        function selectQuickReply(text) {
+            document.getElementById('chat-input').value = text;
+            sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Aggiungi messaggio utente
+            addMessage('user', message);
+            input.value = '';
+            
+            // Simula elaborazione AI
+            const loadingElement = addLoadingMessage();
+            
+            setTimeout(() => {
+                removeLoadingMessage(loadingElement);
+                processAIResponse(message);
+            }, 1500);
+        }
+
+        function processAIResponse(userMessage) {
+            const currentQ = questions[currentQuestion];
+            
+            // Salva la risposta
+            pizzeriaData[currentQ.field] = userMessage;
+            
+            // Passa alla prossima domanda
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                const nextQ = questions[currentQuestion];
+                let questionText = nextQ.question;
+                
+                // Sostituisci placeholder con dati esistenti
+                questionText = questionText.replace('{{name}}', pizzeriaData.name || '');
+                questionText = questionText.replace('{{city}}', pizzeriaData.city || '');
+                
+                addMessage('ai', questionText, nextQ.quickReplies);
+            } else {
+                // Conversazione completata - Mostra pagamento
+                showPaymentSection();
+            }
+        }
+
+        function showPaymentSection() {
+            document.getElementById('chat-container').style.display = 'none';
+            document.getElementById('payment-section').style.display = 'block';
+            
+            // Genera suggerimenti AI basati sui dati
+            const suggestions = generateAISuggestions();
+            addMessage('ai', suggestions);
+        }
+
+        function generateAISuggestions() {
+            let suggestions = `🎯 **SUGGERIMENTI AI PER LA TUA PIZZERIA**\n\n`;
+            
+            // Suggerimenti basati sulla città
+            if (pizzeriaData.city) {
+                suggestions += `📍 **A ${pizzeriaData.city} suggerisco:**\n`;
+                if (pizzeriaData.city.toLowerCase().includes('milano')) {
+                    suggestions += `• Pizza Risotto allo Zafferano\n• Pizza Cotoletta Milanese\n• Prezzi: €9-12 (medio-alto)\n`;
+                } else if (pizzeriaData.city.toLowerCase().includes('roma')) {
+                    suggestions += `• Pizza Carbonara Romana\n• Pizza Cacio e Pepe\n• Prezzi: €8-11 (medio)\n`;
+                } else {
+                    suggestions += `• Pizza con ingredienti locali\n• Prezzi competitivi: €7-10\n`;
+                }
+                suggestions += `\n`;
+            }
+            
+            // Suggerimenti menu
+            if (pizzeriaData.specialties) {
+                suggestions += `🍕 **Menu Ottimizzato:**\n`;
+                const specialties = pizzeriaData.specialties.split(',').map(s => s.trim());
+                specialties.forEach((pizza, index) => {
+                    suggestions += `• ${pizza}: €${(8 + index).toFixed(2)}\n`;
+                });
+                suggestions += `\n`;
+            }
+            
+            suggestions += `🎨 **Design ${pizzeriaData.color || 'rosso'}:** Colori coordinati per massimo impatto!\n\n`;
+            suggestions += `💡 **Pro-tip:** Promuovi le tue specialità sui social!`;
+            
+            return suggestions;
+        }
+
+        function selectPayment(method) {
+            selectedPayment = method;
+            document.querySelectorAll('.payment-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            document.getElementById('pay-button').disabled = false;
+        }
+
+        function processPayment() {
+            if (!selectedPayment) {
+                alert('Seleziona un metodo di pagamento');
+                return;
+            }
+
+            // Simula pagamento
+            document.getElementById('payment-section').style.display = 'none';
+            
+            const loadingElement = addLoadingMessage();
+            
+            setTimeout(() => {
+                removeLoadingMessage(loadingElement);
+                createPizzeriaSite();
+            }, 2000);
+        }
+
+        function createPizzeriaSite() {
+            // Genera dati completi per la pizzeria
+            const completeData = {
+                name: pizzeriaData.name,
+                slug: generateSlug(pizzeriaData.name),
+                phone: pizzeriaData.phone,
+                city: pizzeriaData.city,
+                address: `${pizzeriaData.city}, Italia`,
+                color: getColorFromChoice(pizzeriaData.color),
+                menu: generateMenuFromSpecialties(pizzeriaData.specialties),
+                createdWithAI: true,
+                premium: true
+            };
+
+            // Salva nel localStorage
+            localStorage.setItem('pizzeria_' + completeData.slug, JSON.stringify(completeData));
+            
+            // Mostra successo
+            showSuccess(completeData.slug);
+        }
+
+        function generateSlug(name) {
+            return name.toLowerCase()
+                .replace(/ /g, '-')
+                .replace(/[^a-z0-9-]/g, '')
+                + '-ai';
+        }
+
+        function getColorFromChoice(colorChoice) {
+            const colorMap = {
+                '🔴 Rosso Classico': '#e74c3c',
+                '🟢 Verde Fresco': '#27ae60',
+                '🟠 Arancione Energico': '#f39c12',
+                '🟣 Viola Creativo': '#9b59b6'
+            };
+            return colorMap[colorChoice] || '#e74c3c';
+        }
+
+        function generateMenuFromSpecialties(specialties) {
+            const specialtiesArray = specialties.split(',').map(s => s.trim());
+            return specialtiesArray.map((pizza, index) => ({
+                name: pizza,
+                price: 8 + (index * 0.5),
+                description: getPizzaDescription(pizza),
+                ingredients: getPizzaIngredients(pizza)
+            }));
+        }
+
+        function getPizzaDescription(pizzaName) {
+            const descriptions = {
+                'Margherita': 'Pomodoro San Marzano DOP, mozzarella di bufala campana, basilico fresco, olio EVO',
+                'Marinara': 'Pomodoro pelato, aglio, origano, olio extravergine d\'oliva',
+                'Diavola': 'Salame piccante, peperoncino, olive nere, mozzarella',
+                'Quattro Stagioni': 'Prosciutto, funghi, carciofi, olive',
+                'Capricciosa': 'Prosciutto, funghi, carciofi, olive, uovo',
+                'Quattro Formaggi': 'Mozzarella, gorgonzola, parmigiano, fontina'
+            };
+            return descriptions[pizzaName] || `Deliziosa ${pizzaName} preparata con ingredienti freschi di qualità`;
+        }
+
+        function getPizzaIngredients(pizzaName) {
+            const ingredients = {
+                'Margherita': ['Pomodoro DOP', 'Mozzarella di Bufala', 'Basilico', 'Olio EVO'],
+                'Marinara': ['Pomodoro', 'Aglio', 'Origano', 'Olio EVO'],
+                'Diavola': ['Pomodoro', 'Mozzarella', 'Salame Piccante', 'Peperoncino', 'Olive'],
+                'Quattro Stagioni': ['Pomodoro', 'Mozzarella', 'Prosciutto', 'Funghi', 'Carciofi', 'Olive']
+            };
+            return ingredients[pizzaName] || ['Ingredienti freschi', 'Mozzarella di qualità'];
+        }
+
+        function showSuccess(slug) {
+            document.getElementById('success-section').style.display = 'block';
+            
+            const baseUrl = window.location.origin + window.location.pathname.replace('crea-premium.html', '');
+            const pizzeriaUrl = `${baseUrl}landing.html?slug=${slug}`;
+            
+            document.getElementById('pizzeria-url').textContent = pizzeriaUrl;
+            document.getElementById('visit-site-btn').href = pizzeriaUrl;
+        }
+
+        function setupChatInput() {
+            const input = document.getElementById('chat-input');
+            const button = document.getElementById('send-button');
+            
+            input.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+            });
+            
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+
+        // TEST WHATSAPP ORDER
+        function testWhatsAppOrder() {
+            const testNumber = document.getElementById('test-whatsapp').value;
+            if (!testNumber) {
+                alert('Inserisci il tuo numero WhatsApp');
+                return;
+            }
+
+            const cleanNumber = testNumber.replace(/[^\d]/g, '').replace(/^39/, '');
+            const message = `🧪 TEST ORDINE WhatsApp - CREAZIONE AI%0A%0ACiao! Questo è un ordine di prova dalla ${pizzeriaData.name}.%0A%0AGrazie per aver scelto la creazione con AI!%0A%0A1x ${pizzeriaData.specialties?.split(',')[0] || 'Margherita'} - €8.50%0A1x ${pizzeriaData.specialties?.split(',')[1] || 'Marinara'} - €7.00%0A%0ASubtotale: €15.50%0AConsegna: €2.50%0A*TOTALE: €18.00*%0A%0A📍 ${pizzeriaData.city}%0A%0AOrdine di prova - PizzaSaaS AI Premium`;
+            
+            const whatsappUrl = `https://wa.me/${cleanNumber}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+            
+            alert('Ordine di prova inviato! 📱\nControlla il tuo WhatsApp.');
+        }
+
+        function copyUrl() {
+            const url = document.getElementById('pizzeria-url').textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                const copyBtn = document.getElementById('copy-btn');
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiato!';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+                
+                alert('URL copiato! 📋');
+            });
+        }
+
+        function shareOnWhatsApp() {
+            const url = document.getElementById('pizzeria-url').textContent;
+            const text = `Ordina dalla mia pizzeria ${pizzeriaData.name} creata con AI! 🍕 ${url}`;
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function shareOnFacebook() {
+            const url = document.getElementById('pizzeria-url').textContent;
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            window.open(facebookUrl, '_blank');
+        }
+
+        function shareOnEmail() {
+            const url = document.getElementById('pizzeria-url').textContent;
+            const subject = `La mia nuova pizzeria creata con AI: ${pizzeriaData.name}`;
+            const body = `Ciao! Ho appena creato il sito della mia pizzeria con l'AI di PizzaSaaS! 🍕🤖\n\nGuarda che bel risultato: ${url}\n\nA presto!`;
+            const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoUrl;
+        }
+
+        function goBack() {
+            if (confirm('Sei sicuro di voler annullare? I dati inseriti andranno persi.')) {
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>
