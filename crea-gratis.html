@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crea la Tua Pizzeria - Gratis - PizzaSaaS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #e74c3c;
+            --secondary: #f39c12;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --success: #27ae60;
+            --gradient: linear-gradient(135deg, #e74c3c, #f39c12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+        }
+        
+        /* HEADER */
+        .registration-header {
+            background: var(--gradient);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .registration-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1513104890138-7c749659a591?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover;
+            opacity: 0.08;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+        }
+        
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.1);
+        }
+        
+        .registration-header h1 {
+            font-size: 2em;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        
+        .registration-header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        /* PROGRESS BAR */
+        .progress-container {
+            background: white;
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 12px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--light);
+            z-index: 1;
+        }
+        
+        .progress-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .step-number {
+            width: 30px;
+            height: 30px;
+            background: var(--light);
+            color: #666;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 6px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: 2px solid white;
+            font-size: 0.9em;
+        }
+        
+        .progress-step.active .step-number {
+            background: var(--primary);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .progress-step.completed .step-number {
+            background: var(--success);
+            color: white;
+        }
+        
+        .step-label {
+            font-size: 0.8em;
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .progress-step.active .step-label {
+            color: var(--primary);
+        }
+        
+        /* STEP CONTENT */
+        .step-content {
+            display: none;
+            padding: 2rem;
+            animation: fadeIn 0.5s;
+        }
+        
+        .step-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .step-title {
+            font-size: 1.6em;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            text-align: center;
+        }
+        
+        .step-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1em;
+        }
+        
+        /* FORM */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.6rem;
+            font-weight: 600;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9em;
+        }
+        
+        .form-label i {
+            color: var(--primary);
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--light);
+            border-radius: 12px;
+            font-size: 0.9em;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.1);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        /* PIZZA GRID */
+        .pizza-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+        
+        .pizza-card {
+            background: white;
+            border: 2px dashed #ddd;
+            padding: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .pizza-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .pizza-card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 1.25rem;
+        }
+        
+        .pizza-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1em;
+        }
+        
+        .remove-pizza {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            font-size: 0.8em;
+        }
+        
+        .remove-pizza:hover {
+            transform: scale(1.1);
+        }
+        
+        /* COLOR SELECTOR */
+        .color-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        
+        .color-option {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+            position: relative;
+        }
+        
+        .color-option.selected {
+            border-color: var(--dark);
+            transform: scale(1.1);
+        }
+        
+        .color-option.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+            font-size: 1em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        /* PREVIEW */
+        .preview-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+        
+        .preview-title {
+            font-size: 1.3em;
+            margin-bottom: 1.25rem;
+            color: var(--dark);
+        }
+        
+        .preview-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            max-width: 350px;
+            margin: 0 auto;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        
+        .preview-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.25rem;
+            border-radius: 12px;
+            margin-bottom: 1.25rem;
+            text-align: center;
+        }
+        
+        .preview-menu {
+            space-y: 1rem;
+        }
+        
+        .preview-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 0.4rem;
+            font-size: 0.9em;
+        }
+
+        /* SUCCESS SECTION */
+        .success-section {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: white;
+            font-size: 2.5em;
+            animation: bounce 1s;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+
+        .url-display {
+            background: #f8f9fa;
+            border: 2px dashed var(--success);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .url-text {
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            color: var(--dark);
+            word-break: break-all;
+            margin-bottom: 1rem;
+            background: white;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        .copy-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin: 0 auto;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .copy-btn:hover {
+            background: #219a52;
+            transform: translateY(-2px);
+        }
+
+        .copy-btn.copied {
+            background: var(--primary);
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1.25rem 0;
+        }
+
+        .share-btn {
+            background: var(--light);
+            color: var(--dark);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+            font-size: 0.85em;
+        }
+
+        .share-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* BUTTONS */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #95a5a6;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #7f8c8d;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #219a52;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.3);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #ddd;
+            color: #666;
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 0.8rem;
+        }
+        
+        /* NOTIFICATION */
+        .notification {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: var(--success);
+            color: white;
+            padding: 0.8rem 1.25rem;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            transform: translateX(300px);
+            transition: transform 0.3s;
+            z-index: 1000;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85em;
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pizza-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .step-content {
+                padding: 1.5rem;
+            }
+            
+            .navigation {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            
+            .action-buttons {
+                width: 100%;
+            }
+            
+            .btn {
+                flex: 1;
+                justify-content: center;
+            }
+
+            .share-buttons {
+                flex-direction: column;
+            }
+
+            .registration-header {
+                padding: 1.5rem;
+            }
+
+            .registration-header h1 {
+                font-size: 1.6em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="registration-header">
+            <button class="back-button" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1><i class="fas fa-pizza-slice"></i> Crea la Tua Pizzeria - GRATIS</h1>
+            <p>Compila i moduli con calma - Il sito si crea passo dopo passo</p>
+        </div>
+        
+        <!-- PROGRESS BAR -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Informazioni</div>
+                </div>
+                <div class="progress-step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Menu</div>
+                </div>
+                <div class="progress-step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Anteprima</div>
+                </div>
+                <div class="progress-step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Completato</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- STEP 1: INFORMAZIONI -->
+        <div class="step-content active" id="step-1">
+            <h2 class="step-title">Informazioni della Tua Pizzeria</h2>
+            <p class="step-subtitle">Inserisci i dati della tua attività</p>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-store"></i>
+                        Nome Pizzeria *
+                    </label>
+                    <input type="text" class="form-input" id="pizzeria-name" placeholder="Es: Mario's Pizza" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-link"></i>
+                        URL Personalizzato *
+                    </label>
+                    <input type="text" class="form-input" id="pizzeria-slug" placeholder="Es: marios-pizza" required>
+                    <small style="color: #666; display: block; margin-top: 4px; font-size: 0.8em;">Il tuo sito sarà: tuosito.it/marios-pizza</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-phone"></i>
+                        WhatsApp per Ordini *
+                    </label>
+                    <input type="tel" class="form-input" id="pizzeria-phone" placeholder="Es: 3512345678" required>
+                    <small style="color: #666; display: block; margin-top: 4px; font-size: 0.8em;">I clienti ordineranno su questo numero</small>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </label>
+                    <input type="email" class="form-input" id="pizzeria-email" placeholder="tua@email.it">
+                </div>
+                
+                <div class="form-group full-width">
+                    <label class="form-label">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Indirizzo Completo *
+                    </label>
+                    <textarea class="form-input form-textarea" id="pizzeria-address" placeholder="Via, Civico, Città, CAP" required></textarea>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <button class="btn btn-outline" onclick="goBack()">
+                    <i class="fas fa-times"></i>
+                    Annulla
+                </button>
+                <button class="btn btn-primary" onclick="nextStep(2)">
+                    Continua
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- STEP 2: MENU PIZZE -->
+        <div class="step-content" id="step-2">
+            <h2 class="step-title">Crea il Tuo Menu</h2>
+            <p class="step-subtitle">Aggiungi le tue pizze con prezzi e ingredienti</p>
+            
+            <div class="pizza-grid" id="pizza-container">
+                <!-- Pizze pre-caricate -->
+                <div class="pizza-card">
+                    <div class="pizza-card-header">
+                        <div class="pizza-icon">
+                            <i class="fas fa-pizza-slice"></i>
+                        </div>
+                        <h3 style="color: var(--dark); font-size: 1.1em;">Pizza #1</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nome Pizza</label>
+                        <input type="text" class="form-input" value="Margherita" placeholder="Es: Diavola" oninput="updatePizza(0, 'name', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Prezzo (€)</label>
+                        <input type="number" class="form-input" value="8.50" step="0.50" min="0" oninput="updatePizza(0, 'price', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ingredienti</label>
+                        <textarea class="form-input form-textarea" placeholder="Descrizione ingredienti" oninput="updatePizza(0, 'description', this.value)">Pomodoro San Marzano DOP, mozzarella di bufala campana, basilico fresco, olio EVO</textarea>
+                    </div>
+                </div>
+                
+                <div class="pizza-card">
+                    <div class="pizza-card-header">
+                        <div class="pizza-icon">
+                            <i class="fas fa-pizza-slice"></i>
+                        </div>
+                        <h3 style="color: var(--dark); font-size: 1.1em;">Pizza #2</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nome Pizza</label>
+                        <input type="text" class="form-input" value="Marinara" placeholder="Es: Diavola" oninput="updatePizza(1, 'name', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Prezzo (€)</label>
+                        <input type="number" class="form-input" value="6.50" step="0.50" min="0" oninput="updatePizza(1, 'price', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ingredienti</label>
+                        <textarea class="form-input form-textarea" placeholder="Descrizione ingredienti" oninput="updatePizza(1, 'description', this.value)">Pomodoro pelato, aglio, origano, olio extravergine d'oliva</textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin: 1.5rem 0;">
+                <button class="btn btn-outline" onclick="addPizza()">
+                    <i class="fas fa-plus"></i>
+                    Aggiungi Altra Pizza
+                </button>
+            </div>
+            
+            <div class="navigation">
+                <div class="action-buttons">
+                    <button class="btn btn-outline" onclick="goBack()">
+                        <i class="fas fa-times"></i>
+                        Annulla
+                    </button>
+                    <button class="btn btn-secondary" onclick="prevStep(1)">
+                        <i class="fas fa-arrow-left"></i>
+                        Indietro
+                    </button>
+                </div>
+                <button class="btn btn-primary" onclick="nextStep(3)">
+                    Continua
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- STEP 3: ANTEPRIMA -->
+        <div class="step-content" id="step-3">
+            <h2 class="step-title">Personalizza e Anteprima</h2>
+            <p class="step-subtitle">Scegli il colore del tema e guarda l'anteprima del tuo sito</p>
+            
+            <div class="form-group">
+                <label class="form-label">
+                    <i class="fas fa-palette"></i>
+                    Colore Principale del Tema
+                </label>
+                <div class="color-options">
+                    <div class="color-option selected" style="background: #e74c3c;" data-color="#e74c3c"></div>
+                    <div class="color-option" style="background: #27ae60;" data-color="#27ae60"></div>
+                    <div class="color-option" style="background: #f39c12;" data-color="#f39c12"></div>
+                    <div class="color-option" style="background: #9b59b6;" data-color="#9b59b6"></div>
+                    <div class="color-option" style="background: #3498db;" data-color="#3498db"></div>
+                    <div class="color-option" style="background: #e67e22;" data-color="#e67e22"></div>
+                </div>
+            </div>
+            
+            <div class="preview-section">
+                <h3 class="preview-title">📱 Anteprima del Tuo Sito</h3>
+                
+                <div class="preview-card">
+                    <div class="preview-header" id="preview-header">
+                        <h4 id="preview-name" style="margin: 0; font-size: 1.1em;">Nome Pizzeria</h4>
+                        <p id="preview-address" style="margin: 4px 0 0 0; opacity: 0.9; font-size: 0.85em;">Indirizzo</p>
+                    </div>
+                    
+                    <div class="preview-menu" id="preview-menu">
+                        <div class="preview-item">
+                            <span>Margherita</span>
+                            <strong>€8.50</strong>
+                        </div>
+                        <div class="preview-item">
+                            <span>Marinara</span>
+                            <strong>€6.50</strong>
+                        </div>
+                    </div>
+                    
+                    <button style="background: #e74c3c; color: white; border: none; padding: 10px; width: 100%; border-radius: 8px; margin-top: 1rem; font-weight: bold; font-size: 0.9em;">
+                        <i class="fas fa-shopping-cart"></i>
+                        Ordina Ora
+                    </button>
+                </div>
+            </div>
+            
+            <div class="navigation">
+                <div class="action-buttons">
+                    <button class="btn btn-outline" onclick="goBack()">
+                        <i class="fas fa-times"></i>
+                        Annulla
+                    </button>
+                    <button class="btn btn-secondary" onclick="prevStep(2)">
+                        <i class="fas fa-arrow-left"></i>
+                        Indietro
+                    </button>
+                </div>
+                <button class="btn btn-success" onclick="createPizzeriaSite()">
+                    <i class="fas fa-rocket"></i>
+                    Crea il Sito
+                </button>
+            </div>
+        </div>
+
+        <!-- STEP 4: SUCCESS -->
+        <div class="step-content" id="step-4">
+            <div class="success-section">
+                <div class="success-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                
+                <h2 class="step-title">Complimenti! 🎉</h2>
+                <p class="step-subtitle">La tua pizzeria online è stata creata con successo</p>
+
+                <div class="url-display">
+                    <h3 style="color: var(--success); margin-bottom: 1rem; font-size: 1.1em;">
+                        <i class="fas fa-link"></i> Il tuo sito è pronto:
+                    </h3>
+                    <div class="url-text" id="pizzeria-url">
+                        Caricamento...
+                    </div>
+                    <button class="copy-btn" onclick="copyUrl()" id="copy-btn">
+                        <i class="fas fa-copy"></i>
+                        Copia URL
+                    </button>
+                </div>
+
+                <!-- TEST WHATSAPP ORDER -->
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; border-left: 4px solid #25D366;">
+                    <h4 style="color: #25D366; margin-bottom: 1rem; font-size: 1.1em;">
+                        <i class="fab fa-whatsapp"></i> Prova Subito gli Ordini WhatsApp
+                    </h4>
+                    <p style="color: #666; margin-bottom: 1rem; font-size: 0.9em;">
+                        Inserisci il tuo numero WhatsApp per testare come arrivano gli ordini:
+                    </p>
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <input type="tel" id="test-whatsapp" placeholder="Il tuo numero WhatsApp" style="flex: 1; min-width: 200px; padding: 10px; border: 2px solid #ddd; border-radius: 8px;">
+                        <button onclick="testWhatsAppOrder()" class="btn" style="background: #25D366; color: white;">
+                            <i class="fab fa-whatsapp"></i> Prova Ordine
+                        </button>
+                    </div>
+                </div>
+
+                <div class="share-buttons">
+                    <button class="share-btn" onclick="shareOnWhatsApp()">
+                        <i class="fab fa-whatsapp"></i>
+                        WhatsApp
+                    </button>
+                    <button class="share-btn" onclick="shareOnFacebook()">
+                        <i class="fab fa-facebook"></i>
+                        Facebook
+                    </button>
+                    <button class="share-btn" onclick="shareOnEmail()">
+                        <i class="fas fa-envelope"></i>
+                        Email
+                    </button>
+                </div>
+
+                <div class="navigation" style="justify-content: center; gap: 0.8rem;">
+                    <a href="#" class="btn btn-primary" id="visit-site-btn">
+                        <i class="fas fa-external-link-alt"></i>
+                        Visita il Sito
+                    </a>
+                    <a href="index.html" class="btn btn-outline">
+                        <i class="fas fa-home"></i>
+                        Torna alla Home
+                    </a>
+                </div>
+
+                <div style="margin-top: 1.5rem; padding: 1.25rem; background: #f8f9fa; border-radius: 12px;">
+                    <h4 style="color: var(--dark); margin-bottom: 0.8rem; font-size: 1em;">
+                        <i class="fas fa-lightbulb"></i> Prossimi Passi
+                    </h4>
+                    <ul style="text-align: left; color: #666; line-height: 1.5; font-size: 0.85em; padding-left: 1rem;">
+                        <li><strong>Condividi il link</strong> con i tuoi clienti</li>
+                        <li><strong>Prova gli ordini WhatsApp</strong> con il test qui sopra</li>
+                        <li><strong>Il carrello si salva automaticamente</strong></li>
+                        <li><strong>Gli ordini arrivano direttamente su WhatsApp</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notification-text"></span>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let selectedColor = '#e74c3c';
+        let pizzas = [
+            { 
+                name: 'Margherita', 
+                price: 8.50, 
+                description: 'Pomodoro San Marzano DOP, mozzarella di bufala campana, basilico fresco, olio EVO' 
+            },
+            { 
+                name: 'Marinara', 
+                price: 6.50, 
+                description: 'Pomodoro pelato, aglio, origano, olio extravergine d\'oliva' 
+            }
+        ];
+
+        let createdPizzeriaSlug = '';
+
+        // Inizializzazione
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePreview();
+            setupColorSelector();
+            updateProgressBar();
+        });
+
+        // Funzione per tornare indietro
+        function goBack() {
+            if (confirm('Sei sicuro di voler annullare? I dati inseriti andranno persi.')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        function updateProgressBar() {
+            document.querySelectorAll('.progress-step').forEach(step => {
+                const stepNum = parseInt(step.dataset.step);
+                step.classList.remove('active', 'completed');
+                
+                if (stepNum === currentStep) {
+                    step.classList.add('active');
+                } else if (stepNum < currentStep) {
+                    step.classList.add('completed');
+                }
+            });
+        }
+
+        function nextStep(step) {
+            // Validazione
+            if (step === 2) {
+                const name = document.getElementById('pizzeria-name').value;
+                const slug = document.getElementById('pizzeria-slug').value;
+                const phone = document.getElementById('pizzeria-phone').value;
+                const address = document.getElementById('pizzeria-address').value;
+                
+                if (!name || !slug || !phone || !address) {
+                    showNotification('Completa tutti i campi obbligatori');
+                    return;
+                }
+            }
+            
+            if (step === 3) {
+                const validPizzas = pizzas.filter(pizza => pizza.name && pizza.price > 0);
+                if (validPizzas.length === 0) {
+                    showNotification('Aggiungi almeno una pizza al menu');
+                    return;
+                }
+            }
+            
+            // Cambio step
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep = step;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgressBar();
+            
+            if (step === 3) {
+                updatePreview();
+            }
+        }
+
+        function prevStep(step) {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep = step;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgressBar();
+        }
+
+        function addPizza() {
+            pizzas.push({ name: '', price: 0, description: '' });
+            updatePizzaGrid();
+        }
+
+        function updatePizzaGrid() {
+            const container = document.getElementById('pizza-container');
+            container.innerHTML = pizzas.map((pizza, index) => `
+                <div class="pizza-card">
+                    ${pizzas.length > 2 ? `
+                        <button class="remove-pizza" onclick="removePizza(${index})">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    ` : ''}
+                    <div class="pizza-card-header">
+                        <div class="pizza-icon">
+                            <i class="fas fa-pizza-slice"></i>
+                        </div>
+                        <h3 style="color: var(--dark); font-size: 1.1em;">Pizza #${index + 1}</h3>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Nome Pizza</label>
+                        <input type="text" class="form-input" value="${pizza.name}" placeholder="Es: Diavola" 
+                               oninput="updatePizza(${index}, 'name', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Prezzo (€)</label>
+                        <input type="number" class="form-input" value="${pizza.price}" step="0.50" min="0"
+                               oninput="updatePizza(${index}, 'price', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Ingredienti</label>
+                        <textarea class="form-input form-textarea" placeholder="Descrizione ingredienti"
+                                  oninput="updatePizza(${index}, 'description', this.value)">${pizza.description}</textarea>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updatePizza(index, field, value) {
+            pizzas[index][field] = field === 'price' ? parseFloat(value) : value;
+            if (currentStep === 3) {
+                updatePreview();
+            }
+        }
+
+        function removePizza(index) {
+            if (pizzas.length > 2) {
+                pizzas.splice(index, 1);
+                updatePizzaGrid();
+                if (currentStep === 3) {
+                    updatePreview();
+                }
+            }
+        }
+
+        function setupColorSelector() {
+            document.querySelectorAll('.color-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.color-option').forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedColor = this.dataset.color;
+                    updatePreview();
+                });
+            });
+        }
+
+        function updatePreview() {
+            const name = document.getElementById('pizzeria-name').value || 'Nome Pizzeria';
+            const address = document.getElementById('pizzeria-address').value || 'Indirizzo';
+            
+            document.getElementById('preview-name').textContent = name;
+            document.getElementById('preview-address').textContent = address;
+            document.getElementById('preview-header').style.background = selectedColor;
+            
+            const previewMenu = document.getElementById('preview-menu');
+            const validPizzas = pizzas.filter(pizza => pizza.name && pizza.price > 0);
+            
+            previewMenu.innerHTML = validPizzas.map(pizza => `
+                <div class="preview-item">
+                    <span>${pizza.name}</span>
+                    <strong>€${pizza.price.toFixed(2)}</strong>
+                </div>
+            `).join('');
+            
+            const previewButton = document.querySelector('.preview-card button');
+            if (previewButton) previewButton.style.backgroundColor = selectedColor;
+        }
+
+        function createPizzeriaSite() {
+            const pizzeriaData = {
+                name: document.getElementById('pizzeria-name').value,
+                slug: document.getElementById('pizzeria-slug').value,
+                phone: document.getElementById('pizzeria-phone').value,
+                email: document.getElementById('pizzeria-email').value,
+                address: document.getElementById('pizzeria-address').value,
+                color: selectedColor,
+                menu: pizzas.filter(pizza => pizza.name && pizza.price > 0)
+            };
+
+            if (!pizzeriaData.name || !pizzeriaData.slug || !pizzeriaData.phone || !pizzeriaData.address) {
+                showNotification('Completa tutti i campi obbligatori');
+                return;
+            }
+
+            if (pizzeriaData.menu.length === 0) {
+                showNotification('Aggiungi almeno una pizza al menu');
+                return;
+            }
+
+            // Salva nel localStorage
+            localStorage.setItem('pizzeria_' + pizzeriaData.slug, JSON.stringify(pizzeriaData));
+            createdPizzeriaSlug = pizzeriaData.slug;
+            
+            // Mostra lo step di successo
+            showSuccessStep(pizzeriaData.slug);
+        }
+
+        function showSuccessStep(slug) {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep = 4;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateProgressBar();
+
+            const baseUrl = window.location.origin + window.location.pathname.replace('crea-gratis.html', '');
+            const pizzeriaUrl = `${baseUrl}landing.html?slug=${slug}`;
+            
+            document.getElementById('pizzeria-url').textContent = pizzeriaUrl;
+            document.getElementById('visit-site-btn').href = pizzeriaUrl;
+            
+            showNotification('Sito creato con successo! 🎉');
+        }
+
+        function copyUrl() {
+            const url = document.getElementById('pizzeria-url').textContent;
+            navigator.clipboard.writeText(url).then(() => {
+                const copyBtn = document.getElementById('copy-btn');
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<i class="fas fa-check"></i> Copiato!';
+                copyBtn.classList.add('copied');
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.classList.remove('copied');
+                }, 2000);
+                
+                showNotification('URL copiato! 📋');
+            }).catch(err => {
+                console.error('Errore nella copia: ', err);
+                showNotification('Seleziona e copia manualmente');
+            });
+        }
+
+        // TEST WHATSAPP ORDER
+        function testWhatsAppOrder() {
+            const testNumber = document.getElementById('test-whatsapp').value;
+            if (!testNumber) {
+                showNotification('Inserisci il tuo numero WhatsApp');
+                return;
+            }
+
+            const pizzeriaData = JSON.parse(localStorage.getItem('pizzeria_' + createdPizzeriaSlug));
+            if (!pizzeriaData) {
+                showNotification('Errore nel caricamento dati pizzeria');
+                return;
+            }
+
+            const cleanNumber = testNumber.replace(/[^\d]/g, '').replace(/^39/, '');
+            const message = `🧪 TEST ORDINE WhatsApp%0A%0ACiao! Questo è un ordine di prova dalla ${pizzeriaData.name}.%0A%0A1x Margherita - €8.50%0A1x Marinara - €6.50%0A%0ASubtotale: €15.00%0AConsegna: €2.50%0A*TOTALE: €17.50*%0A%0A📍 ${pizzeriaData.address}%0A%0AOrdine di prova - PizzaSaaS`;
+            
+            const whatsappUrl = `https://wa.me/${cleanNumber}?text=${message}`;
+            window.open(whatsappUrl, '_blank');
+            
+            showNotification('Ordine di prova inviato! 📱');
+        }
+
+        function shareOnWhatsApp() {
+            const url = document.getElementById('pizzeria-url').textContent;
+            const pizzeriaName = document.getElementById('pizzeria-name').value;
+            const text = `Ordina dalla mia pizzeria ${pizzeriaName}! 🍕 ${url}`;
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function shareOnFacebook() {
+            const url = document.getElementById('pizzeria-url').textContent;
+            const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            window.open(facebookUrl, '_blank');
+        }
+
+        function shareOnEmail() {
+            const url = document.getElementById('pizzeria-url').textContent;
+            const pizzeriaName = document.getElementById('pizzeria-name').value;
+            const subject = `La mia nuova pizzeria online: ${pizzeriaName}`;
+            const body = `Ciao! Ho appena creato il sito della mia pizzeria! 🍕\n\nPuoi ordinare online qui: ${url}\n\nA presto!`;
+            const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoUrl;
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notification-text');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Aggiorna l'anteprima quando cambiano i campi
+        document.getElementById('pizzeria-name').addEventListener('input', updatePreview);
+        document.getElementById('pizzeria-address').addEventListener('input', updatePreview);
+    </script>
+</body>
+</html>
